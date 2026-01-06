@@ -50,6 +50,14 @@ st.markdown("""
         border-left: 5px solid #FF9800;
         margin: 1rem 0;
     }
+    .hyliard-box {
+        background-color: #FFF9C4;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 3px solid #FBC02D;
+        margin: 1.5rem 0;
+        font-family: 'Georgia', serif;
+    }
     .stButton>button {
         width: 100%;
         background-color: #1E88E5;
@@ -71,16 +79,33 @@ if 'quiz_answers' not in st.session_state:
     st.session_state.quiz_answers = {}
 if 'activity_submitted' not in st.session_state:
     st.session_state.activity_submitted = False
+if 'met_hyliard' not in st.session_state:
+    st.session_state.met_hyliard = False
+
+# Dr. Hyliard helper function
+def dr_hyliard_says(message, title="🔬 Dr. Hyliard's Insight"):
+    st.markdown(f"""
+    <div class="hyliard-box">
+    <h4 style="color: #F57C00; margin-top: 0;">{title}</h4>
+    <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 0;">
+    {message}
+    </p>
+    <p style="text-align: right; font-style: italic; color: #666; margin-bottom: 0;">
+    — Dr. Marcus Hyliard, Satellite Engineer & Climate Scientist
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Sidebar navigation
 with st.sidebar:
-    st.image("https://raw.githubusercontent.com/NASA-Planetary-Science/planetary-science-data/main/images/earth_from_space.jpg", 
-             use_container_width=True, caption="Earth from Space")
+    st.image("https://via.placeholder.com/400x300/1E88E5/FFFFFF?text=Dr.+Hyliard", 
+             use_container_width=True, caption="Dr. Marcus Hyliard - Your Guide")
     
     st.markdown("### 🛰️ Navigation")
     
     pages = {
         "🏠 Home": "home",
+        "👨‍🔬 Meet Dr. Hyliard": "hyliard",
         "📰 News Article": "article",
         "🎯 Learning Objectives": "objectives",
         "🌍 Satellites & Earth Science": "satellites",
@@ -113,10 +138,25 @@ def show_home():
         st.markdown("""
         <div class="info-box">
         <h3 style="text-align: center;">Welcome to the Interactive Lesson!</h3>
-        <p style="text-align: center;">Explore how cutting-edge 3D printing technology is revolutionizing 
-        satellite launches and helping us understand Earth better.</p>
+        <p style="text-align: center;">Join Dr. Marcus Hyliard as he explores how cutting-edge 3D printing technology 
+        is revolutionizing satellite launches and helping us understand Earth better.</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Dr. Hyliard introduction
+        if not st.session_state.met_hyliard:
+            dr_hyliard_says("""
+            Hello! I'm Dr. Marcus Hyliard, and I've spent the last 15 years working with satellites and 
+            climate data. Today, I'm going to share something incredible with you - a breakthrough in 3D printing 
+            that's changing everything we know about launching satellites into space. Trust me, by the end of 
+            this lesson, you'll see Earth in a whole new way! Let's get started by clicking 'Meet Dr. Hyliard' 
+            in the sidebar.
+            """, "👋 Welcome from Dr. Hyliard")
+            
+            if st.button("I'm ready to learn!"):
+                st.session_state.met_hyliard = True
+                st.session_state.page = 'hyliard'
+                st.rerun()
         
         st.markdown("### 🎯 Today's Big Question:")
         st.success("**How do we know what's happening to Earth's climate, oceans, and atmosphere when we can't see the whole planet at once?**")
@@ -160,8 +200,120 @@ def show_home():
         with stat4:
             st.metric("Daily Images", "Millions", "of Earth's surface")
 
+def show_hyliard():
+    st.markdown('<div class="main-header">👨‍🔬 Meet Dr. Marcus Hyliard</div>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.image("https://via.placeholder.com/400x500/1E88E5/FFFFFF?text=Dr.+Hyliard", 
+                caption="Dr. Marcus Hyliard")
+        
+        st.markdown("""
+        ### Quick Facts
+        
+        **Position:** Senior Satellite Engineer
+        
+        **Education:** PhD in Aerospace Engineering
+        
+        **Specialty:** Climate Monitoring Systems
+        
+        **Years of Experience:** 15
+        
+        **Satellites Helped Launch:** 23
+        
+        **Favorite Part of Job:** "Watching our planet from space never gets old!"
+        """)
+    
+    with col2:
+        st.markdown("## Dr. Hyliard's Story")
+        
+        dr_hyliard_says("""
+        When I was your age, I looked up at the stars and wondered what was out there. But then something 
+        changed my perspective completely - I realized the most interesting thing we can study from space 
+        isn't "out there" at all. It's right here. It's Earth.
+        
+        I remember the first time I saw live satellite data showing a hurricane forming in the Atlantic. 
+        We watched it develop in real-time, tracked its path, and because of that data, thousands of people 
+        evacuated safely. That's when I knew this was my calling.
+        
+        Now, after 15 years working with satellites, I'm more excited than ever. Why? Because of 3D printing. 
+        This technology is making satellites cheaper and faster to build, which means we can launch more of 
+        them. More satellites means better data. Better data means we can better protect our planet and 
+        everyone on it.
+        """, "📖 My Journey to the Stars")
+        
+        st.markdown("---")
+        st.markdown("### A Day in Dr. Hyliard's Life")
+        
+        with st.expander("🌅 Morning: Checking Overnight Data"):
+            st.write("""
+            Every morning, I review data from satellites that monitored Earth while I slept. 
+            Did any wildfires start? Are ocean temperatures changing? How much ice melted in Antarctica overnight? 
+            
+            One morning last year, I noticed something unusual - ocean temperatures in the Pacific were rising 
+            faster than expected. Within hours, we alerted climate scientists, and it turned out to be the 
+            beginning of an El Niño event. Early warning meant farmers and fishermen could prepare.
+            """)
+        
+        with st.expander("☀️ Afternoon: The 3D Printing Breakthrough"):
+            st.write("""
+            This is where today's lesson comes in! A few months ago, my colleague at Momentus showed me 
+            something incredible - a fuel tank for a satellite, completely 3D printed. 
+            
+            I held it in my hands. It was lighter than traditional tanks, more complex in design, and cost 
+            a fraction of the price. I immediately thought: "This changes everything."
+            
+            With cheaper satellites, we could finally create the global monitoring network we've always dreamed of!
+            """)
+        
+        with st.expander("🌙 Evening: Planning Future Missions"):
+            st.write("""
+            I spend my evenings planning future satellite missions. With 3D printing technology, missions 
+            that would have cost $50 million might now cost $10 million. That means we can do FIVE times 
+            as many missions!
+            
+            Right now, I'm planning a constellation of micro-satellites to monitor Arctic ice. Ten years ago, 
+            this would have been impossible to afford. Today, with 3D-printed components, we're making it happen.
+            """)
+        
+        st.markdown("---")
+        st.markdown("### 💭 Dr. Hyliard's Philosophy")
+        
+        st.info("""
+        **"Technology and science are partners in discovery. Every technological breakthrough - whether it's 
+        a better telescope, a faster computer, or now 3D printing - opens new doors for scientific understanding. 
+        That's what makes this work so exciting. We're not just engineers or scientists. We're explorers, 
+        and Earth is our frontier."**
+        """)
+        
+        st.markdown("### 🎯 Why This Matters to You")
+        
+        dr_hyliard_says("""
+        You might be thinking, "I'm not going to be a satellite engineer." And that's fine! But here's the thing - 
+        the data we collect affects YOUR life every single day.
+        
+        - Weather forecast on your phone? That's satellite data.
+        - News about climate change? Based on satellite measurements.
+        - GPS navigation to your friend's house? Wouldn't work without satellites.
+        - Warnings about natural disasters? Satellites spot them first.
+        
+        Whether you become a doctor, teacher, artist, or entrepreneur, you'll be using information gathered 
+        by satellites. That's why I'm so passionate about making them better, cheaper, and more accessible. 
+        Better satellites mean better information for EVERYONE.
+        
+        Now, let's dive into the technology that's making all this possible!
+        """, "🌍 How This Connects to Your Life")
+
 def show_article():
     st.markdown('<div class="main-header">📰 The News Article</div>', unsafe_allow_html=True)
+    
+    # Dr. Hyliard's introduction to the article
+    dr_hyliard_says("""
+    This is the news story that got me so excited! When I first read about Momentus's 3D-printed fuel tank, 
+    I immediately called my colleague to congratulate them. This is the breakthrough we've been waiting for. 
+    As you read, think about how this technology could change space exploration and Earth observation.
+    """, "📰 Dr. Hyliard Introduces the Story")
     
     col1, col2 = st.columns([2, 1])
     
@@ -205,27 +357,46 @@ def show_article():
         The company provides satellite buses and integration services, satellite components, as well as 
         in-space transportation and infrastructure solutions.
         """)
+        
+        # Dr. Hyliard's reaction
+        st.markdown("---")
+        dr_hyliard_says("""
+        Here's what excites me most: "Lower costs" and "accelerate development timelines." 
+        
+        Remember when I told you about my Arctic ice monitoring project? With traditional manufacturing, 
+        those fuel tanks would take 6 months to make and cost $150,000 each. With 3D printing, we're talking 
+        3 weeks and $30,000. That's the difference between a mission that's possible and one that's not.
+        
+        And John Rood is right - this IS a major achievement. In 20 years, we'll look back at this moment 
+        as the turning point when satellite technology became accessible to everyone.
+        """, "🔬 Dr. Hyliard's Analysis")
     
     with col2:
         st.markdown("### 🔑 Key Terms")
         
         with st.expander("**Additive Manufacturing**"):
             st.write("Building objects layer by layer, also known as 3D printing. Uses materials like metal powder to create complex shapes.")
+            dr_hyliard_says("Think of it like a super-advanced hot glue gun that uses metal instead of glue!", 
+                           "💡 Dr. Hyliard Explains")
         
         with st.expander("**Fuel Tank**"):
             st.write("Container that holds propellant for spacecraft maneuvering in space. Essential for adjusting satellite position.")
+            dr_hyliard_says("Without fuel tanks, satellites would be like cars without steering wheels - they'd drift wherever gravity takes them!", 
+                           "💡 Dr. Hyliard Explains")
         
         with st.expander("**Orbital Service Vehicle**"):
             st.write("A spacecraft designed to provide services to other satellites while in orbit around Earth.")
         
         with st.expander("**Vigoride-7**"):
             st.write("The name of Momentus's upcoming mission that will test the 3D-printed fuel tank in actual space conditions.")
+            dr_hyliard_says("This mission will prove the technology works in space. If successful (and I believe it will be), this opens the floodgates!", 
+                           "💡 Dr. Hyliard Explains")
         
         st.markdown("---")
         st.markdown("### 💡 Discussion Prompt")
         st.info("Why do you think a 3D-printed fuel tank would be cheaper and faster to produce than a traditional fuel tank?")
         
-        if st.button("Show Answer"):
+        if st.button("Show Answer + Dr. Hyliard's Thoughts"):
             st.success("""
             3D printing builds the tank layer by layer from a digital design, which means:
             - No need for expensive molds or tools
@@ -234,9 +405,20 @@ def show_article():
             - Automated process = faster production
             - Easy to modify designs
             """)
+            dr_hyliard_says("""
+            I'll add one more thing: with traditional manufacturing, if you discover a design flaw, you might have 
+            to scrap weeks of work and start over. With 3D printing, you just update the computer file and print 
+            a new one. I've seen this save missions that would have otherwise been delayed by months!
+            """, "✏️ Dr. Hyliard Adds")
 
 def show_objectives():
     st.markdown('<div class="main-header">🎯 Learning Objectives</div>', unsafe_allow_html=True)
+    
+    dr_hyliard_says("""
+    Before we dive into the technical details, let me tell you what I hope you'll take away from this lesson. 
+    These aren't just abstract learning goals - they're the building blocks of understanding how we study and 
+    protect our planet from space.
+    """, "🎯 Dr. Hyliard's Learning Goals")
     
     st.markdown("## By the end of this lesson, you will be able to:")
     
@@ -245,25 +427,29 @@ def show_objectives():
             "icon": "🛰️",
             "title": "Explain Satellite Contributions",
             "description": "Understand how satellites contribute to Earth Science research and environmental monitoring",
-            "examples": ["Hurricane tracking", "Climate monitoring", "Deforestation detection"]
+            "examples": ["Hurricane tracking", "Climate monitoring", "Deforestation detection"],
+            "hyliard_note": "Last week, I used satellite data to track three different wildfires across the western US. Without satellites, we'd be flying planes over every fire - expensive, dangerous, and slow. Satellites do it better!"
         },
         {
             "icon": "🖨️",
             "title": "Describe 3D Printing Technology",
             "description": "Explain how additive manufacturing is advancing space technology",
-            "examples": ["Faster production", "Complex designs", "Lower costs"]
+            "examples": ["Faster production", "Complex designs", "Lower costs"],
+            "hyliard_note": "I've held both traditional and 3D-printed fuel tanks. The 3D-printed one had internal structures that would be impossible to create any other way. It's not just about cost - it's about making better designs possible."
         },
         {
             "icon": "🔬",
             "title": "Analyze Technology-Science Connection",
             "description": "Understand how technological innovation drives scientific discovery",
-            "examples": ["Better tools → Better data", "More satellites → Better coverage", "Innovation enables research"]
+            "examples": ["Better tools → Better data", "More satellites → Better coverage", "Innovation enables research"],
+            "hyliard_note": "When Galileo invented the telescope, he didn't just improve astronomy - he revolutionized it. That's what 3D printing is doing for satellite technology right now. We're living through a revolution!"
         },
         {
             "icon": "🏢",
             "title": "Evaluate Commercial Space",
             "description": "Assess the role of commercial space companies in Earth observation",
-            "examples": ["Competition drives innovation", "Reduces costs", "Increases accessibility"]
+            "examples": ["Competition drives innovation", "Reduces costs", "Increases accessibility"],
+            "hyliard_note": "When I started my career, only governments could afford satellites. Now? Universities, research groups, even high schools are launching satellites. That's the power of commercial innovation."
         }
     ]
     
@@ -273,6 +459,8 @@ def show_objectives():
             st.write("**Examples:**")
             for example in obj['examples']:
                 st.write(f"- {example}")
+            
+            dr_hyliard_says(obj['hyliard_note'], "💭 Dr. Hyliard's Experience")
     
     st.markdown("---")
     st.markdown("## 📊 NGSS Standards Alignment")
@@ -308,6 +496,12 @@ def show_satellites():
     
     st.markdown("## Why Satellites Matter")
     
+    dr_hyliard_says("""
+    Let me show you what I see every day at work. These are the four main systems I monitor using satellites. 
+    Each one tells us something crucial about our planet's health. Click through the tabs and I'll explain 
+    what we're looking for and why it matters.
+    """, "👁️ Through Dr. Hyliard's Eyes")
+    
     st.info("""
     Satellites give us the **only way** to see our entire planet at once. They provide a "bird's eye view" 
     that helps us understand Earth's complex systems and how they're changing.
@@ -331,6 +525,13 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Weather forecasting\n\n✅ Climate change tracking\n\n✅ Air quality monitoring\n\n✅ Hurricane prediction")
+            
+            dr_hyliard_says("""
+            Three days ago, I watched Hurricane data come in live. We could see it strengthen from a tropical 
+            storm to a Category 3 hurricane in just 18 hours. That early warning gave coastal communities 
+            time to evacuate. In the 1900 Galveston hurricane, 8,000 people died because they had no warning. 
+            Today, with satellites, that would never happen.
+            """, "📖 Dr. Hyliard's Recent Example")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/42A5F5/FFFFFF?text=Weather+Satellite", 
@@ -353,6 +554,15 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Tracking sea level rise\n\n✅ Monitoring ocean health\n\n✅ Predicting El Niño events\n\n✅ Protecting marine ecosystems")
+            
+            dr_hyliard_says("""
+            The ocean covers 70% of Earth's surface. Without satellites, we'd need thousands of ships taking 
+            measurements 24/7. Even then, we'd miss most of it. Satellites let us see the ENTIRE ocean every day. 
+            
+            Last year, we detected an unusual warming pattern in the Pacific that predicted an El Niño event 
+            three months before it happened. Farmers in Peru used that information to prepare for flooding. 
+            That's the power of satellite data!
+            """, "🌊 Dr. Hyliard's Ocean Story")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/0277BD/FFFFFF?text=Ocean+Monitoring", 
@@ -375,6 +585,15 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Tracking deforestation\n\n✅ Monitoring crop health\n\n✅ Wildfire detection\n\n✅ Urban planning")
+            
+            dr_hyliard_says("""
+            Here's something that breaks my heart but also shows why this work matters: I can pull up satellite 
+            images of the Amazon rainforest from 2000 and compare them to today. The difference is staggering. 
+            
+            But here's the hopeful part - by tracking deforestation in real-time, we can alert authorities 
+            immediately. In some cases, we've helped catch illegal logging operations within days of them starting. 
+            Without satellites, it might take months to discover.
+            """, "🌲 Dr. Hyliard's Forest Watch")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/66BB6A/FFFFFF?text=Land+Monitoring", 
@@ -397,6 +616,16 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Tracking polar ice melt\n\n✅ Predicting sea level rise\n\n✅ Understanding climate feedback\n\n✅ Water resource planning")
+            
+            dr_hyliard_says("""
+            This is the part that keeps me up at night - and it's why I'm so passionate about getting MORE 
+            satellites up there faster. 
+            
+            The Arctic is warming twice as fast as the rest of the planet. I compare satellite images from 
+            when I started my career to today, and the ice loss is shocking. But we need MORE data, MORE 
+            frequently, from MORE angles. That's why 3D-printed satellites are so important. We can finally 
+            afford to build the comprehensive monitoring system the Arctic desperately needs.
+            """, "🧊 Dr. Hyliard's Urgent Mission")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/E1F5FE/000000?text=Ice+Monitoring", 
@@ -417,13 +646,26 @@ def show_satellites():
     if st.button("Check Answer"):
         if question == "Predict earthquakes before they happen":
             st.success("✅ Correct! Satellites cannot predict earthquakes before they happen. While they can measure ground movement AFTER earthquakes occur, we don't yet have technology to predict them in advance.")
+            dr_hyliard_says("""
+            Good catch! This is actually something I get asked about a lot. Satellites are amazing, but they're 
+            not magic. We can measure ground deformation after earthquakes, which helps us understand them better. 
+            But predicting WHEN and WHERE an earthquake will happen? That's still beyond our current technology - 
+            satellite or otherwise. Maybe one of you students will figure it out someday!
+            """, "👍 Dr. Hyliard Confirms")
         else:
             st.error("❌ Try again! Satellites CAN do this. Think about what requires advance knowledge we don't have yet.")
+            dr_hyliard_says("Think about it this way: satellites are great at measuring things that are happening 
+            or have happened. But predicting the future? That's much harder!", "💡 Hint from Dr. Hyliard")
 
 def show_3d_printing():
     st.markdown('<div class="main-header">🖨️ 3D Printing Innovation</div>', unsafe_allow_html=True)
     
     st.markdown("## The Momentus Innovation: 3D-Printed Fuel Tanks")
+    
+    dr_hyliard_says("""
+    Okay, this is where it gets really exciting for me. Let me show you the difference between how we USED 
+    to make fuel tanks and how we make them NOW. The contrast is mind-blowing!
+    """, "🎉 Dr. Hyliard's Favorite Topic")
     
     col1, col2 = st.columns(2)
     
@@ -449,6 +691,12 @@ def show_3d_printing():
         
         st.image("https://via.placeholder.com/400x300/FF9800/FFFFFF?text=Traditional+Manufacturing", 
                  caption="Traditional tank manufacturing process")
+        
+        dr_hyliard_says("""
+        I've waited 6 months for a fuel tank before. SIX MONTHS. And if we found a design flaw during testing? 
+        Start over. Another 6 months. It was incredibly frustrating. Every delay meant more time before we 
+        could launch and start collecting crucial climate data.
+        """, "😤 Dr. Hyliard's Frustration")
     
     with col2:
         st.markdown("### 🖨️ 3D Printing (Additive Manufacturing)")
@@ -472,6 +720,12 @@ def show_3d_printing():
         
         st.image("https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=3D+Printing", 
                  caption="3D printing metal fuel tank")
+        
+        dr_hyliard_says("""
+        The first time I held a 3D-printed fuel tank, I couldn't believe it was real. It was lighter, 
+        stronger, and more intricate than anything we could make before. And it took 3 weeks to make instead 
+        of 6 months. I literally jumped up and down with excitement. My colleagues thought I was crazy!
+        """, "🤩 Dr. Hyliard's First Impression")
     
     st.markdown("---")
     st.markdown("## 🔍 How Does 3D Printing Work?")
@@ -487,11 +741,27 @@ def show_3d_printing():
     6. **Finish** with post-processing (cleaning, polishing)
     """)
     
+    dr_hyliard_says("""
+    Think of it like building with LEGO blocks, except each "block" is a layer of metal thinner than a human 
+    hair, and instead of your hands stacking them, it's a laser melting metal powder. Layer by layer, hour 
+    by hour, a fuel tank emerges from a bed of powder. It's honestly like watching magic happen.
+    
+    I've stood and watched the printer work. It's mesmerizing. You see nothing but powder, then slowly a 
+    shape starts to emerge. After 20 hours, you've got a complete fuel tank that would have taken traditional 
+    manufacturing 6 months to make!
+    """, "🔬 Dr. Hyliard Explains the Process")
+    
     # Interactive comparison
     st.markdown("---")
     st.markdown("## 💰 Cost Comparison Calculator")
     
     st.write("See how 3D printing saves money on a satellite mission:")
+    
+    dr_hyliard_says("""
+    Okay, this is MY favorite part. Play around with the slider below and watch how the savings add up. 
+    This is REAL data from actual satellite missions. This isn't theoretical - this is what we're experiencing 
+    right now!
+    """, "📊 Dr. Hyliard's Favorite Tool")
     
     num_satellites = st.slider("How many satellites in your mission?", 1, 50, 10)
     
@@ -514,6 +784,17 @@ def show_3d_printing():
         st.metric("Savings", f"${savings:,}", f"-{savings_percent:.0f}%")
     
     st.success(f"💡 With 3D printing, you save **${savings:,}** on this mission! That's enough to launch {int(savings/printing_cost)} additional satellites!")
+    
+    dr_hyliard_says(f"""
+    Look at that! ${savings:,} saved! Do you know what I could do with that money? 
+    
+    - Launch {int(savings/printing_cost)} more satellites
+    - Hire {int(savings/80000)} more scientists for a year
+    - Fund {int(savings/50000)} graduate students' research
+    - Buy {int(savings/5000)} high-end computers for data analysis
+    
+    Every dollar saved is a dollar we can invest in better science. That's why I get so excited about this technology!
+    """, "💵 What Dr. Hyliard Could Do With the Savings")
     
     # The connection to Earth Science
     st.markdown("---")
@@ -569,11 +850,30 @@ def show_3d_printing():
         <p style="font-size: 0.9em;">Understanding Earth</p>
         </div>
         """, unsafe_allow_html=True)
+    
+    dr_hyliard_says("""
+    This chain reaction is exactly why I'm so optimistic about the future. Each link in this chain makes 
+    the next one possible. 
+    
+    Better technology → Lower costs → More satellites → Better data → Better science → Better decisions → 
+    Better protection for our planet
+    
+    And it all starts with a 3D printer in a lab somewhere, printing metal layer by layer. Who would have 
+    thought that a manufacturing technique could help us save the planet? But that's exactly what's happening!
+    """, "🔗 Dr. Hyliard Connects the Dots")
 
 def show_design_challenge():
     st.markdown('<div class="main-header">🎨 Design Challenge</div>', unsafe_allow_html=True)
     
     st.markdown("## 🚀 Design Your Own Satellite Mission!")
+    
+    dr_hyliard_says("""
+    Alright, this is where YOU become the satellite engineer! I'm going to give you the same challenge I give 
+    my graduate students: design a satellite mission to solve a real Earth Science problem.
+    
+    Think carefully about what you want to measure, why it matters, and how 3D printing makes your mission 
+    possible. I'll be here to guide you through the process. Let's build something amazing together!
+    """, "🎓 Dr. Hyliard's Challenge to You")
     
     st.info("""
     **Your Task:** You are a satellite engineer! Design a satellite mission to solve an Earth Science problem. 
@@ -587,33 +887,58 @@ def show_design_challenge():
         "🌀 Hurricane Monitoring": {
             "description": "Track and predict hurricanes in the Atlantic Ocean",
             "measures": ["Wind speed", "Air pressure", "Sea surface temperature", "Cloud patterns"],
-            "challenges": "Hurricanes move fast and need constant monitoring"
+            "challenges": "Hurricanes move fast and need constant monitoring",
+            "hyliard_story": """
+            I worked on a hurricane monitoring mission in 2017. We tracked Hurricane Irma in real-time as it 
+            strengthened to Category 5. Our data helped meteorologists predict its path with 95% accuracy 
+            five days in advance. Millions of people evacuated safely because of that early warning. This kind 
+            of mission saves lives!
+            """
         },
         "🧊 Arctic Ice Monitoring": {
             "description": "Monitor polar ice cap melting and thickness",
             "measures": ["Ice thickness", "Ice extent", "Surface temperature", "Glacier movement"],
-            "challenges": "Polar regions are remote and changing rapidly"
+            "challenges": "Polar regions are remote and changing rapidly",
+            "hyliard_story": """
+            This is actually MY current project! The Arctic is warming faster than anywhere else on Earth. 
+            I need a constellation of satellites providing continuous coverage because ice can change 
+            dramatically in just days. With 3D-printed components, I can finally afford the 12 satellites 
+            I need instead of just 3!
+            """
         },
         "🔥 Wildfire Detection": {
             "description": "Detect and monitor wildfires worldwide",
             "measures": ["Heat signatures", "Smoke detection", "Vegetation dryness", "Fire spread"],
-            "challenges": "Fires can start quickly and spread unpredictably"
+            "challenges": "Fires can start quickly and spread unpredictably",
+            "hyliard_story": """
+            Last summer, I used satellite data to track 17 different wildfires simultaneously across California, 
+            Oregon, and Washington. We detected two of them within 15 minutes of ignition - before any 911 
+            calls came in! Early detection means firefighters can respond faster and save more homes and lives.
+            """
         },
         "🌊 Ocean Temperature": {
             "description": "Track ocean temperature changes globally",
             "measures": ["Sea surface temp", "Ocean currents", "Heat absorption", "El Niño patterns"],
-            "challenges": "Oceans cover 70% of Earth and change slowly"
+            "challenges": "Oceans cover 70% of Earth and change slowly",
+            "hyliard_story": """
+            The ocean is Earth's climate regulator. It absorbs 90% of excess heat from climate change. I monitor 
+            ocean temperatures daily because small changes can have huge impacts. A 2°C increase in Pacific 
+            Ocean temperature can trigger droughts in Australia and floods in Peru. Understanding ocean 
+            temperature helps us predict these events!
+            """
         }
     }
     
     mission_type = st.selectbox("Select your mission:", list(scenarios.keys()))
     
-    with st.expander("📋 Mission Details"):
+    with st.expander("📋 Mission Details + Dr. Hyliard's Experience"):
         st.write(f"**Goal:** {scenarios[mission_type]['description']}")
         st.write(f"**Challenge:** {scenarios[mission_type]['challenges']}")
         st.write("**Suggested Measurements:**")
         for measure in scenarios[mission_type]['measures']:
             st.write(f"- {measure}")
+        
+        dr_hyliard_says(scenarios[mission_type]['hyliard_story'], "📖 Dr. Hyliard's Story")
     
     st.markdown("---")
     st.markdown("### Step 2: Design Your Mission")
@@ -670,7 +995,7 @@ def show_design_challenge():
                              placeholder="Explain the scientific impact of your mission...",
                              height=100)
         
-        submitted = st.form_submit_button("🚀 Submit Mission Design")
+        submitted = st.form_submit_button("🚀 Submit Mission Design for Dr. Hyliard's Review")
     
     if submitted:
         st.session_state.activity_submitted = True
@@ -678,6 +1003,21 @@ def show_design_challenge():
         st.balloons()
         
         st.success("## 🎉 Mission Design Complete!")
+        
+        # Dr. Hyliard reviews the mission
+        dr_hyliard_says(f"""
+        Excellent work! Let me review your mission design for **{mission_name}**...
+        
+        **Mission Type:** {mission_type} - Great choice! This is an area where we really need more data.
+        
+        **Number of Satellites:** {num_satellites} - {'Perfect! That should give you good coverage.' if num_satellites >= 5 else 'Good start, but you might want to consider a few more for better coverage.'}
+        
+        **Orbit:** {orbit_type} - {'Excellent choice for this mission type!' if 'Polar' in orbit_type and 'Arctic' in mission_type else 'Interesting choice! Make sure this orbit supports your goals.'}
+        
+        Overall, I'm impressed! {'With 3D-printed components, this mission is absolutely feasible.' if num_satellites <= 20 else 'This is ambitious, but with 3D printing making satellites cheaper, it might just work!'}
+        
+        I'd love to see this mission become reality. Want to join my research team someday? 😊
+        """, "📋 Dr. Hyliard's Mission Review")
         
         # Display mission summary
         st.markdown("### 📊 Your Mission Summary")
@@ -720,9 +1060,10 @@ def show_design_challenge():
         """)
         
         # Download option
-        if st.button("📥 Download Mission Plan"):
+        if st.button("📥 Download Mission Plan (Dr. Hyliard Approved!)"):
             mission_report = f"""
 # SATELLITE MISSION PLAN: {mission_name}
+## Reviewed and Approved by Dr. Marcus Hyliard
 
 ## Mission Overview
 - **Type:** {mission_type}
@@ -745,9 +1086,15 @@ def show_design_challenge():
 ## Scientific Impact
 {impact}
 
+## Dr. Hyliard's Comments
+"{'Excellent mission design! This addresses a critical need in Earth observation.' if num_satellites >= 5 else 'Good start! Consider expanding the satellite constellation for better coverage.'} 
+The use of 3D-printed components makes this mission economically feasible. 
+I would be proud to work on this mission!"
+
 ---
 *Created using Space Technology & Earth Science Interactive Lesson*
 *Date: {datetime.now().strftime('%Y-%m-%d')}*
+*Reviewed by: Dr. Marcus Hyliard, Senior Satellite Engineer*
 """
             st.download_button(
                 label="Download Mission Report",
@@ -760,6 +1107,12 @@ def show_quiz():
     st.markdown('<div class="main-header">❓ Quiz & Assessment</div>', unsafe_allow_html=True)
     
     st.markdown("## 🧠 Test Your Knowledge")
+    
+    dr_hyliard_says("""
+    Alright, let's see what you've learned! I'm not grading you on this - I just want to see if I explained 
+    things clearly. If you get something wrong, that's on me as a teacher, not on you as a student. 
+    Let's do this together!
+    """, "📝 Dr. Hyliard's Quiz Introduction")
     
     st.info("Answer these questions to check your understanding of the lesson!")
     
@@ -774,7 +1127,8 @@ def show_quiz():
                 "Manufacturing in addition to other activities"
             ],
             "correct": 1,
-            "explanation": "Additive manufacturing is the process of building objects layer by layer, also known as 3D printing. It 'adds' material layer by layer instead of cutting it away."
+            "explanation": "Additive manufacturing is the process of building objects layer by layer, also known as 3D printing. It 'adds' material layer by layer instead of cutting it away.",
+            "hyliard_comment": "Perfect! It's called 'additive' because we ADD material layer by layer, unlike traditional manufacturing where we START with a block and CUT AWAY material. Much less wasteful!"
         },
         {
             "q": "Why are fuel tanks important for satellites?",
@@ -785,7 +1139,8 @@ def show_quiz():
                 "They store data collected by the satellite"
             ],
             "correct": 1,
-            "explanation": "Fuel tanks hold propellant that allows satellites to make small adjustments to their position and orientation in space. Without fuel, satellites would drift out of position."
+            "explanation": "Fuel tanks hold propellant that allows satellites to make small adjustments to their position and orientation in space. Without fuel, satellites would drift out of position.",
+            "hyliard_comment": "Exactly right! Without fuel, a satellite would slowly drift out of its orbit due to tiny forces like solar radiation pressure and Earth's irregular gravity. I've seen satellites run out of fuel - they become useless space junk. That's why fuel tanks are SO critical!"
         },
         {
             "q": "What is a major advantage of 3D printing fuel tanks compared to traditional manufacturing?",
@@ -796,7 +1151,8 @@ def show_quiz():
                 "They last longer"
             ],
             "correct": 2,
-            "explanation": "3D printing can reduce production time from months to weeks and significantly lower costs, making satellite missions more affordable and accessible."
+            "explanation": "3D printing can reduce production time from months to weeks and significantly lower costs, making satellite missions more affordable and accessible.",
+            "hyliard_comment": "YES! Time and money - those are the game-changers. I used to wait 6 months for a fuel tank. Now? 3 weeks. That means I can launch satellites 5 times faster and with my budget, I can launch 5 times as many. Mathematics of innovation!"
         },
         {
             "q": "How do cheaper satellites help Earth Science?",
@@ -807,7 +1163,8 @@ def show_quiz():
                 "Cheaper satellites use less electricity"
             ],
             "correct": 1,
-            "explanation": "When satellites are more affordable, more can be launched. More satellites means better coverage of Earth, more frequent measurements, and more accurate scientific data."
+            "explanation": "When satellites are more affordable, more can be launched. More satellites means better coverage of Earth, more frequent measurements, and more accurate scientific data.",
+            "hyliard_comment": "This is THE key insight! More satellites = more data = better science. It's that simple. When I started my career, we had gaps in our satellite coverage. Sometimes we'd miss important events because no satellite was watching that part of Earth. With cheaper satellites, we can eliminate those gaps!"
         },
         {
             "q": "Which of these do satellites help us monitor?",
@@ -818,7 +1175,8 @@ def show_quiz():
                 "Only natural disasters"
             ],
             "correct": 2,
-            "explanation": "Satellites are versatile tools that help us monitor many Earth systems including atmosphere, oceans, land surface, ice and snow, and much more."
+            "explanation": "Satellites are versatile tools that help us monitor many Earth systems including atmosphere, oceans, land surface, ice and snow, and much more.",
+            "hyliard_comment": "Satellites are the Swiss Army knives of Earth observation! I use the same satellite network to track hurricanes, monitor Arctic ice, detect wildfires, and measure ocean temperatures - sometimes all in the same day! That's the beauty of comprehensive satellite coverage."
         }
     ]
     
@@ -834,9 +1192,15 @@ def show_quiz():
             if selected_index == q["correct"]:
                 st.success(f"✅ Correct! {q['explanation']}")
                 st.session_state.quiz_answers[i] = True
+                
+                # Dr. Hyliard's comment
+                dr_hyliard_says(q['hyliard_comment'], "👏 Dr. Hyliard Celebrates")
             else:
                 st.error(f"❌ Not quite. {q['explanation']}")
                 st.session_state.quiz_answers[i] = False
+                
+                # Dr. Hyliard's encouragement
+                dr_hyliard_says("No worries! This is how we learn. I got SO many things wrong when I was learning this stuff. The important thing is you're thinking about it. Try the other options and see if one makes more sense!", "💪 Dr. Hyliard Encourages You")
         
         st.markdown("---")
     
@@ -860,12 +1224,48 @@ def show_quiz():
             else:
                 st.metric("Grade", "📚 Keep Learning!")
         
+        # Dr. Hyliard's final assessment
         if percentage >= 80:
             st.success("🎉 Great job! You have a strong understanding of how space technology helps Earth Science!")
+            dr_hyliard_says(f"""
+            Outstanding! You got {score} out of {total} correct - that's {percentage:.0f}%! 
+            
+            I'm genuinely impressed. You've grasped the key concepts: how satellites work, why 3D printing matters, 
+            and how technology drives scientific discovery. If you were in my graduate program, I'd be very proud!
+            
+            Keep this curiosity alive. Whether you become a scientist, engineer, teacher, or anything else, 
+            understanding how we study our planet will serve you well. The future of Earth observation is bright, 
+            and people like you - people who GET IT - are going to be part of that future.
+            
+            Thank you for learning with me today! 🚀
+            """, "🌟 Dr. Hyliard's Final Thoughts")
         elif percentage >= 60:
             st.info("👍 Good work! Review the material to strengthen your understanding.")
+            dr_hyliard_says(f"""
+            Good job! You got {score} out of {total} - that's solid! 
+            
+            You've got the main ideas down. Go back and review the sections where you weren't sure. Science 
+            is all about iteration - getting better with each attempt. I review papers and make mistakes all 
+            the time. What matters is that you keep learning.
+            
+            Take another look at the lesson, maybe talk to your teacher about questions you have, and try again. 
+            I believe in you!
+            """, "👍 Dr. Hyliard Encourages You")
         else:
             st.warning("📖 Keep studying! Review the lesson sections and try again.")
+            dr_hyliard_says(f"""
+            You got {score} out of {total}. That's okay! This is complex stuff. 
+            
+            Here's what I recommend: Go back through the lesson at your own pace. Don't rush. Click on the 
+            sections that confused you and really take your time understanding them. Maybe take notes. Draw 
+            diagrams. Whatever helps YOU learn best.
+            
+            I've taught hundreds of students, and I can tell you this: The students who struggle at first 
+            but keep trying often end up understanding the material BETTER than students who get it right away. 
+            Why? Because they really think deeply about it.
+            
+            Don't give up! The fact that you're here learning means you care. That's the most important thing.
+            """, "💪 Dr. Hyliard Won't Give Up On You")
     
     # Exit ticket
     st.markdown("---")
@@ -885,17 +1285,40 @@ def show_quiz():
     exit_response = st.text_area("Your response (5-7 sentences):", height=200,
                                 placeholder="Write your thoughtful response here...")
     
-    if st.button("Submit Exit Ticket"):
+    if st.button("Submit Exit Ticket to Dr. Hyliard"):
         if len(exit_response) > 50:
             st.success("✅ Exit ticket submitted! Great work today!")
             st.balloons()
+            
+            dr_hyliard_says("""
+            Thank you for submitting your exit ticket! I wish I could read every single one personally. 
+            
+            Your teacher will review your response, but I want you to know something: The fact that you took 
+            the time to think deeply about these questions means you're already thinking like a scientist. 
+            
+            That's what science is - asking questions, thinking about problems, and proposing solutions. 
+            You did that today, and I'm proud of you for it.
+            
+            Keep looking up at the stars, but remember to look down at Earth too. Our planet needs curious, 
+            thoughtful people like you to help protect it.
+            
+            Until next time! 🚀🌍
+            
+            — Dr. Marcus Hyliard
+            """, "👋 Dr. Hyliard's Goodbye Message")
         else:
             st.warning("Please write a more detailed response (at least 5 sentences).")
+            dr_hyliard_says("Take your time! I want to hear your thoughts. Even if you're not sure you're right, write what you're thinking. There's no wrong answer here - I just want to know what YOU learned today!", "✏️ Dr. Hyliard Wants More")
 
 def show_resources():
     st.markdown('<div class="main-header">📚 Additional Resources</div>', unsafe_allow_html=True)
     
     st.markdown("## 🔗 Learn More")
+    
+    dr_hyliard_says("""
+    Want to keep learning? Here are my favorite resources. These are websites and tools I actually use in 
+    my work. No boring textbooks - just the cool stuff that will blow your mind!
+    """, "🌐 Dr. Hyliard's Favorite Resources")
     
     # Organized resources by category
     col1, col2 = st.columns(2)
@@ -912,6 +1335,8 @@ def show_resources():
             
             **Best for:** Visual learners, current events, image galleries
             """)
+            
+            dr_hyliard_says("I check this website almost every day! The 'Image of the Day' feature is incredible. Last week they showed before/after images of a glacier in Alaska - you could see 30 years of melting in just two pictures. Powerful stuff!", "⭐ Dr. Hyliard's Pick")
         
         with st.expander("NOAA Satellites"):
             st.write("""
@@ -922,6 +1347,8 @@ def show_resources():
             
             **Best for:** Weather and ocean data, real-time satellite views
             """)
+            
+            dr_hyliard_says("NOAA's satellites are the workhorses of weather forecasting. Every weather report you see on TV uses NOAA data. Their website lets you see the same real-time satellite views that meteorologists use!", "⭐ Dr. Hyliard's Pick")
         
         with st.expander("ESA Earth Observation"):
             st.write("""
@@ -932,6 +1359,8 @@ def show_resources():
             
             **Best for:** International perspective, educational activities
             """)
+            
+            dr_hyliard_says("ESA has some of the most advanced Earth observation satellites in space. Their Sentinel program is AMAZING. If you want to see how Europeans approach Earth monitoring, this is the place!", "⭐ Dr. Hyliard's Pick")
     
     with col2:
         st.markdown("### 🚀 Space Technology")
@@ -947,6 +1376,8 @@ def show_resources():
             - Applications in space
             - Future possibilities
             """)
+            
+            dr_hyliard_says("If you want to see 3D printing in action, search YouTube for 'metal 3D printing timelapse'. Watching a fuel tank emerge from a bed of metal powder is mesmerizing. I've watched these videos dozens of times!", "⭐ Dr. Hyliard's Pick")
         
         with st.expander("Satellite Tracking"):
             st.write("""
@@ -957,6 +1388,8 @@ def show_resources():
             
             **Best for:** Interactive learning, real-time data
             """)
+            
+            dr_hyliard_says("This is SO COOL. You can track the International Space Station, weather satellites, even spy satellites! I use this to know when my satellites are passing over interesting areas. Download their app - you can get notifications when the ISS is visible from your backyard!", "⭐ Dr. Hyliard's Favorite Tool")
         
         with st.expander("Career Exploration"):
             st.write("""
@@ -970,6 +1403,14 @@ def show_resources():
             - Mission Operations Engineer
             - Environmental Consultant
             """)
+            
+            dr_hyliard_says("""
+            Want to know the truth? We DESPERATELY need more people in these fields. There are more jobs 
+            than qualified people to fill them. If you're interested in ANY of these careers, reach out to 
+            universities, companies, or research labs. Many offer summer programs for high school students. 
+            
+            I mentor 5 high school students every summer. Could you be one of them someday?
+            """, "💼 Dr. Hyliard on Careers")
     
     st.markdown("---")
     st.markdown("## 🎥 Recommended Videos")
@@ -984,6 +1425,8 @@ def show_resources():
         <p><em>Search YouTube: "NASA climate satellites"</em></p>
         </div>
         """, unsafe_allow_html=True)
+        
+        dr_hyliard_says("The NASA video 'A Year in the Life of Earth's CO2' is mind-blowing. You can literally SEE carbon dioxide moving around the planet. Watch it!", "🎥 Must-Watch")
     
     with video_col2:
         st.markdown("""
@@ -993,6 +1436,8 @@ def show_resources():
         <p><em>Search YouTube: "metal 3D printing aerospace"</em></p>
         </div>
         """, unsafe_allow_html=True)
+        
+        dr_hyliard_says("Search for 'Velo3D Sapphire printer timelapse' - that's the exact printer that made the Momentus fuel tank we discussed today!", "🎥 Must-Watch")
     
     with video_col3:
         st.markdown("""
@@ -1002,6 +1447,8 @@ def show_resources():
         <p><em>Search YouTube: "ISS timelapse Earth"</em></p>
         </div>
         """, unsafe_allow_html=True)
+        
+        dr_hyliard_says("This is what I dream about at night. Seriously. The view of Earth from space never gets old. Watch this and you'll understand why I do what I do!", "🎥 Must-Watch")
     
     st.markdown("---")
     st.markdown("## 📖 Vocabulary Reference")
@@ -1030,11 +1477,21 @@ def show_resources():
     })
     
     st.dataframe(vocab_df, use_container_width=True, hide_index=True)
+    
+    dr_hyliard_says("""
+    Pro tip: Don't just memorize these definitions. UNDERSTAND them. Ask yourself: "Why does this word exist? 
+    What problem does this concept solve?" That's how you really learn science!
+    """, "📚 Study Tip from Dr. Hyliard")
 
 def show_downloads():
     st.markdown('<div class="main-header">📥 Downloads</div>', unsafe_allow_html=True)
     
     st.markdown("## Download Lesson Materials")
+    
+    dr_hyliard_says("""
+    Take these resources with you! I've put together everything you need to remember what we learned today. 
+    Share them with your friends, your family, anyone who's curious about satellites and Earth science!
+    """, "📦 Take This Home")
     
     st.info("Download these resources for offline use or printing!")
     
@@ -1045,6 +1502,7 @@ def show_downloads():
         
         # Student handout
         student_handout = """# Student Handout: Space Technology & Earth Observation
+## With Dr. Marcus Hyliard
 
 **Name:** _________________________ **Date:** _____________ **Period:** _____
 
@@ -1057,6 +1515,9 @@ def show_downloads():
 - Will be tested on Vigoride-7 mission
 - Uses metal additive manufacturing technology
 - Could reduce costs and production time
+
+## Dr. Hyliard Says:
+"This breakthrough is what we've been waiting for. 3D printing is going to revolutionize how we study Earth from space!"
 
 ## Vocabulary
 
@@ -1091,49 +1552,67 @@ _________________________________________________________________
 
 **How 3D printing helps:** _________________________________________________________________
 
+## Dr. Hyliard's Challenge to You:
+"Think about a problem on Earth you care about. How could satellites help solve it?"
+
+_________________________________________________________________
+
+_________________________________________________________________
+
 ---
 *Interactive Lesson: Space Technology & Earth Science*
+*Guided by Dr. Marcus Hyliard, Senior Satellite Engineer*
 """
         
         st.download_button(
             label="📥 Download Student Handout",
             data=student_handout,
-            file_name="student_handout.txt",
+            file_name="student_handout_with_dr_hyliard.txt",
             mime="text/plain"
         )
         
         # Vocabulary cards
         vocab_cards = """# Vocabulary Flashcards
+## Dr. Hyliard's Study Guide
 
 ## Additive Manufacturing
 **Definition:** Building objects layer by layer (3D printing)
 **Example:** Using lasers to fuse metal powder layer by layer
+**Dr. Hyliard says:** "Think of it like a hot glue gun, but with metal and lasers!"
 
 ## Satellite
 **Definition:** An object that orbits a planet
 **Example:** Weather satellites orbiting Earth
+**Dr. Hyliard says:** "Earth has about 8,000 active satellites. That's a lot of eyes watching our planet!"
 
 ## Orbit
 **Definition:** The path an object takes around another object in space
 **Example:** The International Space Station orbits Earth every 90 minutes
+**Dr. Hyliard says:** "Satellites move at 17,000 mph to stay in orbit. That's New York to Los Angeles in 10 minutes!"
 
 ## Fuel Tank
 **Definition:** Container that holds propellant for spacecraft maneuvering
 **Example:** Momentus's 3D-printed fuel tank
+**Dr. Hyliard says:** "Without fuel, satellites drift like boats without rudders. Fuel tanks are CRITICAL!"
 
 ## Remote Sensing
 **Definition:** Gathering information about Earth from a distance
 **Example:** Satellites measuring ocean temperature from space
+**Dr. Hyliard says:** "We can measure Earth without touching it. That's the magic of remote sensing!"
 
 ## Commercial Space
 **Definition:** Private companies involved in space activities
 **Example:** Momentus, SpaceX, Blue Origin
+**Dr. Hyliard says:** "Competition drives innovation. Commercial space companies are making satellites accessible to everyone!"
+
+---
+*Study these well! - Dr. Hyliard*
 """
         
         st.download_button(
             label="📥 Download Vocabulary Cards",
             data=vocab_cards,
-            file_name="vocabulary_cards.txt",
+            file_name="vocabulary_cards_dr_hyliard.txt",
             mime="text/plain"
         )
     
@@ -1142,11 +1621,26 @@ _________________________________________________________________
         
         # Teacher guide
         teacher_guide = """# Teacher Guide: Space Technology & Earth Science
+## Featuring Dr. Marcus Hyliard
 
 ## Lesson Overview
 - **Duration:** 50-60 minutes
 - **Grade Level:** 9-12
 - **Subject:** Earth Science
+- **Special Feature:** Fictional scientist Dr. Hyliard for student engagement
+
+## About Dr. Hyliard
+Dr. Marcus Hyliard is a fictional character created to make this lesson more engaging. He serves as:
+- A relatable expert who explains complex concepts
+- A storyteller who shares real-world applications
+- A mentor who encourages students
+- A bridge between abstract concepts and practical applications
+
+## Using Dr. Hyliard in Your Classroom
+- **Voice:** Dr. Hyliard speaks in an approachable, enthusiastic tone
+- **Purpose:** Helps students connect emotionally with the material
+- **Flexibility:** You can expand or minimize his presence as needed
+- **Extension:** Consider having students write letters to "Dr. Hyliard" about their questions
 
 ## Learning Objectives
 1. Explain how satellites contribute to Earth Science research
@@ -1163,53 +1657,70 @@ _________________________________________________________________
 
 ### Introduction (10 min)
 - Hook: "How do we know what's happening to Earth's climate?"
+- Introduce Dr. Hyliard
 - Show satellite images
-- Introduce Momentus article
+- Present the Momentus article
 
 ### Direct Instruction (15 min)
-- Satellites and Earth Science
-- 3D printing technology
+- Satellites and Earth Science (with Dr. Hyliard's examples)
+- 3D printing technology (with Dr. Hyliard's experiences)
 - Innovation chain reaction
 
 ### Guided Practice (15 min)
 - Design Challenge activity
+- Students design missions "reviewed by Dr. Hyliard"
 - Group work on satellite missions
 
 ### Discussion (10 min)
 - Technology-science connection
 - Real-world applications
-- Ethical considerations
+- Career exploration
 
 ### Assessment (10 min)
+- Quiz (with Dr. Hyliard's feedback)
 - Exit ticket
-- Quick comprehension check
+- Dr. Hyliard's final message
 
-## Common Misconceptions
+## Common Misconceptions (and How Dr. Hyliard Addresses Them)
 1. "Satellites are only for communication"
+   - Dr. Hyliard shows the diversity of satellite applications
 2. "3D printing is just for plastic"
+   - Dr. Hyliard explains metal 3D printing with real examples
 3. "Space technology doesn't affect daily life"
+   - Dr. Hyliard provides concrete daily examples
+
+## Dr. Hyliard's Best Moments
+- His reaction to the first 3D-printed fuel tank
+- His stories about tracking hurricanes
+- His encouragement during the quiz
+- His career advice to students
 
 ## Extension Activities
 - Research specific satellite missions
-- Calculate cost-benefit analysis
-- Career exploration
+- Calculate cost-benefit analysis  
+- Write a letter to "Dr. Hyliard" with questions
+- Create your own scientist character for other lessons
 
 ## Resources
 - NASA Earth Observatory
 - NOAA Satellites
 - ESA Earth Observation
 - Satellite tracking websites
+
+---
+*Remember: Dr. Hyliard is a teaching tool. Use him to make science personal and exciting!*
 """
         
         st.download_button(
             label="📥 Download Teacher Guide",
             data=teacher_guide,
-            file_name="teacher_guide.txt",
+            file_name="teacher_guide_with_dr_hyliard.txt",
             mime="text/plain"
         )
         
         # Assessment rubric
         rubric = """# Assessment Rubric: Satellite Mission Design
+## Dr. Hyliard's Evaluation Criteria
 
 ## Mission Design (40 points)
 
@@ -1218,24 +1729,28 @@ _________________________________________________________________
 - Appropriate satellite configuration
 - Well-justified design choices
 - Comprehensive measurements
+*Dr. Hyliard would say: "Outstanding! This mission is ready for funding!"*
 
 **Proficient (30-35):**
 - Clear mission goal
 - Reasonable satellite configuration
 - Some justification for choices
 - Good measurement selection
+*Dr. Hyliard would say: "Solid work! A few tweaks and this is mission-ready."*
 
 **Developing (24-29):**
 - General mission goal
 - Basic satellite configuration
 - Limited justification
 - Basic measurements
+*Dr. Hyliard would say: "Good start! Let's refine this together."*
 
 **Beginning (0-23):**
 - Unclear mission goal
 - Inadequate configuration
 - No justification
 - Incomplete measurements
+*Dr. Hyliard would say: "Don't worry, let's work through this step by step."*
 
 ## Scientific Understanding (30 points)
 
@@ -1243,21 +1758,25 @@ _________________________________________________________________
 - Demonstrates deep understanding of satellite applications
 - Makes clear connections to Earth Science
 - Explains scientific value well
+*Dr. Hyliard: "You think like a scientist!"*
 
 **Proficient (21-26):**
 - Shows good understanding
 - Makes connections to Earth Science
 - Explains scientific value
+*Dr. Hyliard: "You've got the main concepts down!"*
 
 **Developing (15-20):**
 - Shows basic understanding
 - Some connections made
 - Limited explanation
+*Dr. Hyliard: "Keep learning, you're on the right track!"*
 
 **Beginning (0-14):**
 - Limited understanding
 - Few connections
 - Weak explanation
+*Dr. Hyliard: "Let's review together. Everyone starts somewhere!"*
 
 ## 3D Printing Application (20 points)
 
@@ -1265,21 +1784,25 @@ _________________________________________________________________
 - Clearly explains cost/time benefits
 - Multiple relevant advantages identified
 - Strong connection to mission goals
+*Dr. Hyliard: "You understand the innovation!"*
 
 **Proficient (14-17):**
 - Explains major benefits
 - Several advantages identified
 - Good connection to mission
+*Dr. Hyliard: "Good grasp of the technology!"*
 
 **Developing (10-13):**
 - Mentions basic benefits
 - Some advantages identified
 - Basic connection
+*Dr. Hyliard: "Getting there!"*
 
 **Beginning (0-9):**
 - Limited benefit discussion
 - Few advantages
 - Weak connection
+*Dr. Hyliard: "Let's talk about why 3D printing matters."*
 
 ## Communication (10 points)
 
@@ -1287,27 +1810,35 @@ _________________________________________________________________
 - Clear, organized presentation
 - Professional quality
 - Engaging delivery
+*Dr. Hyliard: "Presentation ready!"*
 
 **Proficient (7-8):**
 - Clear presentation
 - Good quality
 - Adequate delivery
+*Dr. Hyliard: "Well communicated!"*
 
 **Developing (5-6):**
 - Somewhat clear
 - Acceptable quality
 - Basic delivery
+*Dr. Hyliard: "Work on clarity!"*
 
 **Beginning (0-4):**
 - Unclear
 - Poor quality
 - Weak delivery
+*Dr. Hyliard: "Let's practice presenting together!"*
+
+---
+*Remember: Dr. Hyliard's feedback is constructive and encouraging, even for low scores.*
+*Use his voice to motivate students rather than discourage them.*
 """
         
         st.download_button(
             label="📥 Download Assessment Rubric",
             data=rubric,
-            file_name="assessment_rubric.txt",
+            file_name="assessment_rubric_dr_hyliard.txt",
             mime="text/plain"
         )
     
@@ -1331,14 +1862,35 @@ _________________________________________________________________
     st.line_chart(chart_data.set_index('Year'))
     
     st.caption("Sample data showing how 3D printing technology has reduced satellite component costs over time")
+    
+    dr_hyliard_says("""
+    See that gap widening? That's innovation in action! Every year, 3D printing gets better and cheaper while 
+    traditional manufacturing stays expensive. By 2030, I predict 3D printing will cost 90% less than traditional 
+    methods. That's when space really becomes accessible to everyone!
+    """, "📈 Dr. Hyliard Analyzes the Data")
 
 # Main app logic
 if teacher_mode:
     st.sidebar.info("👨‍🏫 **Teacher Mode Active**\n\nAdditional notes and guidance visible.")
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### About Dr. Hyliard")
+    st.sidebar.info("""
+    Dr. Marcus Hyliard is a fictional character designed to increase student engagement. 
+    
+    **Purpose:**
+    - Makes content relatable
+    - Provides real-world context
+    - Encourages students
+    - Creates narrative continuity
+    
+    **Teaching Tip:** 
+    Refer to Dr. Hyliard in discussions: "What would Dr. Hyliard say about this?"
+    """)
 
 # Route to appropriate page
 page_functions = {
     'home': show_home,
+    'hyliard': show_hyliard,
     'article': show_article,
     'objectives': show_objectives,
     'satellites': show_satellites,
@@ -1356,6 +1908,7 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #666; padding: 2rem;">
     <p>🛰️ Space Technology & Earth Science Interactive Lesson</p>
+    <p>Guided by Dr. Marcus Hyliard</p>
     <p>Based on real news about Momentus's 3D-printed fuel tank innovation</p>
     <p><em>Exploring how technology drives scientific discovery</em></p>
 </div>
