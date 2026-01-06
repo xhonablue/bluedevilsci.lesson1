@@ -656,8 +656,7 @@ def show_satellites():
             """, "👍 Dr. Hyliard Confirms")
         else:
             st.error("❌ Try again! Satellites CAN do this. Think about what requires advance knowledge we don't have yet.")
-            dr_hyliard_says("Think about it this way: satellites are great at measuring things that are happening 
-            or have happened. But predicting the future? That's much harder!", "💡 Hint from Dr. Hyliard")
+            dr_hyliard_says("Think about it this way: satellites are great at measuring things that are happening or have happened. But predicting the future? That's much harder!", "💡 Hint from Dr. Hyliard")
 
 def show_3d_printing():
     st.markdown('<div class="main-header">🖨️ 3D Printing Innovation</div>', unsafe_allow_html=True)
