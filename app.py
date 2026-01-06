@@ -9,6 +9,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+def show_home():
+    st.markdown('<div class="main-header">🛰️ Space Technology & Earth Observation</div>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center; color: #666; font-size: 0.9em; margin-top: -1rem; margin-bottom: 2rem;">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
 
 # Custom CSS for better styling
 st.markdown("""
