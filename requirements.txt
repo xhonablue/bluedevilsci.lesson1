@@ -1,0 +1,13 @@
+# Core dependencies for Space Technology & Earth Science Interactive Lesson
+# Python 3.8+ required
+
+# Web application framework
+streamlit>=1.28.0,<2.0.0
+
+# Data manipulation and analysis
+pandas>=2.0.0,<3.0.0
+numpy>=1.24.0,<2.0.0
+
+# Optional: For enhanced visualizations (if you want to add charts)
+# plotly>=5.18.0
+# matplotlib>=3.8.0
