@@ -1543,6 +1543,6 @@ st.markdown("""
 <div style="text-align: center; color: #666; font-size: 0.8em;">
 <p>Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>
 <p>Aligned with Michigan Science Standards (MSS) | Earth Science Grades 9-12</p>
-<p>© 2024 | For educational use only</p>
+<p>© 2026 | For educational use only</p>
 </div>
 """, unsafe_allow_html=True)
