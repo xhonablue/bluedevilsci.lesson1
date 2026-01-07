@@ -338,6 +338,7 @@ def show_satellites():
         # Quick Check for Atmosphere tab
         st.markdown("---")
         st.markdown("### 🧠 Quick Check")
+
         
         atmo_question = st.radio(
             "Why do weather satellites need to monitor the atmosphere continuously?",
