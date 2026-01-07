@@ -697,5 +697,3 @@ def show_design_challenge():
         
         with col1:
             mission_name = st.text_input("Mission Name:", placeholder="e.g., EarthWatch-1")
-            
-            mission_goal = st.
