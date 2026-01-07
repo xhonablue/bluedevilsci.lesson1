@@ -340,9 +340,6 @@ def show_article():
         ---
         """)
         
-        st.image("https://via.placeholder.com/800x400/1E88E5/FFFFFF?text=Satellite+in+Space", 
-                 caption="Space satellite in Earth orbit", use_container_width=True)
-        
         st.markdown("""
         **Momentus Inc.** (NASDAQ:MNTS) shares jumped 44.1% in premarket trading on Monday after the company 
         disclosed progress on a newly developed 3D-printed fuel tank created in partnership with **Velo3D**.
@@ -579,9 +576,6 @@ def show_satellites():
             st.info("🌨️ **Lake-Effect Snow:** Satellites help meteorologists predict lake-effect snowstorms by tracking cold air masses moving over the warmer Great Lakes waters.")
         
         with col2:
-            st.image("https://via.placeholder.com/400x300/42A5F5/FFFFFF?text=Weather+Satellite", 
-                     caption="Weather satellite monitoring storms")
-            
             st.metric("Active Weather Satellites", "~400", "globally")
         
         # Tab-Specific Quick Check for Atmosphere
@@ -656,9 +650,6 @@ def show_satellites():
             st.info("🌊 **Harmful Algal Blooms:** Satellites detect algal blooms in Lake Erie and other Great Lakes by measuring water color changes, helping protect drinking water for millions of Michiganders.")
         
         with col2:
-            st.image("https://via.placeholder.com/400x300/0277BD/FFFFFF?text=Great+Lakes+Monitoring", 
-                     caption="Satellite monitoring the Great Lakes")
-            
             st.metric("Great Lakes Surface Area", "94,250 mi²", "largest freshwater system")
         
         # Tab-Specific Quick Check for Oceans/Great Lakes
@@ -733,9 +724,6 @@ def show_satellites():
             st.info("🌾 **Agriculture:** Satellites monitor Michigan's $104.7 billion agriculture industry, tracking crop health, soil moisture, and drought conditions across cherry orchards, apple farms, and corn/soybean fields.")
         
         with col2:
-            st.image("https://via.placeholder.com/400x300/66BB6A/FFFFFF?text=Land+Monitoring", 
-                     caption="Satellite tracking vegetation health")
-            
             st.metric("Michigan Farmland", "9.8 million", "acres monitored")
         
         # Tab-Specific Quick Check for Land
@@ -810,9 +798,6 @@ def show_satellites():
             st.info("🧊 **Great Lakes Ice:** Satellites track ice coverage on all five Great Lakes. The 2013-2014 winter saw 92.5% ice coverage—the most since 1979. Ice coverage affects shipping, lake-effect snow, and spring water temperatures.")
         
         with col2:
-            st.image("https://via.placeholder.com/400x300/E1F5FE/000000?text=Ice+Monitoring", 
-                     caption="Satellite measuring Great Lakes ice")
-            
             st.metric("2023-24 Great Lakes Ice", "~25%", "maximum coverage")
         
         # Tab-Specific Quick Check for Ice & Snow
@@ -905,9 +890,6 @@ def show_3d_printing():
         ❌ **Inflexible**: Hard to make changes
         </div>
         """, unsafe_allow_html=True)
-        
-        st.image("https://via.placeholder.com/400x300/FF9800/FFFFFF?text=Traditional+Manufacturing", 
-                 caption="Traditional tank manufacturing process")
     
     with col2:
         st.markdown("### 🖨️ 3D Printing (Additive Manufacturing)")
@@ -928,9 +910,6 @@ def show_3d_printing():
         ✅ **Flexible**: Easy design changes
         </div>
         """, unsafe_allow_html=True)
-        
-        st.image("https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=3D+Printing", 
-                 caption="3D printing metal fuel tank")
     
     # Michigan Connection
     st.markdown("""
@@ -1443,19 +1422,25 @@ def show_resources():
     vid_col1, vid_col2, vid_col3 = st.columns(3)
     
     with vid_col1:
-        st.markdown("**How Satellites See Earth**")
-        st.image("https://via.placeholder.com/300x200/1E88E5/FFFFFF?text=Video+Thumbnail", 
-                 caption="NASA Earth Observation Overview")
+        st.markdown("""
+        **🎬 How Satellites See Earth**
+        
+        NASA Earth Observation Overview
+        """)
     
     with vid_col2:
-        st.markdown("**3D Printing Metal Parts**")
-        st.image("https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Video+Thumbnail", 
-                 caption="Metal Additive Manufacturing")
+        st.markdown("""
+        **🎬 3D Printing Metal Parts**
+        
+        Metal Additive Manufacturing
+        """)
     
     with vid_col3:
-        st.markdown("**Great Lakes from Space**")
-        st.image("https://via.placeholder.com/300x200/00274C/FFFFFF?text=Video+Thumbnail", 
-                 caption="Satellite View of the Great Lakes")
+        st.markdown("""
+        **🎬 Great Lakes from Space**
+        
+        Satellite View of the Great Lakes
+        """)
 
 def show_downloads():
     st.markdown('<div class="main-header">📥 Downloads</div>', unsafe_allow_html=True)
