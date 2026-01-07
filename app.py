@@ -747,24 +747,7 @@ def show_satellites():
             else:
                 st.error("❌ Not quite. Think about where the moisture for lake-effect snow comes from and what happens when that source gets covered by ice.")
     
-    # General Knowledge Check at the end
-    st.markdown("---")
-    st.markdown("## 🧠 General Satellite Knowledge Check")
-    
-    general_q = st.radio(
-        "Which of these can satellites NOT currently do?",
-        ["A) Measure ocean temperature from space",
-         "B) Predict earthquakes days before they happen",
-         "C) Track deforestation over time",
-         "D) Monitor air quality in cities"],
-        key="general_satellite_quiz"
-    )
-    
-    if st.button("Check Answer", key="check_general"):
-        if general_q == "B) Predict earthquakes days before they happen":
-            st.success("✅ Correct! While satellites can measure ground movement AFTER earthquakes occur (using radar interferometry), we cannot yet predict earthquakes before they happen. This remains one of the greatest challenges in Earth science. (MSS HS-ESS2-2)")
-        else:
-            st.error("❌ Not quite. Satellites CAN do this. Think about which Earth processes remain unpredictable despite our best technology.")
+
 
 def show_3d_printing():
     st.markdown('<div class="main-header">🖨️ 3D Printing Innovation</div>', unsafe_allow_html=True)
