@@ -85,6 +85,8 @@ if 'achievements' not in st.session_state:
     st.session_state.achievements = []
 if 'completed_checks' not in st.session_state:
     st.session_state.completed_checks = set()
+if 'mission_data' not in st.session_state:
+    st.session_state.mission_data = None
 
 # XP Award Function
 def award_xp(points, check_id, achievement_name=None):
@@ -1064,37 +1066,209 @@ def show_design_challenge():
             "description": "Monitor water quality, ice coverage, and ecosystem health across all five Great Lakes",
             "measures": ["Water temperature", "Algal bloom detection", "Ice extent", "Water levels", "Sediment plumes"],
             "challenges": "Great Lakes cover 94,250 square miles and conditions change rapidly with seasons",
-            "michigan_relevance": "Direct impact on Michigan's drinking water, fishing industry, shipping, and tourism"
+            "michigan_relevance": "Direct impact on Michigan's drinking water, fishing industry, shipping, and tourism",
+            "recommended_orbit": "Low Earth Orbit (LEO)",
+            "orbit_reason": "LEO provides detailed imagery needed to detect algal blooms and measure water color changes. Multiple satellites in LEO can provide frequent revisit times.",
+            "recommended_instruments": ["Multispectral Imager", "Thermal Sensor", "Radar Altimeter"]
         },
         "🌀 Hurricane & Storm Tracking": {
             "description": "Track and predict severe storms in the Atlantic Ocean and Great Lakes region",
             "measures": ["Wind speed", "Air pressure", "Sea surface temperature", "Cloud patterns"],
             "challenges": "Storms move fast and need constant monitoring; lake-effect events develop quickly",
-            "michigan_relevance": "Lake-effect snow events can dump several feet of snow in hours on Michigan communities"
+            "michigan_relevance": "Lake-effect snow events can dump several feet of snow in hours on Michigan communities",
+            "recommended_orbit": "Geostationary (GEO)",
+            "orbit_reason": "GEO satellites stay fixed over one location, providing continuous monitoring of storm development. Perfect for watching weather patterns evolve in real-time.",
+            "recommended_instruments": ["Multispectral Imager", "Microwave Radiometer", "Spectrometer"]
         },
         "🌾 Michigan Agriculture Monitoring": {
             "description": "Monitor crop health, soil moisture, and drought conditions across Michigan farmland",
             "measures": ["Vegetation health (NDVI)", "Soil moisture", "Surface temperature", "Precipitation"],
             "challenges": "Michigan's 9.8 million acres of farmland span diverse climate zones",
-            "michigan_relevance": "Michigan's $104.7 billion agriculture industry depends on accurate monitoring"
+            "michigan_relevance": "Michigan's $104.7 billion agriculture industry depends on accurate monitoring",
+            "recommended_orbit": "Polar Orbit",
+            "orbit_reason": "Polar orbits pass over the entire Earth as it rotates below, allowing complete coverage of all Michigan farmland. Consistent lighting conditions help compare images over time.",
+            "recommended_instruments": ["Multispectral Imager", "Thermal Sensor", "SAR"]
         },
         "🧊 Arctic & Great Lakes Ice Monitoring": {
             "description": "Monitor polar ice and Great Lakes ice coverage to understand climate change",
             "measures": ["Ice thickness", "Ice extent", "Surface temperature", "Melt rates"],
             "challenges": "Polar regions are remote; Great Lakes ice affects regional climate",
-            "michigan_relevance": "Great Lakes ice coverage directly affects Michigan's winter weather and spring temperatures"
+            "michigan_relevance": "Great Lakes ice coverage directly affects Michigan's winter weather and spring temperatures",
+            "recommended_orbit": "Polar Orbit",
+            "orbit_reason": "Polar orbits are essential for monitoring polar regions and provide complete global coverage. They pass over the Arctic and Antarctic on every orbit.",
+            "recommended_instruments": ["SAR", "Radar Altimeter", "Microwave Radiometer"]
         }
     }
     
     mission_type = st.selectbox("Select your mission:", list(scenarios.keys()))
     
-    with st.expander("📋 Mission Details"):
-        st.write(f"**Goal:** {scenarios[mission_type]['description']}")
-        st.write(f"**Challenge:** {scenarios[mission_type]['challenges']}")
-        st.write(f"**Michigan Relevance:** {scenarios[mission_type]['michigan_relevance']}")
+    selected_scenario = scenarios[mission_type]
+    
+    with st.expander("📋 Mission Details & Recommendations", expanded=True):
+        st.write(f"**Goal:** {selected_scenario['description']}")
+        st.write(f"**Challenge:** {selected_scenario['challenges']}")
+        st.write(f"**Michigan Relevance:** {selected_scenario['michigan_relevance']}")
         st.write("**Suggested Measurements:**")
-        for measure in scenarios[mission_type]['measures']:
+        for measure in selected_scenario['measures']:
             st.write(f"- {measure}")
+        
+        st.markdown("---")
+        st.markdown("#### 💡 Professor Xavier's Recommendations:")
+        st.success(f"**Recommended Orbit:** {selected_scenario['recommended_orbit']}\n\n**Why:** {selected_scenario['orbit_reason']}")
+        st.info(f"**Recommended Instruments:** {', '.join(selected_scenario['recommended_instruments'])}")
+    
+    st.markdown("---")
+    
+    # Educational content about orbits
+    st.markdown("### 📚 Learn About Satellite Orbits")
+    st.markdown("""
+    Before designing your mission, learn about the different orbits satellites can use. 
+    Each orbit has advantages and trade-offs!
+    """)
+    
+    with st.expander("🌍 Understanding Satellite Orbits (Click to Learn)"):
+        st.markdown("""
+        #### The Four Main Satellite Orbits
+        
+        Satellites orbit Earth at different altitudes, and each altitude has unique advantages:
+        
+        ---
+        
+        **🔵 Low Earth Orbit (LEO) - 200 to 2,000 km altitude**
+        
+        *Think of it as:* Flying in an airplane vs. standing on a mountain
+        
+        | Pros | Cons |
+        |------|------|
+        | Very detailed images (can see small objects) | Only sees a small area at a time |
+        | Lower cost to launch | Moves fast - only over each spot for minutes |
+        | Less signal delay | Needs many satellites for continuous coverage |
+        
+        **Best for:** Detailed Earth observation, spy satellites, the International Space Station
+        
+        **Michigan Example:** Landsat satellites in LEO can detect individual farm fields and small algal blooms in the Great Lakes
+        
+        ---
+        
+        **🟡 Medium Earth Orbit (MEO) - 2,000 to 35,000 km altitude**
+        
+        *Think of it as:* A balance between close-up and wide views
+        
+        | Pros | Cons |
+        |------|------|
+        | Good balance of coverage and detail | More expensive to launch than LEO |
+        | Satellites visible for hours | Less detail than LEO |
+        | Good for navigation | Radiation environment can damage electronics |
+        
+        **Best for:** GPS navigation satellites, some communication satellites
+        
+        **Michigan Example:** GPS satellites in MEO help Michigan farmers use precision agriculture
+        
+        ---
+        
+        **🔴 Geostationary Orbit (GEO) - Exactly 35,786 km altitude**
+        
+        *Think of it as:* A satellite that "hovers" over one spot on Earth
+        
+        | Pros | Cons |
+        |------|------|
+        | Sees the same area 24/7 continuously | Very far away - less detail |
+        | Perfect for weather watching | Very expensive to launch |
+        | One satellite covers 1/3 of Earth | Can't see polar regions well |
+        
+        **Best for:** Weather satellites (GOES), TV broadcasting, communications
+        
+        **Michigan Example:** GOES-East satellite in GEO provides the weather images you see on TV news, tracking storms approaching Michigan
+        
+        ---
+        
+        **🟢 Polar Orbit - Passes over North and South poles**
+        
+        *Think of it as:* A satellite that sees the whole Earth as the planet rotates beneath it
+        
+        | Pros | Cons |
+        |------|------|
+        | Eventually sees every point on Earth | Not continuous coverage of one area |
+        | Great for global mapping | Takes time to revisit same location |
+        | Consistent sun angle for comparing images | Complex orbit planning |
+        
+        **Best for:** Earth observation, climate monitoring, mapping
+        
+        **Michigan Example:** NASA's Terra and Aqua satellites in polar orbit map Great Lakes ice coverage and vegetation health across all of Michigan
+        """)
+    
+    # Educational content about instruments
+    st.markdown("### 🔬 Learn About Satellite Instruments")
+    
+    with st.expander("🛰️ Understanding Satellite Instruments (Click to Learn)"):
+        st.markdown("""
+        #### What Can Satellites "See"?
+        
+        Satellites carry special instruments that detect different types of energy. 
+        Just like your eyes detect visible light, satellite instruments can detect 
+        energy that humans can't see!
+        
+        ---
+        
+        **🌈 Multispectral Imager** - *Sees visible light AND invisible light*
+        
+        - Detects: Visible light (red, green, blue) + near-infrared + thermal infrared
+        - **How it works:** Like a camera with superpowers! It takes pictures in many "colors" 
+          of light, including ones we can't see
+        - **Earth Science use:** Healthy plants reflect lots of near-infrared light. 
+          By measuring this, we can tell if crops are healthy or stressed!
+        - **Michigan use:** Detecting algal blooms (green color), mapping forests, monitoring crop health
+        
+        ---
+        
+        **📏 Radar Altimeter** - *Measures height with radio waves*
+        
+        - Detects: Time for radar pulse to bounce back from surface
+        - **How it works:** Sends a radar pulse down to Earth and measures how long it takes 
+          to return. Knowing the speed of light, we calculate the distance!
+        - **Earth Science use:** Measures sea level, ice sheet thickness, lake levels
+        - **Michigan use:** Tracking Great Lakes water levels (which affect shipping and shoreline erosion)
+        
+        ---
+        
+        **🌡️ Thermal Sensor** - *Measures temperature from space*
+        
+        - Detects: Infrared radiation (heat) emitted by surfaces
+        - **How it works:** Everything warm emits infrared radiation. Hotter objects emit more. 
+          The sensor measures this to determine temperature!
+        - **Earth Science use:** Sea surface temperature, land surface temperature, fire detection
+        - **Michigan use:** Tracking Great Lakes surface temperature (affects lake-effect snow!)
+        
+        ---
+        
+        **☁️ Microwave Radiometer** - *Sees through clouds*
+        
+        - Detects: Microwave energy emitted by Earth's surface and atmosphere
+        - **How it works:** Microwaves pass through clouds! This lets us "see" the surface 
+          even when it's cloudy
+        - **Earth Science use:** Measuring precipitation, sea ice, soil moisture, atmospheric water
+        - **Michigan use:** Monitoring Great Lakes ice even on cloudy winter days
+        
+        ---
+        
+        **📡 SAR (Synthetic Aperture Radar)** - *Creates images day or night, rain or shine*
+        
+        - Detects: Radar echoes from Earth's surface
+        - **How it works:** Sends its own radar signal and records the echo. Works in darkness 
+          and through clouds! Different surfaces reflect radar differently
+        - **Earth Science use:** Mapping terrain, detecting ground movement, ice monitoring, flood mapping
+        - **Michigan use:** Mapping Great Lakes ice thickness, detecting ground subsidence
+        
+        ---
+        
+        **🔭 Spectrometer** - *Identifies chemicals in the atmosphere*
+        
+        - Detects: Specific wavelengths of light absorbed by different gases
+        - **How it works:** Different gases absorb specific colors of light (like a fingerprint). 
+          By measuring which colors are missing, we identify what gases are present!
+        - **Earth Science use:** Measuring CO₂, methane, ozone, air pollution
+        - **Michigan use:** Monitoring air quality in Detroit, tracking greenhouse gases
+        """)
     
     st.markdown("---")
     st.markdown("### Step 2: Design Your Mission")
@@ -1107,23 +1281,29 @@ def show_design_challenge():
             
             num_sats = st.slider("Number of Satellites:", 1, 20, 4)
             
-            orbit_type = st.selectbox("Orbit Type:", 
-                ["Low Earth Orbit (LEO) - 200-2000 km - Best for detailed imaging",
-                 "Medium Earth Orbit (MEO) - 2000-35000 km - Balance of coverage and detail",
-                 "Geostationary (GEO) - 35,786 km - Fixed position over one location",
-                 "Polar Orbit - Passes over poles - Full Earth coverage"])
+            # Simplified orbit selection with recommendations shown
+            st.markdown(f"**Orbit Type:** *(Professor Xavier recommends: {selected_scenario['recommended_orbit']})*")
+            orbit_type = st.selectbox("Select Orbit:", 
+                ["Low Earth Orbit (LEO)", 
+                 "Medium Earth Orbit (MEO)",
+                 "Geostationary (GEO)",
+                 "Polar Orbit"],
+                label_visibility="collapsed")
         
         with col2:
             mission_goal = st.text_area("Mission Goal (What problem will you solve?):", 
                 placeholder="Describe the Earth science problem your mission will address...")
             
+            # Simplified instrument selection with recommendations
+            st.markdown(f"**Instruments:** *(Recommended: {', '.join(selected_scenario['recommended_instruments'])})*")
             instruments = st.multiselect("Select Instruments:",
-                ["Multispectral Imager (visible/IR light)",
-                 "Radar Altimeter (measures surface height)",
-                 "Thermal Sensor (temperature)",
-                 "Microwave Radiometer (through clouds)",
-                 "SAR (Synthetic Aperture Radar - all weather)",
-                 "Spectrometer (atmospheric composition)"])
+                ["Multispectral Imager",
+                 "Radar Altimeter",
+                 "Thermal Sensor",
+                 "Microwave Radiometer",
+                 "SAR (Synthetic Aperture Radar)",
+                 "Spectrometer"],
+                label_visibility="collapsed")
         
         st.markdown("### Step 3: Consider Engineering Trade-offs")
         
@@ -1180,7 +1360,7 @@ def show_design_challenge():
             st.markdown(f"""
             **Mission:** {mission_name if mission_name else 'Unnamed Mission'}
             
-            **Orbit:** {orbit_type.split(' - ')[0]}
+            **Orbit:** {orbit_type}
             
             **Goal:** {mission_goal if mission_goal else 'Not specified'}
             
@@ -1191,6 +1371,152 @@ def show_design_challenge():
             
             if use_3d_printing:
                 st.info(f"💰 By using 3D-printed fuel tanks, you saved **${num_sats * 120000:,}** on this mission!")
+            
+            # Store mission data for AI feedback
+            st.session_state.mission_data = {
+                "name": mission_name,
+                "type": mission_type,
+                "num_satellites": num_sats,
+                "orbit": orbit_type,
+                "recommended_orbit": selected_scenario['recommended_orbit'],
+                "instruments": instruments,
+                "recommended_instruments": selected_scenario['recommended_instruments'],
+                "goal": mission_goal,
+                "michigan_impact": michigan_impact,
+                "use_3d_printing": use_3d_printing,
+                "budget": budget,
+                "timeline": timeline,
+                "data_priority": data_priority
+            }
+    
+    # AI Feedback Section (outside the form)
+    st.markdown("---")
+    st.markdown("### 🤖 Get Feedback from Professor Xavier")
+    
+    st.info("After submitting your mission design, click below to receive personalized feedback on your satellite mission!")
+    
+    if 'mission_data' in st.session_state and st.session_state.mission_data:
+        mission = st.session_state.mission_data
+        
+        if st.button("🎓 Get Feedback from Professor Xavier"):
+            with st.spinner("Professor Xavier is reviewing your mission design..."):
+                # Build the feedback prompt
+                feedback_prompt = f"""You are Professor Xavier, a friendly and encouraging satellite engineering expert helping high school Earth Science students in Michigan. 
+
+A student has designed a satellite mission. Please provide constructive, educational feedback in 3-4 paragraphs:
+
+1. Start with genuine praise for what they did well
+2. Explain whether their orbit choice makes sense for their mission (they chose {mission['orbit']}, the recommended orbit was {mission['recommended_orbit']})
+3. Comment on their instrument selection (they chose: {', '.join(mission['instruments']) if mission['instruments'] else 'none selected'}, recommended instruments were: {', '.join(mission['recommended_instruments'])})
+4. Offer one specific suggestion for improvement and encourage them
+
+Student's Mission Design:
+- Mission Name: {mission['name'] if mission['name'] else 'Not named'}
+- Mission Type: {mission['type']}
+- Number of Satellites: {mission['num_satellites']}
+- Orbit Selected: {mission['orbit']}
+- Instruments: {', '.join(mission['instruments']) if mission['instruments'] else 'None selected'}
+- Mission Goal: {mission['goal'] if mission['goal'] else 'Not specified'}
+- Michigan Impact: {mission['michigan_impact'] if mission['michigan_impact'] else 'Not specified'}
+- Using 3D Printing: {'Yes' if mission['use_3d_printing'] else 'No'}
+- Budget: {mission['budget']}
+- Timeline: {mission['timeline']}
+
+Keep your response encouraging, educational, and appropriate for high school students. Use specific examples related to Michigan and the Great Lakes when possible. End with a question that prompts further thinking about their mission."""
+
+                try:
+                    import requests
+                    import json
+                    
+                    response = requests.post(
+                        "https://api.anthropic.com/v1/messages",
+                        headers={"Content-Type": "application/json"},
+                        json={
+                            "model": "claude-sonnet-4-20250514",
+                            "max_tokens": 1000,
+                            "messages": [{"role": "user", "content": feedback_prompt}]
+                        },
+                        timeout=30
+                    )
+                    
+                    if response.status_code == 200:
+                        data = response.json()
+                        feedback_text = data["content"][0]["text"]
+                        
+                        st.markdown("### 💬 Professor Xavier's Feedback:")
+                        st.markdown(f"""
+                        <div class="success-box">
+                        {feedback_text}
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        # Award bonus XP for getting feedback
+                        if award_xp(10, "professor_feedback"):
+                            st.success("🎉 +10 XP for seeking expert feedback!")
+                    else:
+                        # Fallback to rule-based feedback if API fails
+                        st.markdown("### 💬 Professor Xavier's Feedback:")
+                        
+                        feedback_parts = []
+                        
+                        # Praise
+                        feedback_parts.append(f"Great work on your **{mission['name'] if mission['name'] else mission['type']}** mission design! Taking on the challenge of {mission['type'].lower().replace('🌊 ', '').replace('🌀 ', '').replace('🌾 ', '').replace('🧊 ', '')} shows real scientific thinking.")
+                        
+                        # Orbit feedback
+                        if mission['orbit'] == mission['recommended_orbit'] or \
+                           (mission['recommended_orbit'] == "Low Earth Orbit (LEO)" and mission['orbit'] == "Low Earth Orbit (LEO)") or \
+                           (mission['recommended_orbit'] == "Polar Orbit" and mission['orbit'] == "Polar Orbit") or \
+                           (mission['recommended_orbit'] == "Geostationary (GEO)" and mission['orbit'] == "Geostationary (GEO)"):
+                            feedback_parts.append(f"Excellent orbit choice! **{mission['orbit']}** is ideal for your mission because it provides the coverage and timing you need.")
+                        else:
+                            feedback_parts.append(f"Interesting orbit choice! You selected **{mission['orbit']}**, while **{mission['recommended_orbit']}** is typically recommended for this type of mission. Consider the trade-offs: Does your orbit give you the revisit time and coverage your mission needs?")
+                        
+                        # Instrument feedback
+                        if mission['instruments']:
+                            matching = set(mission['instruments']) & set(mission['recommended_instruments'])
+                            if matching:
+                                feedback_parts.append(f"Smart instrument selection! Including **{', '.join(matching)}** will definitely help you achieve your mission goals.")
+                        else:
+                            feedback_parts.append("Don't forget to select instruments! The instruments you choose determine what data your satellite can collect.")
+                        
+                        # 3D printing feedback
+                        if mission['use_3d_printing']:
+                            feedback_parts.append("I love that you're using 3D-printed fuel tanks! This demonstrates understanding of how technological innovation makes space science more accessible.")
+                        
+                        # Encouragement
+                        feedback_parts.append("Keep thinking like a scientist and engineer. What additional instruments might help you gather even better data about Michigan's environment?")
+                        
+                        st.markdown(f"""
+                        <div class="success-box">
+                        {"<br><br>".join(feedback_parts)}
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                except Exception as e:
+                    # Fallback to simple rule-based feedback
+                    st.markdown("### 💬 Professor Xavier's Feedback:")
+                    
+                    feedback_parts = []
+                    feedback_parts.append(f"Great work designing the **{mission['name'] if mission['name'] else mission['type']}** mission!")
+                    
+                    if mission['orbit'] == mission['recommended_orbit'].split()[0] or mission['orbit'].startswith(mission['recommended_orbit'].split()[0]):
+                        feedback_parts.append(f"✅ Excellent orbit choice! **{mission['orbit']}** is perfect for this mission.")
+                    else:
+                        feedback_parts.append(f"💡 Consider using **{mission['recommended_orbit']}** for this type of mission - it may provide better coverage for your goals.")
+                    
+                    if mission['instruments']:
+                        feedback_parts.append(f"✅ Good instrument selection: {', '.join(mission['instruments'])}")
+                    else:
+                        feedback_parts.append("💡 Remember to select instruments to collect the data you need!")
+                    
+                    if mission['use_3d_printing']:
+                        feedback_parts.append("✅ Smart choice using 3D printing to reduce costs!")
+                    
+                    feedback_parts.append("Keep exploring how satellites help us understand Earth! 🛰️")
+                    
+                    st.success("\n\n".join(feedback_parts))
+    else:
+        st.warning("👆 Please submit your mission design above first, then return here for feedback!")
 
 def show_quiz():
     st.markdown('<div class="main-header">❓ Quiz & Assessment</div>', unsafe_allow_html=True)
