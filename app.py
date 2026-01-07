@@ -1459,44 +1459,44 @@ Example explanations to include:
 - Make specific connections to how this mission would help Michigan
 - Reference real examples: NOAA GLERL, CoastWatch, Landsat imagery of Great Lakes
 
-### 5. IXL SCIENCE HOMEWORK RECOMMENDATIONS
-Based on the student's mission type and the science concepts involved, recommend 3-4 specific IXL Science skill sections for homework practice. Use this mapping:
+### 5. HOMEWORK RECOMMENDATIONS WITH DIRECT LINKS
+Based on the student's mission type and the science concepts involved, recommend 3-4 specific lessons from CK-12 or Khan Academy for homework practice. Use these EXACT URLs:
 
 **For Great Lakes/Ocean Monitoring missions, recommend:**
-- "IXL Earth Science: Ocean currents" 
-- "IXL Earth Science: The water cycle"
-- "IXL Physical Science: Absorption, reflection, and transmission of light"
-- "IXL Earth Science: Weather and climate patterns"
+- "CK-12: Ocean Currents" - https://www.ck12.org/earth-science/ocean-currents/
+- "Khan Academy: The water cycle" - https://www.khanacademy.org/science/biology/ecology/biogeochemical-cycles/v/the-water-cycle
+- "CK-12: Electromagnetic Spectrum" - https://www.ck12.org/physics/electromagnetic-spectrum/
+- "NOAA: Great Lakes Monitoring" - https://coastwatch.glerl.noaa.gov/
 
 **For Hurricane/Storm Tracking missions, recommend:**
-- "IXL Earth Science: Layers of the atmosphere"
-- "IXL Earth Science: Weather vs. climate"
-- "IXL Earth Science: Air masses and fronts"
-- "IXL Physical Science: Heat transfer (conduction, convection, radiation)"
+- "CK-12: Layers of the Atmosphere" - https://www.ck12.org/earth-science/layers-of-the-atmosphere/
+- "Khan Academy: Climate and weather" - https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/weather-vs-climate
+- "CK-12: Air Masses and Fronts" - https://www.ck12.org/earth-science/air-masses/
+- "CK-12: Heat Transfer" - https://www.ck12.org/physics/heat-transfer/
 
 **For Agriculture Monitoring missions, recommend:**
-- "IXL Biology: Photosynthesis"
-- "IXL Earth Science: Soil composition and conservation"
-- "IXL Physical Science: The electromagnetic spectrum"
-- "IXL Earth Science: Climate zones and biomes"
+- "Khan Academy: Photosynthesis" - https://www.khanacademy.org/science/biology/photosynthesis-in-plants/introduction-to-photosynthesis/v/photosynthesis
+- "CK-12: Soil Formation" - https://www.ck12.org/earth-science/soil-formation/
+- "CK-12: Electromagnetic Spectrum" - https://www.ck12.org/physics/electromagnetic-spectrum/
+- "NASA: Measuring Vegetation from Space" - https://earthobservatory.nasa.gov/features/MeasuringVegetation
 
 **For Ice/Climate Monitoring missions, recommend:**
-- "IXL Earth Science: Global climate change"
-- "IXL Earth Science: The greenhouse effect"
-- "IXL Physical Science: Reflection and absorption of light"
-- "IXL Earth Science: Ice ages and glaciation"
+- "Khan Academy: Global climate change" - https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/climate-change
+- "CK-12: The Greenhouse Effect" - https://www.ck12.org/earth-science/greenhouse-effect/
+- "CK-12: Reflection and Absorption of Light" - https://www.ck12.org/physics/reflection-of-light/
+- "NASA: Climate Kids - Ice" - https://climatekids.nasa.gov/arctic-sea-ice/
 
 **For ALL missions (satellite technology), also consider:**
-- "IXL Physical Science: Waves and the electromagnetic spectrum"
-- "IXL Physical Science: Calculate velocity, distance, or time"
-- "IXL Earth Science: Tools and methods of Earth scientists"
+- "NASA: How Satellites Work" - https://spaceplace.nasa.gov/how-orbits-work/
+- "CK-12: Waves and Electromagnetic Radiation" - https://www.ck12.org/physics/electromagnetic-wave/
+- "Khan Academy: Introduction to waves" - https://www.khanacademy.org/science/physics/mechanical-waves-and-sound/introduction-to-waves/v/introduction-to-waves
 
 Format this section as:
-"📚 **IXL Homework Recommendations:**
-To strengthen your understanding of the science behind your mission, practice these IXL skills:
-1. [Skill name and section] - [brief explanation of why it's relevant]
-2. [Skill name and section] - [brief explanation of why it's relevant]
-3. [Skill name and section] - [brief explanation of why it's relevant]"
+"📚 **Homework Resources:**
+To strengthen your understanding of the science behind your mission, study these resources:
+1. [Resource name](URL) - [brief explanation of why it's relevant to their mission]
+2. [Resource name](URL) - [brief explanation of why it's relevant to their mission]
+3. [Resource name](URL) - [brief explanation of why it's relevant to their mission]"
 
 ### 6. THOUGHTFUL QUESTION
 End with a specific, thought-provoking question that extends their learning, such as:
@@ -1589,38 +1589,38 @@ Write 5-6 substantive paragraphs. Be encouraging but prioritize TEACHING. Use sp
                         if mission['use_3d_printing']:
                             feedback_parts.append("**Smart choice on 3D printing!** Additive manufacturing allows complex internal geometries (like optimized fuel channels) that traditional machining can't achieve. It also reduces part count - fewer welds mean fewer potential failure points in space.")
                         
-                        # IXL Homework Recommendations based on mission type
-                        ixl_recommendations = {
+                        # Homework Recommendations based on mission type
+                        homework_recommendations = {
                             "🌊 Great Lakes Monitoring": [
-                                ("IXL Earth Science: Ocean currents", "Understanding how water moves helps predict where pollutants and algae spread"),
-                                ("IXL Earth Science: The water cycle", "Lake evaporation drives lake-effect weather patterns"),
-                                ("IXL Physical Science: The electromagnetic spectrum", "Your satellite instruments detect different wavelengths of light"),
+                                ("CK-12: Ocean Currents", "https://www.ck12.org/earth-science/ocean-currents/", "Understanding how water moves helps predict where pollutants and algae spread"),
+                                ("Khan Academy: The Water Cycle", "https://www.khanacademy.org/science/biology/ecology/biogeochemical-cycles/v/the-water-cycle", "Lake evaporation drives lake-effect weather patterns"),
+                                ("CK-12: Electromagnetic Spectrum", "https://www.ck12.org/physics/electromagnetic-spectrum/", "Your satellite instruments detect different wavelengths of light"),
                             ],
                             "🌀 Hurricane & Storm Tracking": [
-                                ("IXL Earth Science: Layers of the atmosphere", "Storms form in the troposphere - understanding atmospheric layers is key"),
-                                ("IXL Earth Science: Air masses and fronts", "Cold fronts over warm lakes create lake-effect snow"),
-                                ("IXL Physical Science: Heat transfer", "Convection drives storm development and lake-effect weather"),
+                                ("CK-12: Layers of the Atmosphere", "https://www.ck12.org/earth-science/layers-of-the-atmosphere/", "Storms form in the troposphere - understanding atmospheric layers is key"),
+                                ("CK-12: Air Masses and Fronts", "https://www.ck12.org/earth-science/air-masses/", "Cold fronts over warm lakes create lake-effect snow"),
+                                ("CK-12: Heat Transfer", "https://www.ck12.org/physics/heat-transfer/", "Convection drives storm development and lake-effect weather"),
                             ],
                             "🌾 Michigan Agriculture Monitoring": [
-                                ("IXL Biology: Photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
-                                ("IXL Earth Science: Soil composition", "Soil moisture affects crop health - satellites can detect this"),
-                                ("IXL Physical Science: The electromagnetic spectrum", "Different wavelengths reveal different plant conditions"),
+                                ("Khan Academy: Photosynthesis", "https://www.khanacademy.org/science/biology/photosynthesis-in-plants/introduction-to-photosynthesis/v/photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
+                                ("CK-12: Soil Formation", "https://www.ck12.org/earth-science/soil-formation/", "Soil moisture affects crop health - satellites can detect this"),
+                                ("NASA: Measuring Vegetation", "https://earthobservatory.nasa.gov/features/MeasuringVegetation", "Learn how satellites actually measure plant health from space"),
                             ],
                             "🧊 Arctic & Great Lakes Ice Monitoring": [
-                                ("IXL Earth Science: Global climate change", "Ice coverage is a key indicator of climate trends"),
-                                ("IXL Earth Science: The greenhouse effect", "Understanding why ice is melting"),
-                                ("IXL Physical Science: Reflection and absorption of light", "Ice-albedo feedback depends on these principles"),
+                                ("Khan Academy: Climate Change", "https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/climate-change", "Ice coverage is a key indicator of climate trends"),
+                                ("CK-12: The Greenhouse Effect", "https://www.ck12.org/earth-science/greenhouse-effect/", "Understanding why ice is melting"),
+                                ("CK-12: Reflection of Light", "https://www.ck12.org/physics/reflection-of-light/", "Ice-albedo feedback depends on these principles"),
                             ],
                         }
                         
-                        mission_ixl = ixl_recommendations.get(mission['type'], ixl_recommendations["🌊 Great Lakes Monitoring"])
+                        mission_hw = homework_recommendations.get(mission['type'], homework_recommendations["🌊 Great Lakes Monitoring"])
                         
-                        ixl_text = "📚 **IXL Homework Recommendations:**\nTo strengthen your understanding of the science behind your mission, practice these skills:\n"
-                        for i, (skill, reason) in enumerate(mission_ixl, 1):
-                            ixl_text += f"\n{i}. **{skill}** - {reason}"
-                        ixl_text += f"\n4. **IXL Physical Science: Calculate velocity, distance, or time** - Essential for understanding satellite orbits!"
+                        hw_text = "📚 **Homework Resources:**\nTo strengthen your understanding of the science behind your mission, study these resources:\n"
+                        for i, (name, url, reason) in enumerate(mission_hw, 1):
+                            hw_text += f"\n{i}. [{name}]({url}) - {reason}"
+                        hw_text += f"\n4. [NASA: How Orbits Work](https://spaceplace.nasa.gov/how-orbits-work/) - Essential for understanding satellite orbits!"
                         
-                        feedback_parts.append(ixl_text)
+                        feedback_parts.append(hw_text)
                         
                         # Closing question
                         feedback_parts.append("🤔 **Think deeper:** What would happen if one of your satellites failed? How would you design redundancy into your constellation to ensure continuous coverage of the Great Lakes?")
@@ -1667,38 +1667,38 @@ Write 5-6 substantive paragraphs. Be encouraging but prioritize TEACHING. Use sp
                     if mission['use_3d_printing']:
                         feedback_parts.append("🖨️ **Excellent choice on 3D printing!** Additive manufacturing enables complex geometries impossible with traditional machining - like internal cooling channels and lattice structures that reduce weight while maintaining strength. Fewer welded joints also means fewer potential failure points in the harsh space environment.")
                     
-                    # IXL Homework Recommendations
-                    ixl_recommendations = {
+                    # Homework Recommendations
+                    homework_recommendations = {
                         "🌊 Great Lakes Monitoring": [
-                            ("IXL Earth Science: Ocean currents", "Understanding how water moves helps predict where pollutants and algae spread"),
-                            ("IXL Earth Science: The water cycle", "Lake evaporation drives lake-effect weather patterns"),
-                            ("IXL Physical Science: The electromagnetic spectrum", "Your satellite instruments detect different wavelengths of light"),
+                            ("CK-12: Ocean Currents", "https://www.ck12.org/earth-science/ocean-currents/", "Understanding how water moves helps predict where pollutants and algae spread"),
+                            ("Khan Academy: The Water Cycle", "https://www.khanacademy.org/science/biology/ecology/biogeochemical-cycles/v/the-water-cycle", "Lake evaporation drives lake-effect weather patterns"),
+                            ("CK-12: Electromagnetic Spectrum", "https://www.ck12.org/physics/electromagnetic-spectrum/", "Your satellite instruments detect different wavelengths of light"),
                         ],
                         "🌀 Hurricane & Storm Tracking": [
-                            ("IXL Earth Science: Layers of the atmosphere", "Storms form in the troposphere - understanding atmospheric layers is key"),
-                            ("IXL Earth Science: Air masses and fronts", "Cold fronts over warm lakes create lake-effect snow"),
-                            ("IXL Physical Science: Heat transfer", "Convection drives storm development and lake-effect weather"),
+                            ("CK-12: Layers of the Atmosphere", "https://www.ck12.org/earth-science/layers-of-the-atmosphere/", "Storms form in the troposphere - understanding atmospheric layers is key"),
+                            ("CK-12: Air Masses and Fronts", "https://www.ck12.org/earth-science/air-masses/", "Cold fronts over warm lakes create lake-effect snow"),
+                            ("CK-12: Heat Transfer", "https://www.ck12.org/physics/heat-transfer/", "Convection drives storm development and lake-effect weather"),
                         ],
                         "🌾 Michigan Agriculture Monitoring": [
-                            ("IXL Biology: Photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
-                            ("IXL Earth Science: Soil composition", "Soil moisture affects crop health - satellites can detect this"),
-                            ("IXL Physical Science: The electromagnetic spectrum", "Different wavelengths reveal different plant conditions"),
+                            ("Khan Academy: Photosynthesis", "https://www.khanacademy.org/science/biology/photosynthesis-in-plants/introduction-to-photosynthesis/v/photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
+                            ("CK-12: Soil Formation", "https://www.ck12.org/earth-science/soil-formation/", "Soil moisture affects crop health - satellites can detect this"),
+                            ("NASA: Measuring Vegetation", "https://earthobservatory.nasa.gov/features/MeasuringVegetation", "Learn how satellites actually measure plant health from space"),
                         ],
                         "🧊 Arctic & Great Lakes Ice Monitoring": [
-                            ("IXL Earth Science: Global climate change", "Ice coverage is a key indicator of climate trends"),
-                            ("IXL Earth Science: The greenhouse effect", "Understanding why ice is melting"),
-                            ("IXL Physical Science: Reflection and absorption of light", "Ice-albedo feedback depends on these principles"),
+                            ("Khan Academy: Climate Change", "https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/climate-change", "Ice coverage is a key indicator of climate trends"),
+                            ("CK-12: The Greenhouse Effect", "https://www.ck12.org/earth-science/greenhouse-effect/", "Understanding why ice is melting"),
+                            ("CK-12: Reflection of Light", "https://www.ck12.org/physics/reflection-of-light/", "Ice-albedo feedback depends on these principles"),
                         ],
                     }
                     
-                    mission_ixl = ixl_recommendations.get(mission['type'], ixl_recommendations["🌊 Great Lakes Monitoring"])
+                    mission_hw = homework_recommendations.get(mission['type'], homework_recommendations["🌊 Great Lakes Monitoring"])
                     
-                    ixl_text = "📚 **IXL Homework Recommendations:**\nTo strengthen the science behind your mission, practice these skills:\n"
-                    for i, (skill, reason) in enumerate(mission_ixl, 1):
-                        ixl_text += f"\n{i}. **{skill}** - {reason}"
-                    ixl_text += f"\n4. **IXL Physical Science: Calculate velocity, distance, or time** - Essential for understanding satellite orbits!"
+                    hw_text = "📚 **Homework Resources:**\nTo strengthen the science behind your mission, study these resources:\n"
+                    for i, (name, url, reason) in enumerate(mission_hw, 1):
+                        hw_text += f"\n{i}. [{name}]({url}) - {reason}"
+                    hw_text += f"\n4. [NASA: How Orbits Work](https://spaceplace.nasa.gov/how-orbits-work/) - Essential for understanding satellite orbits!"
                     
-                    feedback_parts.append(ixl_text)
+                    feedback_parts.append(hw_text)
                     
                     # Closing
                     feedback_parts.append("🤔 **Think deeper:** With your constellation of " + str(mission['num_satellites']) + " satellites, calculate how often each point on the Great Lakes gets observed. How would losing one satellite affect your coverage? What's your backup plan?")
@@ -1908,38 +1908,39 @@ Provide detailed, educational feedback on EACH short answer response. For each q
 - If they missed the "innovation chain" concept in Q7, explain: Technology → Lower Costs → More Satellites → Better Data → Better Science
 - If Q8 lacks specifics, provide a detailed example (e.g., "Satellites measure chlorophyll concentrations at 443nm and 555nm wavelengths to detect harmful algal blooms in Lake Erie, protecting drinking water for Toledo and Detroit")
 
-### 3. PROVIDE SPECIFIC IXL HOMEWORK LINKS
-Based on gaps in their understanding, recommend 2-3 IXL lessons with DIRECT LINKS. Use these exact URLs:
+### 3. PROVIDE SPECIFIC HOMEWORK LINKS
+Based on gaps in their understanding, recommend 2-3 lessons from CK-12, Khan Academy, or NASA with DIRECT LINKS. Use these exact URLs:
 
 **For understanding the innovation chain / engineering / technology:**
-- https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process - "Engineering design process"
-- https://www.ixl.com/science/grade-8/evaluate-technological-solutions - "Evaluate technological solutions"
+- https://www.ck12.org/engineering/engineering-design-process/ - "CK-12: Engineering Design Process"
+- https://www.khanacademy.org/science/engineering - "Khan Academy: Engineering"
+- https://spaceplace.nasa.gov/how-orbits-work/ - "NASA: How Orbits Work"
 
 **For understanding Earth's systems / water cycle:**
-- https://www.ixl.com/science/grade-7/the-water-cycle - "The water cycle"
-- https://www.ixl.com/science/grade-8/water-cycle-and-earth-systems - "Water cycle and Earth systems"
+- https://www.ck12.org/earth-science/water-cycle/ - "CK-12: The Water Cycle"
+- https://www.khanacademy.org/science/biology/ecology/biogeochemical-cycles/v/the-water-cycle - "Khan Academy: The Water Cycle"
+- https://www.ck12.org/earth-science/ocean-currents/ - "CK-12: Ocean Currents"
 
 **For understanding climate and weather:**
-- https://www.ixl.com/science/grade-8/weather-and-climate - "Weather and climate"
-- https://www.ixl.com/science/grade-6/weather-vs-climate - "Weather vs. climate"
-- https://www.ixl.com/science/grade-8/global-climate-change - "Global climate change"
+- https://www.ck12.org/earth-science/weather-and-climate/ - "CK-12: Weather and Climate"
+- https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/weather-vs-climate - "Khan Academy: Weather vs Climate"
+- https://www.ck12.org/earth-science/greenhouse-effect/ - "CK-12: The Greenhouse Effect"
+- https://climatekids.nasa.gov/ - "NASA Climate Kids"
 
-**For understanding electromagnetic spectrum / light:**
-- https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum - "The electromagnetic spectrum"
-- https://www.ixl.com/science/grade-8/absorption-reflection-and-transmission - "Absorption, reflection, and transmission"
+**For understanding electromagnetic spectrum / light / how satellites see:**
+- https://www.ck12.org/physics/electromagnetic-spectrum/ - "CK-12: Electromagnetic Spectrum"
+- https://www.khanacademy.org/science/physics/light-waves/introduction-to-light-waves/v/electromagnetic-waves-and-the-electromagnetic-spectrum - "Khan Academy: Electromagnetic Spectrum"
+- https://earthobservatory.nasa.gov/features/MeasuringVegetation - "NASA: Measuring Vegetation from Space"
 
-**For understanding ecosystems / environment:**
-- https://www.ixl.com/science/grade-7/how-do-humans-affect-ecosystems - "How humans affect ecosystems"
-- https://www.ixl.com/science/grade-8/human-activities-and-earth-systems - "Human activities and Earth systems"
+**For understanding Great Lakes / Michigan environment:**
+- https://www.glerl.noaa.gov/education/ - "NOAA Great Lakes Education"
+- https://coastwatch.glerl.noaa.gov/ - "NOAA CoastWatch Great Lakes"
+- https://www.michiganseagrant.org/lessons/lessons/by-broad-concept/earth-science/ - "Michigan Sea Grant: Earth Science"
 
-**For understanding Great Lakes / oceans:**
-- https://www.ixl.com/science/grade-6/ocean-currents - "Ocean currents"
-- https://www.ixl.com/science/grade-7/the-greenhouse-effect - "The greenhouse effect"
-
-Format your IXL recommendations like this:
-"📚 **Practice These IXL Lessons:**
-1. [Lesson Name](URL) - Why this will help: [specific reason based on their answer]
-2. [Lesson Name](URL) - Why this will help: [specific reason based on their answer]"
+Format your recommendations like this:
+"📚 **Study These Resources:**
+1. [Resource Name](URL) - Why this will help: [specific reason based on their answer]
+2. [Resource Name](URL) - Why this will help: [specific reason based on their answer]"
 
 ### 4. MODEL ANSWER
 Provide a brief "model answer" showing what an excellent response would include for each question. Keep it to 2-3 sentences each.
@@ -1987,19 +1988,19 @@ Be encouraging but honest. If they left an answer blank, don't criticize - encou
                             feedback.append("**Question 7 - Innovation Chain:**")
                             if answers.get('q7') and len(answers.get('q7', '')) > 20:
                                 feedback.append("Good effort! The key concept is the **innovation chain**: 3D printing → Lower manufacturing costs → Cheaper satellites → More satellites launched → Better Earth coverage → More scientific data → Improved understanding of climate, weather, and ecosystems.")
-                                feedback.append("\n📚 **Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process)")
+                                feedback.append("\n📚 **Study:** [CK-12: Engineering Design Process](https://www.ck12.org/engineering/engineering-design-process/) | [NASA: How Orbits Work](https://spaceplace.nasa.gov/how-orbits-work/)")
                             else:
                                 feedback.append("This question asks about the **innovation chain** - how one technology improvement creates a cascade of benefits. Here's the concept: When 3D printing makes fuel tanks cheaper ($30K vs $150K), companies can afford more satellites. More satellites = better coverage of Earth. Better coverage = more data about our oceans, ice, and atmosphere. More data = better scientific understanding!")
-                                feedback.append("\n📚 **Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process) | [Evaluate Technological Solutions](https://www.ixl.com/science/grade-8/evaluate-technological-solutions)")
+                                feedback.append("\n📚 **Study:** [CK-12: Engineering Design Process](https://www.ck12.org/engineering/engineering-design-process/) | [NASA: How Satellites Work](https://spaceplace.nasa.gov/how-orbits-work/)")
                             
                             # Q8 Feedback
                             feedback.append("\n\n**Question 8 - Satellite Data & Michigan:**")
                             if answers.get('q8') and len(answers.get('q8', '')) > 20:
                                 feedback.append("Nice work! To strengthen your answer, be even MORE specific. For example: 'Satellites measure **chlorophyll-a concentrations** using blue (443nm) and green (555nm) light wavelengths to detect **harmful algal blooms** in Lake Erie. This protects drinking water for millions of people in Michigan and Ohio, and the fishing industry worth $7 billion annually.'")
-                                feedback.append("\n📚 **Practice:** [The Electromagnetic Spectrum](https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum)")
+                                feedback.append("\n📚 **Study:** [CK-12: Electromagnetic Spectrum](https://www.ck12.org/physics/electromagnetic-spectrum/) | [NOAA Great Lakes CoastWatch](https://coastwatch.glerl.noaa.gov/)")
                             else:
                                 feedback.append("This question wants a SPECIFIC example. Here's a model answer: 'Satellites use **thermal sensors** to measure Great Lakes surface temperature (in °C). Warmer lake temperatures (15-20°C vs 4°C) cause more evaporation, which creates intense **lake-effect snowstorms** that can dump 2-3 feet of snow on Michigan communities. This data helps meteorologists issue accurate warnings, protecting lives and the economy.'")
-                                feedback.append("\n📚 **Practice:** [Weather and Climate](https://www.ixl.com/science/grade-8/weather-and-climate) | [Human Activities and Earth Systems](https://www.ixl.com/science/grade-8/human-activities-and-earth-systems)")
+                                feedback.append("\n📚 **Study:** [CK-12: Weather and Climate](https://www.ck12.org/earth-science/weather-and-climate/) | [NOAA Great Lakes Education](https://www.glerl.noaa.gov/education/)")
                             
                             st.markdown("\n\n".join(feedback))
                             
@@ -2011,14 +2012,14 @@ Be encouraging but honest. If they left an answer blank, don't criticize - encou
 **Question 7 - Model Answer:**
 The innovation chain works like this: 3D printing technology reduces fuel tank costs from $150,000 to $30,000. Lower costs mean more satellites can be launched. More satellites provide better coverage of Earth. Better coverage means more frequent data collection. More data leads to improved understanding of Earth's climate, oceans, and atmosphere.
 
-📚 **IXL Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process)
+📚 **Study:** [CK-12: Engineering Design Process](https://www.ck12.org/engineering/engineering-design-process/) | [NASA: How Orbits Work](https://spaceplace.nasa.gov/how-orbits-work/)
 
 ---
 
 **Question 8 - Model Answer:**
 Satellites measure Great Lakes surface temperature using thermal infrared sensors. When lake temperatures are warm (15-20°C) in fall/early winter, more water evaporates. When cold Arctic air crosses the warm lakes, this moisture creates intense lake-effect snowstorms. Satellite data helps meteorologists predict these storms, giving Michigan communities time to prepare.
 
-📚 **IXL Practice:** [Weather and Climate](https://www.ixl.com/science/grade-8/weather-and-climate) | [The Electromagnetic Spectrum](https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum)
+📚 **Study:** [CK-12: Weather and Climate](https://www.ck12.org/earth-science/weather-and-climate/) | [CK-12: Electromagnetic Spectrum](https://www.ck12.org/physics/electromagnetic-spectrum/) | [NOAA Great Lakes](https://www.glerl.noaa.gov/education/)
                         """)
 
 def show_resources():
