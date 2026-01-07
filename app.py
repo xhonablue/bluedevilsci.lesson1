@@ -87,6 +87,8 @@ if 'completed_checks' not in st.session_state:
     st.session_state.completed_checks = set()
 if 'mission_data' not in st.session_state:
     st.session_state.mission_data = None
+if 'quiz_short_answers' not in st.session_state:
+    st.session_state.quiz_short_answers = None
 
 # XP Award Function
 def award_xp(points, check_id, achievement_name=None):
@@ -1854,7 +1856,170 @@ def show_quiz():
                 st.warning("📚 🎖️ Achievement Unlocked: Quiz Champion! Consider reviewing the lesson materials and trying the quick checks again to improve your score.")
             
             st.markdown("### Short Answer Feedback")
-            st.info("Your short answer responses have been recorded. Your teacher will review questions 7 and 8.")
+            st.info("Your short answer responses have been recorded. Click below to get personalized feedback from Professor Xavier!")
+            
+            # Store short answer responses for AI feedback
+            st.session_state.quiz_short_answers = {
+                "q7": q7,
+                "q8": q8,
+                "mc_score": score,
+                "mc_total": total
+            }
+    
+    # AI Feedback for Short Answers (outside the form)
+    if 'quiz_short_answers' in st.session_state and st.session_state.quiz_short_answers:
+        answers = st.session_state.quiz_short_answers
+        
+        if answers.get('q7') or answers.get('q8'):
+            st.markdown("---")
+            st.markdown("### 🤖 Get Feedback on Your Short Answers")
+            
+            if st.button("🎓 Get Professor Xavier's Feedback on Short Answers"):
+                with st.spinner("Professor Xavier is reviewing your responses..."):
+                    
+                    feedback_prompt = f"""You are Professor Xavier, an encouraging but thorough Earth Science educator for high school students in Michigan. A student has completed short answer questions about satellites and Earth science.
+
+## Student's Responses:
+
+**Question 7:** "Explain how a single technological advancement (like 3D-printed fuel tanks) can lead to improvements in our understanding of Earth's systems. Use the innovation chain concept in your answer."
+
+**Student's Answer:** {answers.get('q7', 'No response provided') if answers.get('q7') else 'No response provided'}
+
+---
+
+**Question 8:** "Describe one way that satellite data is used to protect Michigan's environment or economy. Be specific about what is measured and why it matters."
+
+**Student's Answer:** {answers.get('q8', 'No response provided') if answers.get('q8') else 'No response provided'}
+
+---
+
+**Their Multiple Choice Score:** {answers.get('mc_score', 0)}/{answers.get('mc_total', 6)}
+
+## Your Task:
+
+Provide detailed, educational feedback on EACH short answer response. For each question:
+
+### 1. EVALUATE THEIR RESPONSE
+- What did they get RIGHT? Be specific and encouraging.
+- What key concepts did they MISS or could explain better?
+- Rate their understanding: Excellent / Good / Developing / Needs More Work
+
+### 2. TEACH WHAT'S MISSING
+- If they missed the "innovation chain" concept in Q7, explain: Technology → Lower Costs → More Satellites → Better Data → Better Science
+- If Q8 lacks specifics, provide a detailed example (e.g., "Satellites measure chlorophyll concentrations at 443nm and 555nm wavelengths to detect harmful algal blooms in Lake Erie, protecting drinking water for Toledo and Detroit")
+
+### 3. PROVIDE SPECIFIC IXL HOMEWORK LINKS
+Based on gaps in their understanding, recommend 2-3 IXL lessons with DIRECT LINKS. Use these exact URLs:
+
+**For understanding the innovation chain / engineering / technology:**
+- https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process - "Engineering design process"
+- https://www.ixl.com/science/grade-8/evaluate-technological-solutions - "Evaluate technological solutions"
+
+**For understanding Earth's systems / water cycle:**
+- https://www.ixl.com/science/grade-7/the-water-cycle - "The water cycle"
+- https://www.ixl.com/science/grade-8/water-cycle-and-earth-systems - "Water cycle and Earth systems"
+
+**For understanding climate and weather:**
+- https://www.ixl.com/science/grade-8/weather-and-climate - "Weather and climate"
+- https://www.ixl.com/science/grade-6/weather-vs-climate - "Weather vs. climate"
+- https://www.ixl.com/science/grade-8/global-climate-change - "Global climate change"
+
+**For understanding electromagnetic spectrum / light:**
+- https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum - "The electromagnetic spectrum"
+- https://www.ixl.com/science/grade-8/absorption-reflection-and-transmission - "Absorption, reflection, and transmission"
+
+**For understanding ecosystems / environment:**
+- https://www.ixl.com/science/grade-7/how-do-humans-affect-ecosystems - "How humans affect ecosystems"
+- https://www.ixl.com/science/grade-8/human-activities-and-earth-systems - "Human activities and Earth systems"
+
+**For understanding Great Lakes / oceans:**
+- https://www.ixl.com/science/grade-6/ocean-currents - "Ocean currents"
+- https://www.ixl.com/science/grade-7/the-greenhouse-effect - "The greenhouse effect"
+
+Format your IXL recommendations like this:
+"📚 **Practice These IXL Lessons:**
+1. [Lesson Name](URL) - Why this will help: [specific reason based on their answer]
+2. [Lesson Name](URL) - Why this will help: [specific reason based on their answer]"
+
+### 4. MODEL ANSWER
+Provide a brief "model answer" showing what an excellent response would include for each question. Keep it to 2-3 sentences each.
+
+Be encouraging but honest. If they left an answer blank, don't criticize - encourage them to try and explain why these concepts matter for Michigan."""
+
+                    try:
+                        import requests
+                        import json
+                        
+                        api_key = "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"
+                        
+                        response = requests.post(
+                            "https://api.anthropic.com/v1/messages",
+                            headers={
+                                "Content-Type": "application/json",
+                                "x-api-key": api_key,
+                                "anthropic-version": "2023-06-01"
+                            },
+                            json={
+                                "model": "claude-sonnet-4-20250514",
+                                "max_tokens": 2000,
+                                "messages": [{"role": "user", "content": feedback_prompt}]
+                            },
+                            timeout=60
+                        )
+                        
+                        if response.status_code == 200:
+                            data = response.json()
+                            feedback_text = data["content"][0]["text"]
+                            
+                            st.markdown("### 💬 Professor Xavier's Feedback on Your Short Answers:")
+                            st.markdown(feedback_text)
+                            
+                            # Award bonus XP
+                            if award_xp(15, "quiz_short_answer_feedback"):
+                                st.success("🎉 +15 XP for getting detailed feedback on your short answers!")
+                        else:
+                            # Fallback feedback
+                            st.markdown("### 💬 Professor Xavier's Feedback:")
+                            
+                            feedback = []
+                            
+                            # Q7 Feedback
+                            feedback.append("**Question 7 - Innovation Chain:**")
+                            if answers.get('q7') and len(answers.get('q7', '')) > 20:
+                                feedback.append("Good effort! The key concept is the **innovation chain**: 3D printing → Lower manufacturing costs → Cheaper satellites → More satellites launched → Better Earth coverage → More scientific data → Improved understanding of climate, weather, and ecosystems.")
+                                feedback.append("\n📚 **Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process)")
+                            else:
+                                feedback.append("This question asks about the **innovation chain** - how one technology improvement creates a cascade of benefits. Here's the concept: When 3D printing makes fuel tanks cheaper ($30K vs $150K), companies can afford more satellites. More satellites = better coverage of Earth. Better coverage = more data about our oceans, ice, and atmosphere. More data = better scientific understanding!")
+                                feedback.append("\n📚 **Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process) | [Evaluate Technological Solutions](https://www.ixl.com/science/grade-8/evaluate-technological-solutions)")
+                            
+                            # Q8 Feedback
+                            feedback.append("\n\n**Question 8 - Satellite Data & Michigan:**")
+                            if answers.get('q8') and len(answers.get('q8', '')) > 20:
+                                feedback.append("Nice work! To strengthen your answer, be even MORE specific. For example: 'Satellites measure **chlorophyll-a concentrations** using blue (443nm) and green (555nm) light wavelengths to detect **harmful algal blooms** in Lake Erie. This protects drinking water for millions of people in Michigan and Ohio, and the fishing industry worth $7 billion annually.'")
+                                feedback.append("\n📚 **Practice:** [The Electromagnetic Spectrum](https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum)")
+                            else:
+                                feedback.append("This question wants a SPECIFIC example. Here's a model answer: 'Satellites use **thermal sensors** to measure Great Lakes surface temperature (in °C). Warmer lake temperatures (15-20°C vs 4°C) cause more evaporation, which creates intense **lake-effect snowstorms** that can dump 2-3 feet of snow on Michigan communities. This data helps meteorologists issue accurate warnings, protecting lives and the economy.'")
+                                feedback.append("\n📚 **Practice:** [Weather and Climate](https://www.ixl.com/science/grade-8/weather-and-climate) | [Human Activities and Earth Systems](https://www.ixl.com/science/grade-8/human-activities-and-earth-systems)")
+                            
+                            st.markdown("\n\n".join(feedback))
+                            
+                    except Exception as e:
+                        # Simple fallback
+                        st.markdown("### 💬 Professor Xavier's Feedback:")
+                        
+                        st.markdown("""
+**Question 7 - Model Answer:**
+The innovation chain works like this: 3D printing technology reduces fuel tank costs from $150,000 to $30,000. Lower costs mean more satellites can be launched. More satellites provide better coverage of Earth. Better coverage means more frequent data collection. More data leads to improved understanding of Earth's climate, oceans, and atmosphere.
+
+📚 **IXL Practice:** [Engineering Design Process](https://www.ixl.com/science/grade-8/identify-steps-of-the-engineering-design-process)
+
+---
+
+**Question 8 - Model Answer:**
+Satellites measure Great Lakes surface temperature using thermal infrared sensors. When lake temperatures are warm (15-20°C) in fall/early winter, more water evaporates. When cold Arctic air crosses the warm lakes, this moisture creates intense lake-effect snowstorms. Satellite data helps meteorologists predict these storms, giving Michigan communities time to prepare.
+
+📚 **IXL Practice:** [Weather and Climate](https://www.ixl.com/science/grade-8/weather-and-climate) | [The Electromagnetic Spectrum](https://www.ixl.com/science/grade-8/the-electromagnetic-spectrum)
+                        """)
 
 def show_resources():
     st.markdown('<div class="main-header">📚 Resources</div>', unsafe_allow_html=True)
