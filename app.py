@@ -151,4 +151,4 @@ def show_home():
         with stat2:
             st.metric("Weather Satellites", "~400", "monitoring climate")
         with stat3:
-            st.metric("Orbit Speed", "17,000 mph", "to stay in
+            st.metric("Orbit Speed", "17,000 mph", "to stay in space")
