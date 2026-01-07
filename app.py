@@ -1400,43 +1400,130 @@ def show_design_challenge():
         
         if st.button("🎓 Get Feedback from Professor Xavier"):
             with st.spinner("Professor Xavier is reviewing your mission design..."):
-                # Build the feedback prompt
-                feedback_prompt = f"""You are Professor Xavier, a friendly and encouraging satellite engineering expert helping high school Earth Science students in Michigan. 
+                # Build a detailed educational feedback prompt
+                feedback_prompt = f"""You are Professor Xavier, a satellite engineering expert and passionate Earth Science educator helping high school students in Michigan design satellite missions.
 
-A student has designed a satellite mission. Please provide constructive, educational feedback in 3-4 paragraphs:
+Your role is to provide DEEPLY EDUCATIONAL feedback that teaches students the science behind their choices. Don't just say "good choice" - explain the physics, the engineering trade-offs, and real-world examples.
 
-1. Start with genuine praise for what they did well
-2. Explain whether their orbit choice makes sense for their mission (they chose {mission['orbit']}, the recommended orbit was {mission['recommended_orbit']})
-3. Comment on their instrument selection (they chose: {', '.join(mission['instruments']) if mission['instruments'] else 'none selected'}, recommended instruments were: {', '.join(mission['recommended_instruments'])})
-4. Offer one specific suggestion for improvement and encourage them
+## Student's Mission Design:
+- **Mission Name:** {mission['name'] if mission['name'] else 'Not named'}
+- **Mission Type:** {mission['type']}
+- **Number of Satellites:** {mission['num_satellites']}
+- **Orbit Selected:** {mission['orbit']} (Recommended was: {mission['recommended_orbit']})
+- **Instruments Selected:** {', '.join(mission['instruments']) if mission['instruments'] else 'None selected'}
+- **Recommended Instruments:** {', '.join(mission['recommended_instruments'])}
+- **Mission Goal:** {mission['goal'] if mission['goal'] else 'Not specified'}
+- **Michigan Impact:** {mission['michigan_impact'] if mission['michigan_impact'] else 'Not specified'}
+- **Using 3D Printing:** {'Yes' if mission['use_3d_printing'] else 'No'}
+- **Budget:** {mission['budget']}
+- **Timeline:** {mission['timeline']}
+- **Data Priority:** {mission['data_priority']}
 
-Student's Mission Design:
-- Mission Name: {mission['name'] if mission['name'] else 'Not named'}
-- Mission Type: {mission['type']}
-- Number of Satellites: {mission['num_satellites']}
-- Orbit Selected: {mission['orbit']}
-- Instruments: {', '.join(mission['instruments']) if mission['instruments'] else 'None selected'}
-- Mission Goal: {mission['goal'] if mission['goal'] else 'Not specified'}
-- Michigan Impact: {mission['michigan_impact'] if mission['michigan_impact'] else 'Not specified'}
-- Using 3D Printing: {'Yes' if mission['use_3d_printing'] else 'No'}
-- Budget: {mission['budget']}
-- Timeline: {mission['timeline']}
+## Your Feedback Must Include:
 
-Keep your response encouraging, educational, and appropriate for high school students. Use specific examples related to Michigan and the Great Lakes when possible. End with a question that prompts further thinking about their mission."""
+### 1. ORBIT ANALYSIS (Be specific and educational!)
+- Explain the PHYSICS of why their orbit choice does or doesn't match their mission
+- For LEO: Discuss orbital velocity (~7.8 km/s), revisit time, spatial resolution benefits
+- For GEO: Explain why satellites "hover" (orbital period = Earth's rotation = 24 hrs), and the 35,786 km altitude requirement
+- For Polar: Explain how Earth rotates beneath the satellite, enabling full global coverage
+- Give a SPECIFIC example: "For monitoring Great Lakes algal blooms, you need X because..."
+- If they chose differently than recommended, explain the trade-offs honestly
+
+### 2. INSTRUMENT DEEP DIVE (Teach the science!)
+For EACH instrument they selected, explain:
+- What electromagnetic spectrum it uses (visible, infrared, microwave, radar)
+- The physical principle behind how it works
+- SPECIFICALLY how it helps their mission type
+
+Example explanations to include:
+- **Radar Altimeter:** "This sends microwave pulses at ~13.6 GHz down to the surface. By measuring the round-trip time (at the speed of light), we can calculate surface height to within centimeters. For Great Lakes monitoring, this lets us track water level changes that affect shipping - every inch of water level change affects how much cargo ships can carry!"
+
+- **Multispectral Imager:** "Healthy plants reflect 40-50% of near-infrared light but only 10-20% of red light because chlorophyll absorbs red for photosynthesis. We calculate NDVI = (NIR - Red)/(NIR + Red). Values near +1 mean healthy vegetation; values near 0 mean stressed or dead plants."
+
+- **Thermal Sensor:** "Everything above absolute zero emits infrared radiation according to the Stefan-Boltzmann law. Warmer objects emit more, and at shorter wavelengths (Wien's law). Great Lakes surface temps of 4°C vs 20°C dramatically affect lake-effect snow - warmer water = more evaporation = more snow!"
+
+- **SAR:** "Unlike optical sensors that need sunlight, SAR creates its own 'illumination' using radar pulses. Different surfaces have different radar backscatter - water appears dark (smooth surface reflects radar away), while ice appears bright (rough surface scatters radar back). This is why SAR can map Great Lakes ice even during cloudy Michigan winters!"
+
+- **Microwave Radiometer:** "Water molecules emit microwave radiation based on their temperature. Microwaves at ~6.9 GHz penetrate clouds, so we can measure sea surface temperature even when it's overcast. For Michigan, this helps track Great Lakes temps that drive lake-effect weather."
+
+- **Spectrometer:** "Different gases absorb specific wavelengths of light - CO2 absorbs at 4.26 μm and 15 μm, methane at 3.3 μm. By measuring which wavelengths are 'missing' from reflected sunlight, we can identify and quantify atmospheric gases. Detroit's air quality monitoring uses this principle!"
+
+### 3. ENGINEERING TRADE-OFFS
+- Discuss how their budget/timeline choices affect what's realistic
+- If they chose 3D printing, explain the specific manufacturing advantages (lattice structures, reduced part count, optimized fuel flow channels)
+- Connect number of satellites to revisit time: "With {mission['num_satellites']} satellites in {mission['orbit']}, you'll get coverage every X hours..."
+
+### 4. MICHIGAN CONNECTION
+- Make specific connections to how this mission would help Michigan
+- Reference real examples: NOAA GLERL, CoastWatch, Landsat imagery of Great Lakes
+
+### 5. IXL SCIENCE HOMEWORK RECOMMENDATIONS
+Based on the student's mission type and the science concepts involved, recommend 3-4 specific IXL Science skill sections for homework practice. Use this mapping:
+
+**For Great Lakes/Ocean Monitoring missions, recommend:**
+- "IXL Earth Science: Ocean currents" 
+- "IXL Earth Science: The water cycle"
+- "IXL Physical Science: Absorption, reflection, and transmission of light"
+- "IXL Earth Science: Weather and climate patterns"
+
+**For Hurricane/Storm Tracking missions, recommend:**
+- "IXL Earth Science: Layers of the atmosphere"
+- "IXL Earth Science: Weather vs. climate"
+- "IXL Earth Science: Air masses and fronts"
+- "IXL Physical Science: Heat transfer (conduction, convection, radiation)"
+
+**For Agriculture Monitoring missions, recommend:**
+- "IXL Biology: Photosynthesis"
+- "IXL Earth Science: Soil composition and conservation"
+- "IXL Physical Science: The electromagnetic spectrum"
+- "IXL Earth Science: Climate zones and biomes"
+
+**For Ice/Climate Monitoring missions, recommend:**
+- "IXL Earth Science: Global climate change"
+- "IXL Earth Science: The greenhouse effect"
+- "IXL Physical Science: Reflection and absorption of light"
+- "IXL Earth Science: Ice ages and glaciation"
+
+**For ALL missions (satellite technology), also consider:**
+- "IXL Physical Science: Waves and the electromagnetic spectrum"
+- "IXL Physical Science: Calculate velocity, distance, or time"
+- "IXL Earth Science: Tools and methods of Earth scientists"
+
+Format this section as:
+"📚 **IXL Homework Recommendations:**
+To strengthen your understanding of the science behind your mission, practice these IXL skills:
+1. [Skill name and section] - [brief explanation of why it's relevant]
+2. [Skill name and section] - [brief explanation of why it's relevant]
+3. [Skill name and section] - [brief explanation of why it's relevant]"
+
+### 6. THOUGHTFUL QUESTION
+End with a specific, thought-provoking question that extends their learning, such as:
+- "What would happen to your data quality if one satellite failed?"
+- "How might climate change affect what your instruments detect over the next 20 years?"
+- "Could your satellite detect the difference between natural algae and a harmful algal bloom?"
+
+Write 5-6 substantive paragraphs. Be encouraging but prioritize TEACHING. Use specific numbers, wavelengths, and scientific principles. Make this a genuine learning experience!"""
 
                 try:
                     import requests
                     import json
                     
+                    # Claude API key
+                    api_key = "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"
+                    
                     response = requests.post(
                         "https://api.anthropic.com/v1/messages",
-                        headers={"Content-Type": "application/json"},
+                        headers={
+                            "Content-Type": "application/json",
+                            "x-api-key": api_key,
+                            "anthropic-version": "2023-06-01"
+                        },
                         json={
                             "model": "claude-sonnet-4-20250514",
-                            "max_tokens": 1000,
+                            "max_tokens": 2000,
                             "messages": [{"role": "user", "content": feedback_prompt}]
                         },
-                        timeout=30
+                        timeout=60
                     )
                     
                     if response.status_code == 200:
@@ -1454,65 +1541,165 @@ Keep your response encouraging, educational, and appropriate for high school stu
                         if award_xp(10, "professor_feedback"):
                             st.success("🎉 +10 XP for seeking expert feedback!")
                     else:
-                        # Fallback to rule-based feedback if API fails
+                        # Fallback to detailed rule-based feedback if API fails
                         st.markdown("### 💬 Professor Xavier's Feedback:")
                         
                         feedback_parts = []
                         
-                        # Praise
-                        feedback_parts.append(f"Great work on your **{mission['name'] if mission['name'] else mission['type']}** mission design! Taking on the challenge of {mission['type'].lower().replace('🌊 ', '').replace('🌀 ', '').replace('🌾 ', '').replace('🧊 ', '')} shows real scientific thinking.")
+                        # Opening
+                        feedback_parts.append(f"**Great work on your {mission['name'] if mission['name'] else mission['type']} mission design!** Let me share some insights about your choices.")
                         
-                        # Orbit feedback
-                        if mission['orbit'] == mission['recommended_orbit'] or \
-                           (mission['recommended_orbit'] == "Low Earth Orbit (LEO)" and mission['orbit'] == "Low Earth Orbit (LEO)") or \
-                           (mission['recommended_orbit'] == "Polar Orbit" and mission['orbit'] == "Polar Orbit") or \
-                           (mission['recommended_orbit'] == "Geostationary (GEO)" and mission['orbit'] == "Geostationary (GEO)"):
-                            feedback_parts.append(f"Excellent orbit choice! **{mission['orbit']}** is ideal for your mission because it provides the coverage and timing you need.")
-                        else:
-                            feedback_parts.append(f"Interesting orbit choice! You selected **{mission['orbit']}**, while **{mission['recommended_orbit']}** is typically recommended for this type of mission. Consider the trade-offs: Does your orbit give you the revisit time and coverage your mission needs?")
+                        # Orbit feedback with science
+                        orbit_science = {
+                            "Low Earth Orbit (LEO)": "LEO satellites orbit at 200-2000 km altitude, traveling at about 7.8 km/s. At this speed, they circle Earth every 90 minutes! The closer proximity means better image resolution - you can see smaller details. However, each pass only covers a narrow strip of Earth.",
+                            "Medium Earth Orbit (MEO)": "MEO satellites orbit at 2,000-35,000 km. GPS satellites use MEO at about 20,200 km because from this height, just 24-30 satellites can cover the entire Earth for navigation signals.",
+                            "Geostationary (GEO)": "GEO satellites orbit at exactly 35,786 km altitude. At this height, orbital period equals Earth's rotation (24 hours), so the satellite appears to 'hover' over one spot. GOES weather satellites use GEO to continuously watch storms develop over the Americas.",
+                            "Polar Orbit": "Polar orbits pass over the North and South poles. As the satellite orbits, Earth rotates beneath it, so eventually the satellite sees every part of Earth. NASA's Terra and Aqua satellites use polar orbits to map the entire planet."
+                        }
                         
-                        # Instrument feedback
+                        feedback_parts.append(f"**About your orbit choice ({mission['orbit']}):** {orbit_science.get(mission['orbit'], 'This orbit has unique characteristics for your mission.')}")
+                        
+                        if mission['orbit'] != mission['recommended_orbit']:
+                            feedback_parts.append(f"💡 *Consider:* For {mission['type']}, **{mission['recommended_orbit']}** is often preferred because it provides the specific coverage pattern needed. But your choice could work with enough satellites!")
+                        
+                        # Instrument feedback with science
                         if mission['instruments']:
-                            matching = set(mission['instruments']) & set(mission['recommended_instruments'])
-                            if matching:
-                                feedback_parts.append(f"Smart instrument selection! Including **{', '.join(matching)}** will definitely help you achieve your mission goals.")
+                            instrument_science = {
+                                "Multispectral Imager": "measures light in multiple wavelength bands. Healthy vegetation strongly reflects near-infrared light (700-1000 nm) while absorbing red light for photosynthesis. The ratio (NDVI) tells us plant health!",
+                                "Radar Altimeter": "sends microwave pulses to the surface and measures the return time. Since we know the speed of light, we can calculate surface height to within centimeters - crucial for tracking sea/lake levels.",
+                                "Thermal Sensor": "detects infrared radiation (heat) emitted by surfaces. According to the Stefan-Boltzmann law, warmer objects emit more infrared energy. Great Lakes surface temperature differences of just a few degrees dramatically affect lake-effect snow!",
+                                "Microwave Radiometer": "detects microwave emissions from Earth's surface. The key advantage: microwaves pass through clouds! This lets us measure surface temperature and ice coverage even during Michigan's cloudy winters.",
+                                "SAR (Synthetic Aperture Radar)": "creates its own 'light' using radar pulses, working day or night, rain or shine. Different surfaces scatter radar differently - smooth water appears dark, rough ice appears bright. Perfect for mapping Great Lakes ice!",
+                                "Spectrometer": "measures which wavelengths of light are absorbed by the atmosphere. Each gas has a unique absorption 'fingerprint' - CO₂ at 4.26 μm, methane at 3.3 μm. This is how we monitor greenhouse gases and air quality."
+                            }
+                            
+                            inst_details = []
+                            for inst in mission['instruments']:
+                                if inst in instrument_science:
+                                    inst_details.append(f"**{inst}** {instrument_science[inst]}")
+                            
+                            if inst_details:
+                                feedback_parts.append("**Your instruments explained:**\n" + "\n\n".join(inst_details))
                         else:
-                            feedback_parts.append("Don't forget to select instruments! The instruments you choose determine what data your satellite can collect.")
+                            feedback_parts.append("⚠️ **Don't forget instruments!** Without sensors, your satellite can't collect any data. Consider what physical properties you need to measure for your mission.")
                         
                         # 3D printing feedback
                         if mission['use_3d_printing']:
-                            feedback_parts.append("I love that you're using 3D-printed fuel tanks! This demonstrates understanding of how technological innovation makes space science more accessible.")
+                            feedback_parts.append("**Smart choice on 3D printing!** Additive manufacturing allows complex internal geometries (like optimized fuel channels) that traditional machining can't achieve. It also reduces part count - fewer welds mean fewer potential failure points in space.")
                         
-                        # Encouragement
-                        feedback_parts.append("Keep thinking like a scientist and engineer. What additional instruments might help you gather even better data about Michigan's environment?")
+                        # IXL Homework Recommendations based on mission type
+                        ixl_recommendations = {
+                            "🌊 Great Lakes Monitoring": [
+                                ("IXL Earth Science: Ocean currents", "Understanding how water moves helps predict where pollutants and algae spread"),
+                                ("IXL Earth Science: The water cycle", "Lake evaporation drives lake-effect weather patterns"),
+                                ("IXL Physical Science: The electromagnetic spectrum", "Your satellite instruments detect different wavelengths of light"),
+                            ],
+                            "🌀 Hurricane & Storm Tracking": [
+                                ("IXL Earth Science: Layers of the atmosphere", "Storms form in the troposphere - understanding atmospheric layers is key"),
+                                ("IXL Earth Science: Air masses and fronts", "Cold fronts over warm lakes create lake-effect snow"),
+                                ("IXL Physical Science: Heat transfer", "Convection drives storm development and lake-effect weather"),
+                            ],
+                            "🌾 Michigan Agriculture Monitoring": [
+                                ("IXL Biology: Photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
+                                ("IXL Earth Science: Soil composition", "Soil moisture affects crop health - satellites can detect this"),
+                                ("IXL Physical Science: The electromagnetic spectrum", "Different wavelengths reveal different plant conditions"),
+                            ],
+                            "🧊 Arctic & Great Lakes Ice Monitoring": [
+                                ("IXL Earth Science: Global climate change", "Ice coverage is a key indicator of climate trends"),
+                                ("IXL Earth Science: The greenhouse effect", "Understanding why ice is melting"),
+                                ("IXL Physical Science: Reflection and absorption of light", "Ice-albedo feedback depends on these principles"),
+                            ],
+                        }
                         
-                        st.markdown(f"""
-                        <div class="success-box">
-                        {"<br><br>".join(feedback_parts)}
-                        </div>
-                        """, unsafe_allow_html=True)
+                        mission_ixl = ixl_recommendations.get(mission['type'], ixl_recommendations["🌊 Great Lakes Monitoring"])
+                        
+                        ixl_text = "📚 **IXL Homework Recommendations:**\nTo strengthen your understanding of the science behind your mission, practice these skills:\n"
+                        for i, (skill, reason) in enumerate(mission_ixl, 1):
+                            ixl_text += f"\n{i}. **{skill}** - {reason}"
+                        ixl_text += f"\n4. **IXL Physical Science: Calculate velocity, distance, or time** - Essential for understanding satellite orbits!"
+                        
+                        feedback_parts.append(ixl_text)
+                        
+                        # Closing question
+                        feedback_parts.append("🤔 **Think deeper:** What would happen if one of your satellites failed? How would you design redundancy into your constellation to ensure continuous coverage of the Great Lakes?")
+                        
+                        st.markdown("\n\n".join(feedback_parts))
                         
                 except Exception as e:
-                    # Fallback to simple rule-based feedback
+                    # Fallback to educational rule-based feedback
                     st.markdown("### 💬 Professor Xavier's Feedback:")
                     
                     feedback_parts = []
-                    feedback_parts.append(f"Great work designing the **{mission['name'] if mission['name'] else mission['type']}** mission!")
+                    feedback_parts.append(f"**Excellent initiative on your {mission['name'] if mission['name'] else mission['type']} mission!** Let me explain the science behind your choices.")
                     
-                    if mission['orbit'] == mission['recommended_orbit'].split()[0] or mission['orbit'].startswith(mission['recommended_orbit'].split()[0]):
-                        feedback_parts.append(f"✅ Excellent orbit choice! **{mission['orbit']}** is perfect for this mission.")
-                    else:
-                        feedback_parts.append(f"💡 Consider using **{mission['recommended_orbit']}** for this type of mission - it may provide better coverage for your goals.")
+                    # Detailed orbit explanation
+                    orbit_explanations = {
+                        "Low Earth Orbit (LEO)": "At 200-2000 km altitude, LEO satellites travel at ~7.8 km/s, completing an orbit every 90 minutes. The proximity to Earth provides excellent image resolution - Landsat can see objects as small as 30 meters! Trade-off: narrow field of view means you need multiple satellites for frequent coverage.",
+                        "Medium Earth Orbit (MEO)": "At 2,000-35,000 km, MEO balances coverage and detail. GPS satellites at ~20,200 km can each 'see' about 38% of Earth's surface, which is why 24-30 satellites provide global navigation coverage.",
+                        "Geostationary (GEO)": "At exactly 35,786 km, a satellite's orbital period matches Earth's 24-hour rotation - it appears to hover! GOES-East watches the entire Americas continuously, which is why your TV weather shows real-time storm movement. Trade-off: the distance means lower resolution.",
+                        "Polar Orbit": "These orbits pass over both poles. As the satellite completes each 90-minute orbit, Earth rotates ~22.5° beneath it. After about 14 orbits, the satellite has seen the entire planet! NASA's Aqua satellite uses this to map global ocean temperatures."
+                    }
                     
+                    feedback_parts.append(f"**Your orbit ({mission['orbit']}):** {orbit_explanations.get(mission['orbit'], 'This orbit type has specific advantages for certain missions.')}")
+                    
+                    # Detailed instrument explanations
                     if mission['instruments']:
-                        feedback_parts.append(f"✅ Good instrument selection: {', '.join(mission['instruments'])}")
+                        feedback_parts.append("**The science behind your instruments:**")
+                        
+                        instrument_details = {
+                            "Multispectral Imager": "📸 **Multispectral Imager:** Captures light in multiple bands including near-infrared (NIR). Chlorophyll in healthy plants absorbs red light (for photosynthesis) but reflects NIR strongly. Scientists calculate NDVI = (NIR-Red)/(NIR+Red). Values near +1 indicate healthy vegetation; near 0 means stressed or dead plants. This is how we monitor Michigan's forests and farms from space!",
+                            "Radar Altimeter": "📏 **Radar Altimeter:** Sends radar pulses at ~13.6 GHz and measures return time. At light speed (299,792 km/s), we can calculate distance to centimeter precision. For the Great Lakes, this tracks water levels - crucial because every inch of lake level change affects how much cargo freighters can carry through the Soo Locks!",
+                            "Thermal Sensor": "🌡️ **Thermal Sensor:** Detects infrared radiation (8-14 μm wavelength) emitted by surfaces. The Stefan-Boltzmann law tells us emission increases with temperature⁴. A 15°C Great Lakes surface vs. 5°C dramatically changes lake-effect snow - warmer water = more evaporation = heavier snowfall on Michigan's west coast!",
+                            "Microwave Radiometer": "📡 **Microwave Radiometer:** Measures natural microwave emissions (~6.9 GHz) from surfaces. Key advantage: microwaves penetrate clouds! Even during Michigan's cloudiest winter days, we can measure Great Lakes ice coverage and surface temperature.",
+                            "SAR (Synthetic Aperture Radar)": "🛰️ **SAR:** Creates radar images using its own microwave signal. Smooth surfaces (water) reflect radar away and appear dark; rough surfaces (ice, land) scatter radar back and appear bright. Works through clouds, day and night - essential for monitoring Great Lakes ice during dark Michigan winters!",
+                            "Spectrometer": "🔬 **Spectrometer:** Identifies gases by their absorption 'fingerprints.' CO₂ absorbs at 4.26 μm and 15 μm; methane at 3.3 μm; ozone at 9.6 μm. This is how scientists track greenhouse gases and monitor Detroit's air quality from orbit!"
+                        }
+                        
+                        for inst in mission['instruments']:
+                            if inst in instrument_details:
+                                feedback_parts.append(instrument_details[inst])
                     else:
-                        feedback_parts.append("💡 Remember to select instruments to collect the data you need!")
+                        feedback_parts.append("⚠️ **Remember to select instruments!** Your satellite's sensors determine what data you can collect. For Great Lakes monitoring, consider thermal sensors (water temperature affects lake-effect snow) and multispectral imagers (detecting algal blooms by water color changes).")
                     
+                    # 3D printing explanation
                     if mission['use_3d_printing']:
-                        feedback_parts.append("✅ Smart choice using 3D printing to reduce costs!")
+                        feedback_parts.append("🖨️ **Excellent choice on 3D printing!** Additive manufacturing enables complex geometries impossible with traditional machining - like internal cooling channels and lattice structures that reduce weight while maintaining strength. Fewer welded joints also means fewer potential failure points in the harsh space environment.")
                     
-                    feedback_parts.append("Keep exploring how satellites help us understand Earth! 🛰️")
+                    # IXL Homework Recommendations
+                    ixl_recommendations = {
+                        "🌊 Great Lakes Monitoring": [
+                            ("IXL Earth Science: Ocean currents", "Understanding how water moves helps predict where pollutants and algae spread"),
+                            ("IXL Earth Science: The water cycle", "Lake evaporation drives lake-effect weather patterns"),
+                            ("IXL Physical Science: The electromagnetic spectrum", "Your satellite instruments detect different wavelengths of light"),
+                        ],
+                        "🌀 Hurricane & Storm Tracking": [
+                            ("IXL Earth Science: Layers of the atmosphere", "Storms form in the troposphere - understanding atmospheric layers is key"),
+                            ("IXL Earth Science: Air masses and fronts", "Cold fronts over warm lakes create lake-effect snow"),
+                            ("IXL Physical Science: Heat transfer", "Convection drives storm development and lake-effect weather"),
+                        ],
+                        "🌾 Michigan Agriculture Monitoring": [
+                            ("IXL Biology: Photosynthesis", "NDVI measures plant health by detecting chlorophyll activity"),
+                            ("IXL Earth Science: Soil composition", "Soil moisture affects crop health - satellites can detect this"),
+                            ("IXL Physical Science: The electromagnetic spectrum", "Different wavelengths reveal different plant conditions"),
+                        ],
+                        "🧊 Arctic & Great Lakes Ice Monitoring": [
+                            ("IXL Earth Science: Global climate change", "Ice coverage is a key indicator of climate trends"),
+                            ("IXL Earth Science: The greenhouse effect", "Understanding why ice is melting"),
+                            ("IXL Physical Science: Reflection and absorption of light", "Ice-albedo feedback depends on these principles"),
+                        ],
+                    }
+                    
+                    mission_ixl = ixl_recommendations.get(mission['type'], ixl_recommendations["🌊 Great Lakes Monitoring"])
+                    
+                    ixl_text = "📚 **IXL Homework Recommendations:**\nTo strengthen the science behind your mission, practice these skills:\n"
+                    for i, (skill, reason) in enumerate(mission_ixl, 1):
+                        ixl_text += f"\n{i}. **{skill}** - {reason}"
+                    ixl_text += f"\n4. **IXL Physical Science: Calculate velocity, distance, or time** - Essential for understanding satellite orbits!"
+                    
+                    feedback_parts.append(ixl_text)
+                    
+                    # Closing
+                    feedback_parts.append("🤔 **Think deeper:** With your constellation of " + str(mission['num_satellites']) + " satellites, calculate how often each point on the Great Lakes gets observed. How would losing one satellite affect your coverage? What's your backup plan?")
                     
                     st.success("\n\n".join(feedback_parts))
     else:
