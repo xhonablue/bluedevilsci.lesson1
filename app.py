@@ -79,12 +79,68 @@ if 'quiz_answers' not in st.session_state:
     st.session_state.quiz_answers = {}
 if 'activity_submitted' not in st.session_state:
     st.session_state.activity_submitted = False
+if 'xp_points' not in st.session_state:
+    st.session_state.xp_points = 0
+if 'achievements' not in st.session_state:
+    st.session_state.achievements = []
+if 'completed_checks' not in st.session_state:
+    st.session_state.completed_checks = set()
+
+# XP Award Function
+def award_xp(points, check_id, achievement_name=None):
+    """Award XP points and track completed checks to prevent double-counting"""
+    if check_id not in st.session_state.completed_checks:
+        st.session_state.xp_points += points
+        st.session_state.completed_checks.add(check_id)
+        if achievement_name and achievement_name not in st.session_state.achievements:
+            st.session_state.achievements.append(achievement_name)
+        return True
+    return False
+
+# Achievement definitions
+ACHIEVEMENTS = {
+    "first_correct": {"name": "🌟 First Steps", "desc": "Answer your first question correctly", "xp": 10},
+    "atmosphere_master": {"name": "🌤️ Atmosphere Expert", "desc": "Complete all Atmosphere questions", "xp": 25},
+    "ocean_master": {"name": "🌊 Ocean Expert", "desc": "Complete all Ocean & Great Lakes questions", "xp": 25},
+    "land_master": {"name": "🌲 Land Expert", "desc": "Complete all Land questions", "xp": 25},
+    "ice_master": {"name": "🧊 Ice Expert", "desc": "Complete all Ice & Snow questions", "xp": 25},
+    "satellite_scholar": {"name": "🛰️ Satellite Scholar", "desc": "Complete all satellite section questions", "xp": 50},
+    "engineer": {"name": "🔧 Space Engineer", "desc": "Complete the Design Challenge", "xp": 50},
+    "quiz_complete": {"name": "📝 Quiz Champion", "desc": "Complete the final assessment", "xp": 75},
+    "perfect_quiz": {"name": "🏆 Perfect Score", "desc": "Get 100% on the final quiz", "xp": 100},
+}
 
 # Sidebar navigation
 with st.sidebar:
-    st.image("https://via.placeholder.com/400x300/1E88E5/FFFFFF?text=Earth+From+Space", 
-             use_container_width=True, caption="Earth from Space")
+    # XP Progress Display
+    st.markdown("### 🏆 Your Progress")
+    st.metric("XP Points", st.session_state.xp_points, help="Earn XP by answering questions correctly!")
     
+    # Progress bar (max 500 XP for completing everything)
+    progress = min(st.session_state.xp_points / 500, 1.0)
+    st.progress(progress)
+    
+    # Level calculation
+    if st.session_state.xp_points >= 400:
+        level = "🌟 Earth Science Master"
+    elif st.session_state.xp_points >= 250:
+        level = "🛰️ Satellite Expert"
+    elif st.session_state.xp_points >= 100:
+        level = "🔬 Science Explorer"
+    elif st.session_state.xp_points >= 25:
+        level = "📚 Learner"
+    else:
+        level = "🌱 Beginner"
+    
+    st.caption(f"Level: {level}")
+    
+    # Show achievements
+    if st.session_state.achievements:
+        with st.expander(f"🎖️ Achievements ({len(st.session_state.achievements)})"):
+            for achievement in st.session_state.achievements:
+                st.write(f"✅ {achievement}")
+    
+    st.markdown("---")
     st.markdown("### 🛰️ Navigation")
     
     pages = {
@@ -543,7 +599,11 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_atmo_q1"):
             if atmo_q1 == "B) By measuring infrared radiation emitted at different wavelengths":
-                st.success("✅ Correct! Different atmospheric layers emit infrared radiation at characteristic wavelengths. Satellites measure these wavelengths to determine temperature at various altitudes without physical contact. (MSS HS-ESS2-4)")
+                if award_xp(15, "atmo_q1", "🌟 First Steps" if not st.session_state.achievements else None):
+                    st.balloons()
+                    st.success("✅ Correct! +15 XP! Different atmospheric layers emit infrared radiation at characteristic wavelengths. Satellites measure these wavelengths to determine temperature at various altitudes without physical contact. (MSS HS-ESS2-4)")
+                else:
+                    st.success("✅ Correct! Different atmospheric layers emit infrared radiation at characteristic wavelengths. Satellites measure these wavelengths to determine temperature at various altitudes without physical contact. (MSS HS-ESS2-4)")
             else:
                 st.error("❌ Not quite. Satellites use remote sensing—they measure infrared radiation emitted by the atmosphere at different wavelengths to determine temperature profiles.")
         
@@ -560,7 +620,19 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_atmo_q2"):
             if atmo_q2 == "B) Because lake-effect storms can develop rapidly when cold air crosses the Great Lakes":
-                st.success("✅ Correct! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. Satellites track these air masses and lake surface temperatures to predict where and when heavy snow will occur. (MSS HS-ESS3-5)")
+                newly_awarded = award_xp(15, "atmo_q2")
+                # Check for Atmosphere Master achievement
+                if "atmo_q1" in st.session_state.completed_checks and "atmo_q2" in st.session_state.completed_checks:
+                    if "🌤️ Atmosphere Expert" not in st.session_state.achievements:
+                        st.session_state.achievements.append("🌤️ Atmosphere Expert")
+                        st.balloons()
+                        st.success("✅ Correct! +15 XP! 🎖️ Achievement Unlocked: Atmosphere Expert! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. Satellites track these air masses and lake surface temperatures to predict where and when heavy snow will occur. (MSS HS-ESS3-5)")
+                    else:
+                        st.success("✅ Correct! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. (MSS HS-ESS3-5)")
+                elif newly_awarded:
+                    st.success("✅ Correct! +15 XP! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. Satellites track these air masses and lake surface temperatures to predict where and when heavy snow will occur. (MSS HS-ESS3-5)")
+                else:
+                    st.success("✅ Correct! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. (MSS HS-ESS3-5)")
             else:
                 st.error("❌ Not quite. Think about how quickly weather can change in Michigan, especially near the Great Lakes during winter.")
     
@@ -604,7 +676,11 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_ocean_q1"):
             if ocean_q1 == "B) By measuring changes in water color caused by chlorophyll in algae":
-                st.success("✅ Correct! Algae contain chlorophyll, which reflects green light. Satellites measure subtle color changes in water to detect and map algal blooms. This helps Michigan communities protect drinking water sources. (MSS HS-ESS2-5)")
+                if award_xp(15, "ocean_q1", "🌟 First Steps" if not st.session_state.achievements else None):
+                    st.balloons()
+                    st.success("✅ Correct! +15 XP! Algae contain chlorophyll, which reflects green light. Satellites measure subtle color changes in water to detect and map algal blooms. This helps Michigan communities protect drinking water sources. (MSS HS-ESS2-5)")
+                else:
+                    st.success("✅ Correct! Algae contain chlorophyll, which reflects green light. Satellites measure subtle color changes in water to detect and map algal blooms. (MSS HS-ESS2-5)")
             else:
                 st.error("❌ Not quite. Think about what makes algae visible—it's related to the pigments they contain and how those affect water color.")
         
@@ -621,7 +697,19 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_ocean_q2"):
             if ocean_q2 == "A) It affects shipping, coastal erosion, property values, and ecosystem health":
-                st.success("✅ Correct! Great Lakes water levels impact shipping (low levels restrict cargo), coastal erosion (high levels damage property), wetland habitats, and municipal water intakes. Satellites track these levels continuously. (MSS HS-ESS3-1)")
+                newly_awarded = award_xp(15, "ocean_q2")
+                # Check for Ocean Master achievement
+                if "ocean_q1" in st.session_state.completed_checks and "ocean_q2" in st.session_state.completed_checks:
+                    if "🌊 Ocean Expert" not in st.session_state.achievements:
+                        st.session_state.achievements.append("🌊 Ocean Expert")
+                        st.balloons()
+                        st.success("✅ Correct! +15 XP! 🎖️ Achievement Unlocked: Ocean Expert! Great Lakes water levels impact shipping, coastal erosion, wetland habitats, and municipal water intakes. Satellites track these levels continuously. (MSS HS-ESS3-1)")
+                    else:
+                        st.success("✅ Correct! Great Lakes water levels impact shipping, coastal erosion, wetland habitats, and municipal water intakes. (MSS HS-ESS3-1)")
+                elif newly_awarded:
+                    st.success("✅ Correct! +15 XP! Great Lakes water levels impact shipping (low levels restrict cargo), coastal erosion (high levels damage property), wetland habitats, and municipal water intakes. (MSS HS-ESS3-1)")
+                else:
+                    st.success("✅ Correct! Great Lakes water levels impact shipping, coastal erosion, wetland habitats, and municipal water intakes. (MSS HS-ESS3-1)")
             else:
                 st.error("❌ Not quite. Consider all the ways that lake levels affect communities, businesses, and ecosystems around the Great Lakes.")
     
@@ -665,7 +753,11 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_land_q1"):
             if land_q1 == "B) By measuring how plants reflect near-infrared light (healthy plants reflect more)":
-                st.success("✅ Correct! Healthy plants with lots of chlorophyll strongly reflect near-infrared light while absorbing visible red light. Stressed or dying plants reflect less near-infrared. Satellites measure this ratio (called NDVI) to assess vegetation health. (MSS HS-ESS3-1)")
+                if award_xp(15, "land_q1", "🌟 First Steps" if not st.session_state.achievements else None):
+                    st.balloons()
+                    st.success("✅ Correct! +15 XP! Healthy plants with lots of chlorophyll strongly reflect near-infrared light while absorbing visible red light. Stressed or dying plants reflect less near-infrared. Satellites measure this ratio (called NDVI) to assess vegetation health. (MSS HS-ESS3-1)")
+                else:
+                    st.success("✅ Correct! Healthy plants with lots of chlorophyll strongly reflect near-infrared light while absorbing visible red light. Satellites measure this ratio (called NDVI) to assess vegetation health. (MSS HS-ESS3-1)")
             else:
                 st.error("❌ Not quite. Think about how healthy vs. unhealthy plants might interact differently with light that we can't see with our eyes.")
         
@@ -682,7 +774,19 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_land_q2"):
             if land_q2 == "A) It provides consistent, repeatable measurements showing how cities expand over time":
-                st.success("✅ Correct! Satellites take images of the same areas repeatedly (daily, weekly, yearly), allowing scientists to track how urban areas expand into farmland or forests. This helps planners understand development patterns and environmental impacts. (MSS HS-ESS3-1)")
+                newly_awarded = award_xp(15, "land_q2")
+                # Check for Land Master achievement
+                if "land_q1" in st.session_state.completed_checks and "land_q2" in st.session_state.completed_checks:
+                    if "🌲 Land Expert" not in st.session_state.achievements:
+                        st.session_state.achievements.append("🌲 Land Expert")
+                        st.balloons()
+                        st.success("✅ Correct! +15 XP! 🎖️ Achievement Unlocked: Land Expert! Satellites take images of the same areas repeatedly, allowing scientists to track how urban areas expand into farmland or forests. (MSS HS-ESS3-1)")
+                    else:
+                        st.success("✅ Correct! Satellites take images of the same areas repeatedly, allowing scientists to track how urban areas expand into farmland or forests. (MSS HS-ESS3-1)")
+                elif newly_awarded:
+                    st.success("✅ Correct! +15 XP! Satellites take images of the same areas repeatedly (daily, weekly, yearly), allowing scientists to track how urban areas expand into farmland or forests. (MSS HS-ESS3-1)")
+                else:
+                    st.success("✅ Correct! Satellites take images of the same areas repeatedly, allowing scientists to track how urban areas expand. (MSS HS-ESS3-1)")
             else:
                 st.error("❌ Not quite. Consider how comparing images from the same location over months or years can reveal patterns of change.")
     
@@ -726,7 +830,11 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_ice_q1"):
             if ice_q1 == "A) Ice reflects sunlight; when it melts, darker water absorbs more heat, accelerating warming":
-                st.success("✅ Correct! White ice has high albedo (reflects ~80% of sunlight), while dark ocean water has low albedo (absorbs ~90% of sunlight). As ice melts, more dark surface is exposed, absorbing more heat, causing more melting—a positive feedback loop that amplifies warming. (MSS HS-ESS2-2)")
+                if award_xp(15, "ice_q1", "🌟 First Steps" if not st.session_state.achievements else None):
+                    st.balloons()
+                    st.success("✅ Correct! +15 XP! White ice has high albedo (reflects ~80% of sunlight), while dark ocean water has low albedo (absorbs ~90% of sunlight). As ice melts, more dark surface is exposed, absorbing more heat, causing more melting—a positive feedback loop. (MSS HS-ESS2-2)")
+                else:
+                    st.success("✅ Correct! White ice has high albedo (reflects ~80% of sunlight), while dark ocean water absorbs ~90% of sunlight. This creates a feedback loop that amplifies warming. (MSS HS-ESS2-2)")
             else:
                 st.error("❌ Not quite. Think about the difference between wearing a white shirt vs. a black shirt on a sunny day, and apply that to ice vs. water.")
         
@@ -743,9 +851,30 @@ def show_satellites():
         
         if st.button("Check Answer", key="check_ice_q2"):
             if ice_q2 == "A) More ice coverage = less lake-effect snow because ice prevents water evaporation":
-                st.success("✅ Correct! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze over, this moisture source is cut off, reducing lake-effect snow. That's why late winter often has less lake-effect snow than early winter. (MSS HS-ESS2-4)")
+                newly_awarded = award_xp(15, "ice_q2")
+                # Check for Ice Master achievement
+                if "ice_q1" in st.session_state.completed_checks and "ice_q2" in st.session_state.completed_checks:
+                    if "🧊 Ice Expert" not in st.session_state.achievements:
+                        st.session_state.achievements.append("🧊 Ice Expert")
+                        st.balloons()
+                        st.success("✅ Correct! +15 XP! 🎖️ Achievement Unlocked: Ice Expert! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze over, this moisture source is cut off. (MSS HS-ESS2-4)")
+                    else:
+                        st.success("✅ Correct! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze over, this moisture source is cut off. (MSS HS-ESS2-4)")
+                elif newly_awarded:
+                    st.success("✅ Correct! +15 XP! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze over, this moisture source is cut off, reducing lake-effect snow. (MSS HS-ESS2-4)")
+                else:
+                    st.success("✅ Correct! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze, lake-effect snow decreases. (MSS HS-ESS2-4)")
             else:
                 st.error("❌ Not quite. Think about where the moisture for lake-effect snow comes from and what happens when that source gets covered by ice.")
+        
+        # Check for Satellite Scholar achievement (all 8 satellite questions)
+        satellite_checks = {"atmo_q1", "atmo_q2", "ocean_q1", "ocean_q2", "land_q1", "land_q2", "ice_q1", "ice_q2"}
+        if satellite_checks.issubset(st.session_state.completed_checks):
+            if "🛰️ Satellite Scholar" not in st.session_state.achievements:
+                st.session_state.achievements.append("🛰️ Satellite Scholar")
+                award_xp(50, "satellite_scholar_bonus")
+                st.balloons()
+                st.success("🎖️ MAJOR ACHIEVEMENT UNLOCKED: Satellite Scholar! +50 Bonus XP! You've mastered all satellite monitoring concepts!")
     
 
 
@@ -926,7 +1055,11 @@ def show_3d_printing():
     
     if st.button("Check Answer", key="check_printing"):
         if printing_q == "A) 3D printing allows engineers to rapidly test and iterate designs, evaluating trade-offs between cost, weight, and performance":
-            st.success("✅ Correct! HS-ETS1-3 emphasizes evaluating solutions based on prioritized criteria and trade-offs. 3D printing enables engineers to quickly produce prototypes, test different designs, and optimize for multiple constraints (cost, weight, strength, complexity) before committing to final production. (MSS HS-ETS1-3)")
+            if award_xp(20, "printing_q1", "🌟 First Steps" if not st.session_state.achievements else None):
+                st.balloons()
+                st.success("✅ Correct! +20 XP! HS-ETS1-3 emphasizes evaluating solutions based on prioritized criteria and trade-offs. 3D printing enables engineers to quickly produce prototypes, test different designs, and optimize for multiple constraints. (MSS HS-ETS1-3)")
+            else:
+                st.success("✅ Correct! HS-ETS1-3 emphasizes evaluating solutions based on prioritized criteria and trade-offs. 3D printing enables rapid prototyping and optimization. (MSS HS-ETS1-3)")
         else:
             st.error("❌ Not quite. Think about how being able to quickly and cheaply produce prototypes helps engineers make better decisions.")
 
@@ -1040,7 +1173,14 @@ def show_design_challenge():
         submitted = st.form_submit_button("Submit Mission Design")
         
         if submitted:
-            st.success("🎉 Mission Design Submitted!")
+            # Award XP for completing the design challenge
+            if award_xp(50, "design_challenge"):
+                if "🔧 Space Engineer" not in st.session_state.achievements:
+                    st.session_state.achievements.append("🔧 Space Engineer")
+                st.balloons()
+                st.success("🎉 Mission Design Submitted! +50 XP! 🎖️ Achievement Unlocked: Space Engineer!")
+            else:
+                st.success("🎉 Mission Design Submitted!")
             
             # Calculate estimated cost
             base_cost = num_sats * 5000000  # $5M per satellite base
@@ -1173,18 +1313,36 @@ def show_quiz():
             if q6 == "B) When ice melts, darker water absorbs more heat, causing more warming - satellites track this feedback":
                 score += 1
             
+            # Award XP based on score
+            xp_earned = score * 10  # 10 XP per correct answer
+            
+            # Award quiz completion achievement
+            if "quiz_complete" not in st.session_state.completed_checks:
+                st.session_state.completed_checks.add("quiz_complete")
+                if "📝 Quiz Champion" not in st.session_state.achievements:
+                    st.session_state.achievements.append("📝 Quiz Champion")
+                st.session_state.xp_points += xp_earned + 25  # Bonus 25 XP for completing
+                
+                # Check for perfect score
+                if score == total:
+                    if "🏆 Perfect Score" not in st.session_state.achievements:
+                        st.session_state.achievements.append("🏆 Perfect Score")
+                        st.session_state.xp_points += 50  # Bonus for perfect score
+            
             st.markdown("---")
             st.markdown("### 📊 Results")
             
             percentage = (score / total) * 100
             
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3, col4 = st.columns(4)
             
             with col1:
                 st.metric("Score", f"{score}/{total}")
             with col2:
                 st.metric("Percentage", f"{percentage:.0f}%")
             with col3:
+                st.metric("XP Earned", f"+{xp_earned + 25}")
+            with col4:
                 if percentage >= 80:
                     st.metric("Status", "Excellent! 🌟")
                 elif percentage >= 60:
@@ -1192,12 +1350,16 @@ def show_quiz():
                 else:
                     st.metric("Status", "Keep Studying 📚")
             
-            if percentage >= 80:
-                st.success("🎉 Great job! You have a strong understanding of satellites, 3D printing, and their applications to Earth science!")
+            if percentage == 100:
+                st.balloons()
+                st.success("🎉 PERFECT SCORE! +50 Bonus XP! 🏆 Achievement Unlocked: Perfect Score! You have mastered satellites, 3D printing, and their applications to Earth science!")
+            elif percentage >= 80:
+                st.balloons()
+                st.success("🎉 Great job! 🎖️ Achievement Unlocked: Quiz Champion! You have a strong understanding of the material!")
             elif percentage >= 60:
-                st.info("👍 Good work! Review the sections where you missed questions to strengthen your understanding.")
+                st.info("👍 Good work! 🎖️ Achievement Unlocked: Quiz Champion! Review the sections where you missed questions to strengthen your understanding.")
             else:
-                st.warning("📚 Consider reviewing the lesson materials and trying again. Focus on the Michigan connections and the innovation chain concept.")
+                st.warning("📚 🎖️ Achievement Unlocked: Quiz Champion! Consider reviewing the lesson materials and trying the quick checks again to improve your score.")
             
             st.markdown("### Short Answer Feedback")
             st.info("Your short answer responses have been recorded. Your teacher will review questions 7 and 8.")
