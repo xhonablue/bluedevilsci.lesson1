@@ -44,6 +44,13 @@ st.markdown("""
         border-left: 5px solid #FF9800;
         margin: 1rem 0;
     }
+    .michigan-box {
+        background-color: #FFF8E1;
+        padding: 1rem;
+        border-radius: 5px;
+        border-left: 5px solid #00274C;
+        margin: 1rem 0;
+    }
     .stButton>button {
         width: 100%;
         background-color: #1E88E5;
@@ -54,6 +61,13 @@ st.markdown("""
     }
     .stButton>button:hover {
         background-color: #0D47A1;
+    }
+    .developer-credit {
+        text-align: center;
+        color: #666;
+        font-size: 0.9em;
+        margin-top: -1rem;
+        margin-bottom: 2rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -91,7 +105,7 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown("### 👥 About")
-    st.info("**Grade Level:** 9-12\n\n**Duration:** 50-60 minutes\n\n**Subject:** Earth Science")
+    st.info("**Grade Level:** 9-12\n\n**Duration:** 50-60 minutes\n\n**Subject:** Earth Science\n\n**State:** Michigan")
     
     st.markdown("---")
     st.markdown("**Teacher Mode**")
@@ -100,7 +114,7 @@ with st.sidebar:
 # Main content area
 def show_home():
     st.markdown('<div class="main-header">🛰️ Space Technology & Earth Observation</div>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: center; color: #666; font-size: 0.9em; margin-top: -1rem; margin-bottom: 2rem;">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     
@@ -115,6 +129,16 @@ def show_home():
         
         st.markdown("### 🎯 Today's Big Question:")
         st.success("**How do we know what's happening to Earth's climate, oceans, and atmosphere when we can't see the whole planet at once?**")
+        
+        # Michigan Connection
+        st.markdown("""
+        <div class="michigan-box">
+        <h4>🌊 Michigan Connection</h4>
+        <p>The Great Lakes contain 20% of the world's fresh surface water. Satellites help us monitor 
+        lake temperatures, ice coverage, algal blooms, and water levels—critical for Michigan's 
+        environment and economy!</p>
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("### 📋 What You'll Learn:")
         col_a, col_b = st.columns(2)
@@ -140,6 +164,94 @@ def show_home():
         st.markdown("### 🚀 Ready to Begin?")
         st.info("👈 Use the sidebar navigation to explore different sections of this lesson!")
         
+        # Michigan Science Standards Dropdown
+        st.markdown("---")
+        st.markdown("### 📋 Michigan Science Standards (MSS) Covered")
+        
+        with st.expander("🎓 Click to view all Michigan Science Standards addressed in this lesson", expanded=False):
+            st.markdown("""
+            <div class="michigan-box">
+            <p>This lesson is aligned with the <strong>Michigan Science Standards (MSS)</strong>, which are based on 
+            the Next Generation Science Standards (NGSS) with emphasis on Michigan-specific contexts.</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("#### 🌍 Earth's Systems Standards")
+            
+            st.markdown("""
+            **HS-ESS2-2: Earth Systems Feedback**
+            > *Analyze geoscience data to make the claim that one change to Earth's surface can create 
+            > feedbacks that cause changes to other Earth systems.*
+            
+            - **Lesson Connection:** Ice-albedo feedback, Great Lakes ice coverage effects on regional climate
+            - **Activities:** Ice & Snow tab, Quiz questions on feedback loops
+            """)
+            
+            st.markdown("""
+            **HS-ESS2-4: Water Cycling**
+            > *Develop a model to describe the cycling of water through Earth's systems driven by energy 
+            > from the sun and the force of gravity.*
+            
+            - **Lesson Connection:** Great Lakes water cycle, lake-effect weather patterns, atmospheric monitoring
+            - **Activities:** Atmosphere tab, Oceans & Great Lakes tab
+            """)
+            
+            st.markdown("""
+            **HS-ESS2-5: Water Properties**
+            > *Plan and conduct an investigation of the properties of water and its effects on Earth 
+            > materials and surface processes.*
+            
+            - **Lesson Connection:** Great Lakes erosion, water quality monitoring, algal bloom detection
+            - **Activities:** Oceans & Great Lakes tab, Design Challenge
+            """)
+            
+            st.markdown("#### 🏭 Earth and Human Activity Standards")
+            
+            st.markdown("""
+            **HS-ESS3-1: Resources, Hazards, and Human Activity**
+            > *Construct an explanation based on evidence for how the availability of natural resources, 
+            > occurrence of natural hazards, and changes in climate have influenced human activity.*
+            
+            - **Lesson Connection:** Lake levels affecting shipping, coastal erosion impacts, agriculture monitoring
+            - **Activities:** Land tab, Oceans & Great Lakes tab, Design Challenge
+            """)
+            
+            st.markdown("""
+            **HS-ESS3-5: Climate Data Analysis**
+            > *Analyze geoscience data and the results from global climate models to make an evidence-based 
+            > forecast of the current rate of global or regional climate change and associated future impacts.*
+            
+            - **Lesson Connection:** Satellite climate monitoring, Great Lakes temperature trends, ice coverage data
+            - **Activities:** All satellite monitoring tabs, Quiz assessment
+            """)
+            
+            st.markdown("#### 🔧 Engineering Design Standards")
+            
+            st.markdown("""
+            **HS-ETS1-3: Evaluating Engineering Solutions**
+            > *Evaluate a solution to a complex real-world problem based on prioritized criteria and 
+            > trade-offs that account for a range of constraints, including cost, safety, reliability, 
+            > and aesthetics, as well as possible social, cultural, and environmental impacts.*
+            
+            - **Lesson Connection:** 3D printing trade-offs, satellite mission design constraints, cost-benefit analysis
+            - **Activities:** 3D Printing Innovation section, Design Challenge, Cost Calculator
+            """)
+            
+            st.markdown("---")
+            
+            st.markdown("#### 📊 Standards Summary Table")
+            
+            standards_data = {
+                "Standard": ["HS-ESS2-2", "HS-ESS2-4", "HS-ESS2-5", "HS-ESS3-1", "HS-ESS3-5", "HS-ETS1-3"],
+                "Topic": ["Earth Systems Feedback", "Water Cycling", "Water Properties", 
+                         "Resources & Hazards", "Climate Data", "Engineering Design"],
+                "Lesson Sections": ["Ice & Snow, Quiz", "Atmosphere, Oceans", "Oceans & Great Lakes", 
+                                   "Land, Oceans, Design", "All Tabs, Quiz", "3D Printing, Design Challenge"]
+            }
+            
+            standards_df = pd.DataFrame(standards_data)
+            st.table(standards_df)
+        
         # Quick stats
         st.markdown("---")
         st.markdown("### 📊 Fun Facts About Satellites")
@@ -157,6 +269,7 @@ def show_home():
 
 def show_article():
     st.markdown('<div class="main-header">📰 The News Article</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     
@@ -234,6 +347,7 @@ def show_article():
 
 def show_objectives():
     st.markdown('<div class="main-header">🎯 Learning Objectives</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     st.markdown("## By the end of this lesson, you will be able to:")
     
@@ -242,7 +356,7 @@ def show_objectives():
             "icon": "🛰️",
             "title": "Explain Satellite Contributions",
             "description": "Understand how satellites contribute to Earth Science research and environmental monitoring",
-            "examples": ["Hurricane tracking", "Climate monitoring", "Deforestation detection"]
+            "examples": ["Hurricane tracking", "Climate monitoring", "Deforestation detection", "Great Lakes observation"]
         },
         {
             "icon": "🖨️",
@@ -272,36 +386,102 @@ def show_objectives():
                 st.write(f"- {example}")
     
     st.markdown("---")
-    st.markdown("## 📊 NGSS Standards Alignment")
+    st.markdown("## 📊 Michigan Science Standards (MSS) Alignment")
     
-    col1, col2, col3 = st.columns(3)
+    st.markdown("""
+    <div class="michigan-box">
+    <p><strong>Note:</strong> Michigan Science Standards are based on the Next Generation Science Standards (NGSS) 
+    with emphasis on Michigan-specific contexts including the Great Lakes ecosystem.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-        **HS-ESS3-1**
+        **MS-ESS2-4 / HS-ESS2-4**
         
-        Construct explanations based on evidence for how natural resources, hazards, 
-        and climate changes influence human activity
+        *Earth's Systems*
+        
+        Develop a model to describe the cycling of water through Earth's 
+        systems driven by energy from the sun and the force of gravity.
+        
+        **Michigan Context:** Great Lakes water cycle, lake-effect weather patterns
+        """)
+        
+        st.markdown("---")
+        
+        st.markdown("""
+        **HS-ESS2-2**
+        
+        *Earth's Systems*
+        
+        Analyze geoscience data to make the claim that one change to 
+        Earth's surface can create feedbacks that cause changes to 
+        other Earth systems.
+        
+        **Michigan Context:** Ice-albedo feedback in the Great Lakes region
         """)
     
     with col2:
         st.markdown("""
+        **HS-ESS3-5**
+        
+        *Earth and Human Activity*
+        
+        Analyze geoscience data and the results from global climate 
+        models to make an evidence-based forecast of the current rate 
+        of global or regional climate change and associated future impacts.
+        
+        **Michigan Context:** Climate impacts on Michigan agriculture and ecosystems
+        """)
+        
+        st.markdown("---")
+        
+        st.markdown("""
         **HS-ETS1-3**
         
-        Evaluate solutions to complex real-world problems based on prioritized 
-        criteria and trade-offs
+        *Engineering Design*
+        
+        Evaluate a solution to a complex real-world problem based on 
+        prioritized criteria and trade-offs that account for a range 
+        of constraints.
+        
+        **Michigan Context:** Engineering solutions for Great Lakes monitoring
         """)
+    
+    st.markdown("---")
+    
+    col3, col4 = st.columns(2)
     
     with col3:
         st.markdown("""
-        **HS-ESS2-4**
+        **HS-ESS3-1**
         
-        Use models to describe variations in energy flow and their effects on 
-        Earth's climate systems
+        *Earth and Human Activity*
+        
+        Construct an explanation based on evidence for how the availability 
+        of natural resources, occurrence of natural hazards, and changes in 
+        climate have influenced human activity.
+        
+        **Michigan Context:** Lake levels, shipping, and coastal erosion impacts
+        """)
+    
+    with col4:
+        st.markdown("""
+        **HS-ESS2-5**
+        
+        *Earth's Systems*
+        
+        Plan and conduct an investigation of the properties of water and 
+        its effects on Earth materials and surface processes.
+        
+        **Michigan Context:** Great Lakes erosion, water quality monitoring
         """)
 
 def show_satellites():
     st.markdown('<div class="main-header">🌍 Satellites & Earth Science</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     st.markdown("## Why Satellites Matter")
     
@@ -310,8 +490,18 @@ def show_satellites():
     that helps us understand Earth's complex systems and how they're changing.
     """)
     
+    # Michigan Connection Box
+    st.markdown("""
+    <div class="michigan-box">
+    <h4>🌊 Michigan Connection</h4>
+    <p>NOAA's Great Lakes Environmental Research Laboratory (GLERL) uses satellite data to monitor 
+    the Great Lakes—tracking ice coverage, harmful algal blooms, water temperature, and lake levels 
+    that directly impact Michigan communities.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     # Interactive tabs for different satellite types
-    tab1, tab2, tab3, tab4 = st.tabs(["🌤️ Atmosphere", "🌊 Oceans", "🌲 Land", "🧊 Ice & Snow"])
+    tab1, tab2, tab3, tab4 = st.tabs(["🌤️ Atmosphere", "🌊 Oceans & Great Lakes", "🌲 Land", "🧊 Ice & Snow"])
     
     with tab1:
         col1, col2 = st.columns([2, 1])
@@ -328,73 +518,112 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Weather forecasting\n\n✅ Climate change tracking\n\n✅ Air quality monitoring\n\n✅ Hurricane prediction")
+            
+            st.markdown("#### Michigan Application:")
+            st.info("🌨️ **Lake-Effect Snow:** Satellites help meteorologists predict lake-effect snowstorms by tracking cold air masses moving over the warmer Great Lakes waters.")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/42A5F5/FFFFFF?text=Weather+Satellite", 
-                     caption="Weather satellite monitoring hurricanes")
+                     caption="Weather satellite monitoring storms")
             
             st.metric("Active Weather Satellites", "~400", "globally")
         
-        # Quick Check for Atmosphere tab
+        # Tab-Specific Quick Check for Atmosphere
         st.markdown("---")
-        st.markdown("### 🧠 Quick Check")
-
+        st.markdown("### 🧠 Atmosphere Quick Check")
         
-        atmo_question = st.radio(
-            "Why do weather satellites need to monitor the atmosphere continuously?",
-            ["Because the atmosphere is always changing and weather patterns develop quickly",
-             "Because satellites run out of battery",
-             "Because clouds move too slowly to see",
-             "Because the atmosphere never changes"],
-            key="atmosphere_quiz"
+        atmo_q1 = st.radio(
+            "**Question 1:** How do satellites measure atmospheric temperature at different altitudes?",
+            ["A) By dropping thermometers from space",
+             "B) By measuring infrared radiation emitted at different wavelengths",
+             "C) By sending weather balloons",
+             "D) By taking photographs of clouds"],
+            key="atmo_q1"
         )
         
-        if st.button("Check Answer", key="check_atmosphere"):
-            if atmo_question == "Because the atmosphere is always changing and weather patterns develop quickly":
-                st.success("✅ Correct! The atmosphere is dynamic and constantly changing. Storms can develop in hours, so continuous monitoring is essential for accurate weather prediction and tracking severe weather events.")
+        if st.button("Check Answer", key="check_atmo_q1"):
+            if atmo_q1 == "B) By measuring infrared radiation emitted at different wavelengths":
+                st.success("✅ Correct! Different atmospheric layers emit infrared radiation at characteristic wavelengths. Satellites measure these wavelengths to determine temperature at various altitudes without physical contact. (MSS HS-ESS2-4)")
             else:
-                st.error("❌ Try again! Think about how fast weather can change and why meteorologists need up-to-date information.")
+                st.error("❌ Not quite. Satellites use remote sensing—they measure infrared radiation emitted by the atmosphere at different wavelengths to determine temperature profiles.")
+        
+        st.markdown("---")
+        
+        atmo_q2 = st.radio(
+            "**Question 2:** Why is continuous satellite monitoring essential for tracking severe weather in Michigan?",
+            ["A) Because Michigan weather never changes",
+             "B) Because lake-effect storms can develop rapidly when cold air crosses the Great Lakes",
+             "C) Because satellites are cheaper than thermometers",
+             "D) Because Michigan has no weather stations"],
+            key="atmo_q2"
+        )
+        
+        if st.button("Check Answer", key="check_atmo_q2"):
+            if atmo_q2 == "B) Because lake-effect storms can develop rapidly when cold air crosses the Great Lakes":
+                st.success("✅ Correct! Lake-effect snow can develop within hours when cold Arctic air moves over the relatively warm Great Lakes. Satellites track these air masses and lake surface temperatures to predict where and when heavy snow will occur. (MSS HS-ESS3-5)")
+            else:
+                st.error("❌ Not quite. Think about how quickly weather can change in Michigan, especially near the Great Lakes during winter.")
     
     with tab2:
         col1, col2 = st.columns([2, 1])
         with col1:
-            st.markdown("### Ocean Observation")
+            st.markdown("### Ocean & Great Lakes Observation")
             st.write("""
-            Satellites help us understand ocean systems by measuring:
-            - **Sea surface temperature**
-            - **Sea level height** (tracking rise over time)
-            - **Ocean currents** and circulation
-            - **Ocean color** (indicates phytoplankton/health)
+            Satellites help us understand water systems by measuring:
+            - **Sea/lake surface temperature**
+            - **Water level height** (tracking changes over time)
+            - **Currents** and circulation patterns
+            - **Water color** (indicates algae/phytoplankton health)
             - **Ice coverage** and thickness
             """)
             
             st.markdown("#### Real-World Applications:")
-            st.success("✅ Tracking sea level rise\n\n✅ Monitoring ocean health\n\n✅ Predicting El Niño events\n\n✅ Protecting marine ecosystems")
+            st.success("✅ Tracking sea level rise\n\n✅ Monitoring water quality\n\n✅ Predicting El Niño events\n\n✅ Protecting aquatic ecosystems")
+            
+            st.markdown("#### Michigan Application:")
+            st.info("🌊 **Harmful Algal Blooms:** Satellites detect algal blooms in Lake Erie and other Great Lakes by measuring water color changes, helping protect drinking water for millions of Michiganders.")
         
         with col2:
-            st.image("https://via.placeholder.com/400x300/0277BD/FFFFFF?text=Ocean+Monitoring", 
-                     caption="Satellite measuring ocean temperatures")
+            st.image("https://via.placeholder.com/400x300/0277BD/FFFFFF?text=Great+Lakes+Monitoring", 
+                     caption="Satellite monitoring the Great Lakes")
             
-            st.metric("Sea Level Rise Since 1993", "+100mm", "≈4 inches")
+            st.metric("Great Lakes Surface Area", "94,250 mi²", "largest freshwater system")
         
-        # Quick Check for Oceans tab
+        # Tab-Specific Quick Check for Oceans/Great Lakes
         st.markdown("---")
-        st.markdown("### 🧠 Quick Check")
+        st.markdown("### 🧠 Oceans & Great Lakes Quick Check")
         
-        ocean_question = st.radio(
-            "How can satellites measure sea level from space?",
-            ["They use radar to measure the distance between the satellite and the ocean surface",
-             "They take pictures and count the waves",
-             "They measure the color of the water",
-             "They cannot measure sea level from space"],
-            key="ocean_quiz"
+        ocean_q1 = st.radio(
+            "**Question 1:** How do satellites detect harmful algal blooms in the Great Lakes?",
+            ["A) By counting individual algae cells from space",
+             "B) By measuring changes in water color caused by chlorophyll in algae",
+             "C) By tasting the water remotely",
+             "D) By measuring water salinity"],
+            key="ocean_q1"
         )
         
-        if st.button("Check Answer", key="check_ocean"):
-            if ocean_question == "They use radar to measure the distance between the satellite and the ocean surface":
-                st.success("✅ Correct! Satellites use radar altimeters that send radio waves down to the ocean surface and measure how long it takes for the signal to bounce back. By doing this repeatedly over years, scientists can detect even small changes in sea level.")
+        if st.button("Check Answer", key="check_ocean_q1"):
+            if ocean_q1 == "B) By measuring changes in water color caused by chlorophyll in algae":
+                st.success("✅ Correct! Algae contain chlorophyll, which reflects green light. Satellites measure subtle color changes in water to detect and map algal blooms. This helps Michigan communities protect drinking water sources. (MSS HS-ESS2-5)")
             else:
-                st.error("❌ Try again! Think about how you could measure distance from far away using signals that travel at a known speed.")
+                st.error("❌ Not quite. Think about what makes algae visible—it's related to the pigments they contain and how those affect water color.")
+        
+        st.markdown("---")
+        
+        ocean_q2 = st.radio(
+            "**Question 2:** Why is monitoring Great Lakes water levels important for Michigan?",
+            ["A) It affects shipping, coastal erosion, property values, and ecosystem health",
+             "B) Water levels never change",
+             "C) Only fishermen care about water levels",
+             "D) Satellites cannot measure water levels"],
+            key="ocean_q2"
+        )
+        
+        if st.button("Check Answer", key="check_ocean_q2"):
+            if ocean_q2 == "A) It affects shipping, coastal erosion, property values, and ecosystem health":
+                st.success("✅ Correct! Great Lakes water levels impact shipping (low levels restrict cargo), coastal erosion (high levels damage property), wetland habitats, and municipal water intakes. Satellites track these levels continuously. (MSS HS-ESS3-1)")
+            else:
+                st.error("❌ Not quite. Consider all the ways that lake levels affect communities, businesses, and ecosystems around the Great Lakes.")
     
     with tab3:
         col1, col2 = st.columns([2, 1])
@@ -411,31 +640,51 @@ def show_satellites():
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Tracking deforestation\n\n✅ Monitoring crop health\n\n✅ Wildfire detection\n\n✅ Urban planning")
+            
+            st.markdown("#### Michigan Application:")
+            st.info("🌾 **Agriculture:** Satellites monitor Michigan's $104.7 billion agriculture industry, tracking crop health, soil moisture, and drought conditions across cherry orchards, apple farms, and corn/soybean fields.")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/66BB6A/FFFFFF?text=Land+Monitoring", 
-                     caption="Satellite tracking deforestation")
+                     caption="Satellite tracking vegetation health")
             
-            st.metric("Forest Lost Since 2000", "10%", "of global forests")
+            st.metric("Michigan Farmland", "9.8 million", "acres monitored")
         
-        # Quick Check for Land tab
+        # Tab-Specific Quick Check for Land
         st.markdown("---")
-        st.markdown("### 🧠 Quick Check")
+        st.markdown("### 🧠 Land Surface Quick Check")
         
-        land_question = st.radio(
-            "Why is satellite monitoring important for tracking deforestation?",
-            ["Forests cover huge areas that are impossible to monitor from the ground alone",
-             "Satellites can see through trees",
-             "It's cheaper than planting new trees",
-             "Satellites can stop illegal logging"],
-            key="land_quiz"
+        land_q1 = st.radio(
+            "**Question 1:** How do satellites determine if crops are healthy or stressed?",
+            ["A) By asking farmers",
+             "B) By measuring how plants reflect near-infrared light (healthy plants reflect more)",
+             "C) By counting individual leaves",
+             "D) By measuring soil temperature only"],
+            key="land_q1"
         )
         
-        if st.button("Check Answer", key="check_land"):
-            if land_question == "Forests cover huge areas that are impossible to monitor from the ground alone":
-                st.success("✅ Correct! The Amazon rainforest alone covers 2.1 million square miles. Satellites can survey vast areas quickly and repeatedly, detecting changes that would be impossible to catch with ground surveys. This helps identify illegal logging and monitor forest health globally.")
+        if st.button("Check Answer", key="check_land_q1"):
+            if land_q1 == "B) By measuring how plants reflect near-infrared light (healthy plants reflect more)":
+                st.success("✅ Correct! Healthy plants with lots of chlorophyll strongly reflect near-infrared light while absorbing visible red light. Stressed or dying plants reflect less near-infrared. Satellites measure this ratio (called NDVI) to assess vegetation health. (MSS HS-ESS3-1)")
             else:
-                st.error("❌ Try again! Think about the scale of Earth's forests and why we need a view from above to track changes.")
+                st.error("❌ Not quite. Think about how healthy vs. unhealthy plants might interact differently with light that we can't see with our eyes.")
+        
+        st.markdown("---")
+        
+        land_q2 = st.radio(
+            "**Question 2:** Why is satellite monitoring valuable for tracking urban growth in Michigan?",
+            ["A) It provides consistent, repeatable measurements showing how cities expand over time",
+             "B) Cities don't grow",
+             "C) Satellites can see through buildings",
+             "D) Urban areas are too small to see from space"],
+            key="land_q2"
+        )
+        
+        if st.button("Check Answer", key="check_land_q2"):
+            if land_q2 == "A) It provides consistent, repeatable measurements showing how cities expand over time":
+                st.success("✅ Correct! Satellites take images of the same areas repeatedly (daily, weekly, yearly), allowing scientists to track how urban areas expand into farmland or forests. This helps planners understand development patterns and environmental impacts. (MSS HS-ESS3-1)")
+            else:
+                st.error("❌ Not quite. Consider how comparing images from the same location over months or years can reveal patterns of change.")
     
     with tab4:
         col1, col2 = st.columns([2, 1])
@@ -447,56 +696,79 @@ def show_satellites():
             - **Ice sheet thickness** in Antarctica/Greenland
             - **Sea ice extent** in Arctic/Antarctic
             - **Snow cover** and depth
-            - **Permafrost** changes
+            - **Lake ice** formation and breakup
             """)
             
             st.markdown("#### Real-World Applications:")
             st.success("✅ Tracking polar ice melt\n\n✅ Predicting sea level rise\n\n✅ Understanding climate feedback\n\n✅ Water resource planning")
+            
+            st.markdown("#### Michigan Application:")
+            st.info("🧊 **Great Lakes Ice:** Satellites track ice coverage on all five Great Lakes. The 2013-2014 winter saw 92.5% ice coverage—the most since 1979. Ice coverage affects shipping, lake-effect snow, and spring water temperatures.")
         
         with col2:
             st.image("https://via.placeholder.com/400x300/E1F5FE/000000?text=Ice+Monitoring", 
-                     caption="Satellite measuring ice sheet thickness")
+                     caption="Satellite measuring Great Lakes ice")
             
-            st.metric("Arctic Ice Loss", "-13%", "per decade since 1979")
+            st.metric("2023-24 Great Lakes Ice", "~25%", "maximum coverage")
         
-        # Quick Check for Ice & Snow tab
+        # Tab-Specific Quick Check for Ice & Snow
         st.markdown("---")
-        st.markdown("### 🧠 Quick Check")
+        st.markdown("### 🧠 Ice & Snow Quick Check")
         
-        ice_question = st.radio(
-            "Why is monitoring ice and snow important for understanding global climate change?",
-            ["Ice reflects sunlight back to space; when ice melts, Earth absorbs more heat, accelerating warming",
-             "Ice is only important for polar bears",
-             "Snow makes good drinking water",
-             "Ice doesn't affect climate at all"],
-            key="ice_quiz"
+        ice_q1 = st.radio(
+            "**Question 1:** What is the ice-albedo feedback, and why does it matter for climate?",
+            ["A) Ice reflects sunlight; when it melts, darker water absorbs more heat, accelerating warming",
+             "B) Ice makes the planet colder, so less ice is good",
+             "C) Albedo is a type of ice cream",
+             "D) Ice and albedo are unrelated"],
+            key="ice_q1"
         )
         
-        if st.button("Check Answer", key="check_ice"):
-            if ice_question == "Ice reflects sunlight back to space; when ice melts, Earth absorbs more heat, accelerating warming":
-                st.success("✅ Correct! This is called the 'ice-albedo feedback.' White ice reflects about 80% of sunlight back to space, while dark ocean water absorbs about 90% of sunlight. As ice melts, more dark water is exposed, which absorbs more heat, causing more melting - a dangerous feedback loop that satellites help us monitor.")
+        if st.button("Check Answer", key="check_ice_q1"):
+            if ice_q1 == "A) Ice reflects sunlight; when it melts, darker water absorbs more heat, accelerating warming":
+                st.success("✅ Correct! White ice has high albedo (reflects ~80% of sunlight), while dark ocean water has low albedo (absorbs ~90% of sunlight). As ice melts, more dark surface is exposed, absorbing more heat, causing more melting—a positive feedback loop that amplifies warming. (MSS HS-ESS2-2)")
             else:
-                st.error("❌ Try again! Think about the color of ice versus ocean water and how they interact with sunlight differently.")
+                st.error("❌ Not quite. Think about the difference between wearing a white shirt vs. a black shirt on a sunny day, and apply that to ice vs. water.")
+        
+        st.markdown("---")
+        
+        ice_q2 = st.radio(
+            "**Question 2:** How does Great Lakes ice coverage affect Michigan's winter weather?",
+            ["A) More ice coverage = less lake-effect snow because ice prevents water evaporation",
+             "B) Ice coverage has no effect on weather",
+             "C) More ice always means more snow",
+             "D) Ice makes the lakes warmer"],
+            key="ice_q2"
+        )
+        
+        if st.button("Check Answer", key="check_ice_q2"):
+            if ice_q2 == "A) More ice coverage = less lake-effect snow because ice prevents water evaporation":
+                st.success("✅ Correct! Lake-effect snow requires open water so moisture can evaporate into cold air. When lakes freeze over, this moisture source is cut off, reducing lake-effect snow. That's why late winter often has less lake-effect snow than early winter. (MSS HS-ESS2-4)")
+            else:
+                st.error("❌ Not quite. Think about where the moisture for lake-effect snow comes from and what happens when that source gets covered by ice.")
     
-    # General satellite quiz at the end
+    # General Knowledge Check at the end
     st.markdown("---")
-    st.markdown("## 🧠 Quick Check: General Satellite Knowledge")
+    st.markdown("## 🧠 General Satellite Knowledge Check")
     
-    question = st.radio(
-        "Which of these can satellites NOT do?",
-        ["Measure ocean temperature", "Predict earthquakes before they happen", 
-         "Track deforestation", "Monitor air quality"],
+    general_q = st.radio(
+        "Which of these can satellites NOT currently do?",
+        ["A) Measure ocean temperature from space",
+         "B) Predict earthquakes days before they happen",
+         "C) Track deforestation over time",
+         "D) Monitor air quality in cities"],
         key="general_satellite_quiz"
     )
     
     if st.button("Check Answer", key="check_general"):
-        if question == "Predict earthquakes before they happen":
-            st.success("✅ Correct! Satellites cannot predict earthquakes before they happen. While they can measure ground movement AFTER earthquakes occur, we don't yet have technology to predict them in advance.")
+        if general_q == "B) Predict earthquakes days before they happen":
+            st.success("✅ Correct! While satellites can measure ground movement AFTER earthquakes occur (using radar interferometry), we cannot yet predict earthquakes before they happen. This remains one of the greatest challenges in Earth science. (MSS HS-ESS2-2)")
         else:
-            st.error("❌ Try again! Satellites CAN do this. Think about what requires advance knowledge we don't have yet.")
+            st.error("❌ Not quite. Satellites CAN do this. Think about which Earth processes remain unpredictable despite our best technology.")
 
 def show_3d_printing():
     st.markdown('<div class="main-header">🖨️ 3D Printing Innovation</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     st.markdown("## The Momentus Innovation: 3D-Printed Fuel Tanks")
     
@@ -547,6 +819,17 @@ def show_3d_printing():
         
         st.image("https://via.placeholder.com/400x300/4CAF50/FFFFFF?text=3D+Printing", 
                  caption="3D printing metal fuel tank")
+    
+    # Michigan Connection
+    st.markdown("""
+    <div class="michigan-box">
+    <h4>🚗 Michigan Connection</h4>
+    <p>Michigan's automotive industry is a leader in additive manufacturing! Companies in Detroit and 
+    across the state use 3D printing for prototyping car parts, creating custom tooling, and even 
+    manufacturing end-use components. The same technology advancing space satellites is driving 
+    innovation in Michigan's economy.</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("## 🔍 How Does 3D Printing Work?")
@@ -644,40 +927,67 @@ def show_3d_printing():
         <p style="font-size: 0.9em;">Understanding Earth</p>
         </div>
         """, unsafe_allow_html=True)
+    
+    # Quick Check for 3D Printing
+    st.markdown("---")
+    st.markdown("## 🧠 3D Printing Quick Check")
+    
+    printing_q = st.radio(
+        "How does 3D printing technology relate to the MSS Engineering Design standard (HS-ETS1-3)?",
+        ["A) 3D printing allows engineers to rapidly test and iterate designs, evaluating trade-offs between cost, weight, and performance",
+         "B) 3D printing has nothing to do with engineering",
+         "C) Engineers don't use 3D printing",
+         "D) 3D printing only works for plastic toys"],
+        key="printing_quiz"
+    )
+    
+    if st.button("Check Answer", key="check_printing"):
+        if printing_q == "A) 3D printing allows engineers to rapidly test and iterate designs, evaluating trade-offs between cost, weight, and performance":
+            st.success("✅ Correct! HS-ETS1-3 emphasizes evaluating solutions based on prioritized criteria and trade-offs. 3D printing enables engineers to quickly produce prototypes, test different designs, and optimize for multiple constraints (cost, weight, strength, complexity) before committing to final production. (MSS HS-ETS1-3)")
+        else:
+            st.error("❌ Not quite. Think about how being able to quickly and cheaply produce prototypes helps engineers make better decisions.")
 
 def show_design_challenge():
     st.markdown('<div class="main-header">🎨 Design Challenge</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
     
     st.markdown("## 🚀 Design Your Own Satellite Mission!")
     
     st.info("""
     **Your Task:** You are a satellite engineer! Design a satellite mission to solve an Earth Science problem. 
     Consider what you'll measure, how many satellites you need, and how 3D printing technology will help.
+    
+    **Michigan Science Standard Alignment:** This activity addresses HS-ETS1-3 (Engineering Design) by having 
+    you evaluate trade-offs and constraints in designing a real-world solution.
     """)
     
     # Select scenario
     st.markdown("### Step 1: Choose Your Mission Type")
     
     scenarios = {
-        "🌀 Hurricane Monitoring": {
-            "description": "Track and predict hurricanes in the Atlantic Ocean",
+        "🌊 Great Lakes Monitoring": {
+            "description": "Monitor water quality, ice coverage, and ecosystem health across all five Great Lakes",
+            "measures": ["Water temperature", "Algal bloom detection", "Ice extent", "Water levels", "Sediment plumes"],
+            "challenges": "Great Lakes cover 94,250 square miles and conditions change rapidly with seasons",
+            "michigan_relevance": "Direct impact on Michigan's drinking water, fishing industry, shipping, and tourism"
+        },
+        "🌀 Hurricane & Storm Tracking": {
+            "description": "Track and predict severe storms in the Atlantic Ocean and Great Lakes region",
             "measures": ["Wind speed", "Air pressure", "Sea surface temperature", "Cloud patterns"],
-            "challenges": "Hurricanes move fast and need constant monitoring"
+            "challenges": "Storms move fast and need constant monitoring; lake-effect events develop quickly",
+            "michigan_relevance": "Lake-effect snow events can dump several feet of snow in hours on Michigan communities"
         },
-        "🧊 Arctic Ice Monitoring": {
-            "description": "Monitor polar ice cap melting and thickness",
-            "measures": ["Ice thickness", "Ice extent", "Surface temperature", "Glacier movement"],
-            "challenges": "Polar regions are remote and changing rapidly"
+        "🌾 Michigan Agriculture Monitoring": {
+            "description": "Monitor crop health, soil moisture, and drought conditions across Michigan farmland",
+            "measures": ["Vegetation health (NDVI)", "Soil moisture", "Surface temperature", "Precipitation"],
+            "challenges": "Michigan's 9.8 million acres of farmland span diverse climate zones",
+            "michigan_relevance": "Michigan's $104.7 billion agriculture industry depends on accurate monitoring"
         },
-        "🔥 Wildfire Detection": {
-            "description": "Detect and monitor wildfires worldwide",
-            "measures": ["Heat signatures", "Smoke detection", "Vegetation dryness", "Fire spread"],
-            "challenges": "Fires can start quickly and spread unpredictably"
-        },
-        "🌊 Ocean Temperature": {
-            "description": "Track ocean temperature changes globally",
-            "measures": ["Sea surface temp", "Ocean currents", "Heat absorption", "El Niño patterns"],
-            "challenges": "Oceans cover 70% of Earth and change slowly"
+        "🧊 Arctic & Great Lakes Ice Monitoring": {
+            "description": "Monitor polar ice and Great Lakes ice coverage to understand climate change",
+            "measures": ["Ice thickness", "Ice extent", "Surface temperature", "Melt rates"],
+            "challenges": "Polar regions are remote; Great Lakes ice affects regional climate",
+            "michigan_relevance": "Great Lakes ice coverage directly affects Michigan's winter weather and spring temperatures"
         }
     }
     
@@ -686,6 +996,7 @@ def show_design_challenge():
     with st.expander("📋 Mission Details"):
         st.write(f"**Goal:** {scenarios[mission_type]['description']}")
         st.write(f"**Challenge:** {scenarios[mission_type]['challenges']}")
+        st.write(f"**Michigan Relevance:** {scenarios[mission_type]['michigan_relevance']}")
         st.write("**Suggested Measurements:**")
         for measure in scenarios[mission_type]['measures']:
             st.write(f"- {measure}")
@@ -697,4 +1008,396 @@ def show_design_challenge():
         col1, col2 = st.columns(2)
         
         with col1:
-            mission_name = st.text_input("Mission Name:", placeholder="e.g., EarthWatch-1")
+            mission_name = st.text_input("Mission Name:", placeholder="e.g., GreatLakes-Watch-1")
+            
+            num_sats = st.slider("Number of Satellites:", 1, 20, 4)
+            
+            orbit_type = st.selectbox("Orbit Type:", 
+                ["Low Earth Orbit (LEO) - 200-2000 km - Best for detailed imaging",
+                 "Medium Earth Orbit (MEO) - 2000-35000 km - Balance of coverage and detail",
+                 "Geostationary (GEO) - 35,786 km - Fixed position over one location",
+                 "Polar Orbit - Passes over poles - Full Earth coverage"])
+        
+        with col2:
+            mission_goal = st.text_area("Mission Goal (What problem will you solve?):", 
+                placeholder="Describe the Earth science problem your mission will address...")
+            
+            instruments = st.multiselect("Select Instruments:",
+                ["Multispectral Imager (visible/IR light)",
+                 "Radar Altimeter (measures surface height)",
+                 "Thermal Sensor (temperature)",
+                 "Microwave Radiometer (through clouds)",
+                 "SAR (Synthetic Aperture Radar - all weather)",
+                 "Spectrometer (atmospheric composition)"])
+        
+        st.markdown("### Step 3: Consider Engineering Trade-offs")
+        
+        col3, col4 = st.columns(2)
+        
+        with col3:
+            use_3d_printing = st.checkbox("Use 3D-printed fuel tanks?")
+            if use_3d_printing:
+                st.success("✅ Cost savings: ~$120,000 per satellite")
+            
+            data_priority = st.select_slider("Data Priority:",
+                options=["Coverage (more area)", "Balanced", "Resolution (more detail)"])
+        
+        with col4:
+            budget = st.select_slider("Budget Level:",
+                options=["Low ($10M)", "Medium ($50M)", "High ($200M)"])
+            
+            timeline = st.select_slider("Development Timeline:",
+                options=["Fast (1 year)", "Standard (3 years)", "Extended (5 years)"])
+        
+        st.markdown("### Step 4: Michigan Impact Statement")
+        
+        michigan_impact = st.text_area("How will your mission benefit Michigan specifically?",
+            placeholder="Explain how your satellite mission will help Michigan communities, industries, or ecosystems...")
+        
+        submitted = st.form_submit_button("Submit Mission Design")
+        
+        if submitted:
+            st.success("🎉 Mission Design Submitted!")
+            
+            # Calculate estimated cost
+            base_cost = num_sats * 5000000  # $5M per satellite base
+            if use_3d_printing:
+                base_cost -= num_sats * 120000  # Savings from 3D printing
+            
+            st.markdown("### 📊 Mission Summary")
+            
+            summary_col1, summary_col2, summary_col3 = st.columns(3)
+            
+            with summary_col1:
+                st.metric("Satellites", num_sats)
+            with summary_col2:
+                st.metric("Estimated Cost", f"${base_cost/1000000:.1f}M")
+            with summary_col3:
+                st.metric("Instruments", len(instruments))
+            
+            st.markdown(f"""
+            **Mission:** {mission_name if mission_name else 'Unnamed Mission'}
+            
+            **Orbit:** {orbit_type.split(' - ')[0]}
+            
+            **Goal:** {mission_goal if mission_goal else 'Not specified'}
+            
+            **Michigan Impact:** {michigan_impact if michigan_impact else 'Not specified'}
+            
+            **3D Printing:** {'Yes - Cost optimized!' if use_3d_printing else 'No - Traditional manufacturing'}
+            """)
+            
+            if use_3d_printing:
+                st.info(f"💰 By using 3D-printed fuel tanks, you saved **${num_sats * 120000:,}** on this mission!")
+
+def show_quiz():
+    st.markdown('<div class="main-header">❓ Quiz & Assessment</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
+    
+    st.markdown("## 📝 Lesson Assessment")
+    st.info("Complete this quiz to check your understanding of satellites, 3D printing, and Earth observation. This assessment aligns with Michigan Science Standards.")
+    
+    with st.form("final_quiz"):
+        st.markdown("### Part 1: Satellite Technology")
+        
+        q1 = st.radio(
+            "**1.** What is the primary advantage of using satellites for Earth observation compared to ground-based measurements? (MSS HS-ESS3-5)",
+            ["A) Satellites are cheaper than all ground stations",
+             "B) Satellites provide global, consistent coverage that's impossible from the ground",
+             "C) Satellites can predict the future",
+             "D) Satellites don't need any power to operate"],
+            key="quiz_q1"
+        )
+        
+        q2 = st.radio(
+            "**2.** How do satellites help scientists understand climate change in the Great Lakes region? (MSS HS-ESS2-2)",
+            ["A) They only take photographs for tourism",
+             "B) They measure ice coverage, water temperature, and levels over time to detect trends",
+             "C) They control the weather",
+             "D) They have no role in climate science"],
+            key="quiz_q2"
+        )
+        
+        st.markdown("### Part 2: 3D Printing Innovation")
+        
+        q3 = st.radio(
+            "**3.** Why is 3D printing (additive manufacturing) considered revolutionary for spacecraft construction? (MSS HS-ETS1-3)",
+            ["A) It only works for small toys",
+             "B) It enables complex designs, reduces costs, and speeds up production",
+             "C) Traditional manufacturing is always better",
+             "D) 3D printing uses more material than traditional methods"],
+            key="quiz_q3"
+        )
+        
+        q4 = st.radio(
+            "**4.** How does the innovation chain from 3D printing ultimately benefit Earth science research?",
+            ["A) It doesn't - they're unrelated fields",
+             "B) Lower satellite costs → more satellites → better data → improved understanding of Earth",
+             "C) 3D printers can predict earthquakes",
+             "D) Scientists prefer expensive satellites"],
+            key="quiz_q4"
+        )
+        
+        st.markdown("### Part 3: Michigan Connections")
+        
+        q5 = st.radio(
+            "**5.** Why is satellite monitoring particularly important for the Great Lakes? (MSS HS-ESS2-5)",
+            ["A) The Great Lakes are too small to study from space",
+             "B) The Great Lakes cover a vast area affecting millions of people, making satellite data essential for monitoring water quality, ice, and levels",
+             "C) Ground stations can monitor everything about the Great Lakes",
+             "D) The Great Lakes never change"],
+            key="quiz_q5"
+        )
+        
+        q6 = st.radio(
+            "**6.** What is the ice-albedo feedback effect, and how does it relate to Great Lakes monitoring? (MSS HS-ESS2-2)",
+            ["A) Ice has nothing to do with climate",
+             "B) When ice melts, darker water absorbs more heat, causing more warming - satellites track this feedback",
+             "C) More ice always cools the planet permanently",
+             "D) Albedo refers to the saltiness of water"],
+            key="quiz_q6"
+        )
+        
+        st.markdown("### Part 4: Short Answer")
+        
+        q7 = st.text_area(
+            "**7.** Explain how a single technological advancement (like 3D-printed fuel tanks) can lead to improvements in our understanding of Earth's systems. Use the innovation chain concept in your answer. (MSS HS-ETS1-3, HS-ESS3-5)",
+            key="quiz_q7"
+        )
+        
+        q8 = st.text_area(
+            "**8.** Describe one way that satellite data is used to protect Michigan's environment or economy. Be specific about what is measured and why it matters. (MSS HS-ESS3-1)",
+            key="quiz_q8"
+        )
+        
+        submitted = st.form_submit_button("Submit Quiz")
+        
+        if submitted:
+            score = 0
+            total = 6  # Multiple choice questions
+            
+            # Check answers
+            if q1 == "B) Satellites provide global, consistent coverage that's impossible from the ground":
+                score += 1
+            if q2 == "B) They measure ice coverage, water temperature, and levels over time to detect trends":
+                score += 1
+            if q3 == "B) It enables complex designs, reduces costs, and speeds up production":
+                score += 1
+            if q4 == "B) Lower satellite costs → more satellites → better data → improved understanding of Earth":
+                score += 1
+            if q5 == "B) The Great Lakes cover a vast area affecting millions of people, making satellite data essential for monitoring water quality, ice, and levels":
+                score += 1
+            if q6 == "B) When ice melts, darker water absorbs more heat, causing more warming - satellites track this feedback":
+                score += 1
+            
+            st.markdown("---")
+            st.markdown("### 📊 Results")
+            
+            percentage = (score / total) * 100
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric("Score", f"{score}/{total}")
+            with col2:
+                st.metric("Percentage", f"{percentage:.0f}%")
+            with col3:
+                if percentage >= 80:
+                    st.metric("Status", "Excellent! 🌟")
+                elif percentage >= 60:
+                    st.metric("Status", "Good Work! 👍")
+                else:
+                    st.metric("Status", "Keep Studying 📚")
+            
+            if percentage >= 80:
+                st.success("🎉 Great job! You have a strong understanding of satellites, 3D printing, and their applications to Earth science!")
+            elif percentage >= 60:
+                st.info("👍 Good work! Review the sections where you missed questions to strengthen your understanding.")
+            else:
+                st.warning("📚 Consider reviewing the lesson materials and trying again. Focus on the Michigan connections and the innovation chain concept.")
+            
+            st.markdown("### Short Answer Feedback")
+            st.info("Your short answer responses have been recorded. Your teacher will review questions 7 and 8.")
+
+def show_resources():
+    st.markdown('<div class="main-header">📚 Resources</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
+    
+    st.markdown("## 🔗 Additional Learning Resources")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### 🛰️ Satellite & Earth Science")
+        
+        st.markdown("""
+        **NASA Earth Science**
+        - [NASA Earth Observatory](https://earthobservatory.nasa.gov/)
+        - [NASA Worldview](https://worldview.earthdata.nasa.gov/) - Real-time satellite imagery
+        - [NASA Climate Kids](https://climatekids.nasa.gov/)
+        
+        **NOAA Resources**
+        - [NOAA Satellites](https://www.nesdis.noaa.gov/)
+        - [Great Lakes Environmental Research Lab](https://www.glerl.noaa.gov/)
+        - [CoastWatch Great Lakes](https://coastwatch.glerl.noaa.gov/)
+        
+        **Michigan-Specific**
+        - [Michigan Sea Grant](https://www.michiganseagrant.org/)
+        - [EGLE - Environment, Great Lakes & Energy](https://www.michigan.gov/egle)
+        """)
+        
+        st.markdown("### 🖨️ 3D Printing & Manufacturing")
+        
+        st.markdown("""
+        **Learn About Additive Manufacturing**
+        - [NASA 3D Printing in Space](https://www.nasa.gov/mission_pages/station/research/experiments/explorer/Investigation.html?#id=982)
+        - [How 3D Printing Works](https://www.youtube.com/watch?v=Vx0Z6LplaMU) (Video)
+        - [Velo3D Technology](https://www.velo3d.com/)
+        """)
+    
+    with col2:
+        st.markdown("### 📖 Michigan Science Standards")
+        
+        st.markdown("""
+        **Standards Resources**
+        - [Michigan Science Standards](https://www.michigan.gov/mde/services/academic-standards/science)
+        - [NGSS Hub](https://www.nextgenscience.org/)
+        
+        **Standards Covered in This Lesson:**
+        - HS-ESS2-2: Earth systems feedback
+        - HS-ESS2-4: Water cycling
+        - HS-ESS2-5: Water properties
+        - HS-ESS3-1: Resources and hazards
+        - HS-ESS3-5: Climate data analysis
+        - HS-ETS1-3: Engineering design
+        """)
+        
+        st.markdown("### 🎓 Career Connections")
+        
+        st.markdown("""
+        **STEM Careers in This Field**
+        - Satellite Engineer
+        - Remote Sensing Scientist
+        - Climate Data Analyst
+        - Additive Manufacturing Engineer
+        - Earth System Scientist
+        - GIS Specialist
+        - Aerospace Engineer
+        
+        **Michigan Employers**
+        - Ford Motor Company (3D printing)
+        - GM (additive manufacturing)
+        - University of Michigan
+        - Michigan State University
+        - NOAA GLERL (Ann Arbor)
+        """)
+    
+    st.markdown("---")
+    st.markdown("### 📺 Recommended Videos")
+    
+    vid_col1, vid_col2, vid_col3 = st.columns(3)
+    
+    with vid_col1:
+        st.markdown("**How Satellites See Earth**")
+        st.image("https://via.placeholder.com/300x200/1E88E5/FFFFFF?text=Video+Thumbnail", 
+                 caption="NASA Earth Observation Overview")
+    
+    with vid_col2:
+        st.markdown("**3D Printing Metal Parts**")
+        st.image("https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Video+Thumbnail", 
+                 caption="Metal Additive Manufacturing")
+    
+    with vid_col3:
+        st.markdown("**Great Lakes from Space**")
+        st.image("https://via.placeholder.com/300x200/00274C/FFFFFF?text=Video+Thumbnail", 
+                 caption="Satellite View of the Great Lakes")
+
+def show_downloads():
+    st.markdown('<div class="main-header">📥 Downloads</div>', unsafe_allow_html=True)
+    st.markdown('<p class="developer-credit">Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>', unsafe_allow_html=True)
+    
+    st.markdown("## 📄 Downloadable Materials")
+    
+    st.info("Download these materials for offline use or classroom distribution.")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### 📝 Student Materials")
+        
+        st.markdown("""
+        **Worksheets**
+        - 📄 Satellite Observation Worksheet
+        - 📄 3D Printing Comparison Chart
+        - 📄 Design Challenge Template
+        - 📄 Vocabulary Review Sheet
+        
+        **Graphic Organizers**
+        - 📄 Innovation Chain Diagram
+        - 📄 Earth Systems Connection Map
+        - 📄 Michigan Great Lakes Data Sheet
+        """)
+        
+        st.button("Download Student Packet (PDF)", key="download_student")
+    
+    with col2:
+        st.markdown("### 👩‍🏫 Teacher Materials")
+        
+        st.markdown("""
+        **Lesson Plans**
+        - 📄 Full Lesson Plan (50-60 min)
+        - 📄 Michigan Standards Alignment
+        - 📄 Assessment Rubrics
+        - 📄 Answer Keys
+        
+        **Extensions**
+        - 📄 Advanced Activities
+        - 📄 Cross-curricular Connections
+        - 📄 Differentiation Strategies
+        """)
+        
+        st.button("Download Teacher Packet (PDF)", key="download_teacher")
+    
+    st.markdown("---")
+    st.markdown("### 🖼️ Presentation Materials")
+    
+    st.markdown("""
+    - 📊 PowerPoint Presentation (editable)
+    - 🖼️ High-resolution satellite images
+    - 📹 Video clip collection links
+    - 🗺️ Great Lakes maps and data
+    """)
+    
+    st.button("Download Presentation Materials (ZIP)", key="download_presentation")
+
+# Page routing
+if st.session_state.page == 'home':
+    show_home()
+elif st.session_state.page == 'article':
+    show_article()
+elif st.session_state.page == 'objectives':
+    show_objectives()
+elif st.session_state.page == 'satellites':
+    show_satellites()
+elif st.session_state.page == '3d_printing':
+    show_3d_printing()
+elif st.session_state.page == 'design_challenge':
+    show_design_challenge()
+elif st.session_state.page == 'quiz':
+    show_quiz()
+elif st.session_state.page == 'resources':
+    show_resources()
+elif st.session_state.page == 'downloads':
+    show_downloads()
+else:
+    show_home()
+
+# Footer
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; color: #666; font-size: 0.8em;">
+<p>Developed by Xavier Honablue, M.Ed. for Grosse Pointe South High School</p>
+<p>Aligned with Michigan Science Standards (MSS) | Earth Science Grades 9-12</p>
+<p>© 2024 | For educational use only</p>
+</div>
+""", unsafe_allow_html=True)
